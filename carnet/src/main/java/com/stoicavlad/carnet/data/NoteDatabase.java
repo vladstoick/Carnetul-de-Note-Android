@@ -7,7 +7,11 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class NoteDatabase {
-    public String getMaterii(){
-        return "ROMANA";
+    public String[] getMaterii(){
+        return new String[]{
+                "Română",
+                "Sport",
+                "Biologie"
+        };
     }
 }
