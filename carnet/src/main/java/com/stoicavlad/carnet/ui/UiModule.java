@@ -1,8 +1,7 @@
 package com.stoicavlad.carnet.ui;
 
-import com.stoicavlad.carnet.data.NoteDatabase;
-import com.stoicavlad.carnet.ui.fragments.note.AddNotaDialogFragment;
-import com.stoicavlad.carnet.ui.fragments.note.NoteFragment;
+import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
+import com.stoicavlad.carnet.ui.note.NoteFragment;
 import com.stoicavlad.carnet.ui.main.MainActivity;
 
 import dagger.Module;

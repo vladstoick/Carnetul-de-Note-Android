@@ -1,6 +1,6 @@
 package com.stoicavlad.carnet.data;
 
-import com.stoicavlad.carnet.data.NoteDatabase;
+import com.stoicavlad.carnet.data.note.NoteDatabase;
 
 import javax.inject.Singleton;
 

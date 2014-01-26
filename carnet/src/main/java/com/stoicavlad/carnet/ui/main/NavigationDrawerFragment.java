@@ -106,7 +106,7 @@ public class NavigationDrawerFragment extends Fragment {
                 new String[]{
                         getString(R.string.note_section),
                         getString(R.string.absente_section),
-                        getString(R.string.teze_section)
+                        getString(R.string.teme_section)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

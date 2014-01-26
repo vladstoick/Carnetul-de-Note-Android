@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.ui.fragments.note.AddNotaDialogFragment;
-import com.stoicavlad.carnet.ui.fragments.note.NoteFragment;
+import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
+import com.stoicavlad.carnet.ui.note.NoteFragment;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,

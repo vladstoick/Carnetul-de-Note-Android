@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--LOREM-->
+    <string name="lorem_short">Lorem ipsum dolor</string>
+    <string name="lorem_nota">10.00</string>
     <!--NAVIGATION DRAWER-->
     <string name="note_section">Note</string>
     <string name="absente_section">Absente</string>
-    <string name="teze_section">Teme</string>
+    <string name="teme_section">Teme</string>
 
     <!--Note-->
     <string name="add_nota">Adaugă notă</string>
