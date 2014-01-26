@@ -1,4 +1,4 @@
-package com.stoicavlad.carnet.Fragments;
+package com.stoicavlad.carnet.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
-import com.stoicavlad.carnet.Fragments.dummy.DummyContent;
+import com.stoicavlad.carnet.fragments.dummy.DummyContent;
 import com.stoicavlad.carnet.R;
 
 /**

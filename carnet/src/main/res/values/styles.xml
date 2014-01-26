@@ -11,5 +11,7 @@
         <item name="android:background">@drawable/circle_button</item>
         <item name="android:layout_margin">@dimen/add_nota_dialog_fragmnet_button_margin</item>
         <item name="android:textColor">@color/dialog_add_nota</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textSize">@dimen/add_nota_dialog_fragment_button_text_size</item>
     </style>
 </resources>

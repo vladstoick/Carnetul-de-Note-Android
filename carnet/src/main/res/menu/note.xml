@@ -3,7 +3,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.stoicavlad.carnet.Fragments.NoteFragment" >
+    tools:context="com.stoicavlad.carnet.fragments.NoteFragment" >
     <item android:id="@+id/add_nota"
         android:icon="@drawable/ic_action_new"
         android:title="@string/add_nota"

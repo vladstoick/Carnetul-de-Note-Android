@@ -2,7 +2,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion "19.0.1"
 
     defaultConfig {
         minSdkVersion 7
@@ -16,10 +16,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
 }
 
 dependencies {
     compile 'com.android.support:support-v4:19.0.1'
     compile 'com.android.support:appcompat-v7:19.0.1'
     compile 'com.jakewharton:butterknife:4.0.1'
+    compile 'com.squareup:otto:1.3.2'
+    compile 'com.jakewharton.timber:timber:2.1.+'
+
+    compile 'com.squareup.dagger:dagger:1.2.0'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.0'
+
 }

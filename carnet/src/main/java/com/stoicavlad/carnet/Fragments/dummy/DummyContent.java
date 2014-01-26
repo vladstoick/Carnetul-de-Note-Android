@@ -1,4 +1,4 @@
-package com.stoicavlad.carnet.Fragments.dummy;
+package com.stoicavlad.carnet.fragments.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +25,9 @@ public class DummyContent {
 
     static {
         // Add 3 sample items.
-        addItem(new DummyItem("1", "Item 1"));
-        addItem(new DummyItem("2", "Item 2"));
-        addItem(new DummyItem("3", "Item 3"));
+        addItem(new DummyItem("1", "Română"));
+        addItem(new DummyItem("2", "Matematică"));
+        addItem(new DummyItem("3", "Fizică"));
     }
 
     private static void addItem(DummyItem item) {

@@ -4,4 +4,4 @@
     android:layout_height="match_parent"
     android:choiceMode="singleChoice"
     android:background="@android:color/darker_gray"
-    tools:context="com.stoicavlad.carnet.Fragments.NavigationDrawerFragment" />
+    tools:context="com.stoicavlad.carnet.fragments.NavigationDrawerFragment" />
