@@ -3,8 +3,6 @@ package com.stoicavlad.carnet;
 import android.app.Application;
 import android.content.Context;
 
-import com.stoicavlad.carnet.DaggerModules.AndroidModule;
-
 import java.util.Arrays;
 import java.util.List;
 
