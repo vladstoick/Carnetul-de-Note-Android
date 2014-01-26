@@ -12,7 +12,16 @@ import dagger.Provides;
 /**
  * Created by Vlad on 1/26/14.
  */
-@Module(library = true)
+@Module(
+        includes = {Lo
+                UiModule.class,
+                DataModule.class
+        },
+        injects = {
+                CarnetApp.class
+        },
+        library = true
+)
 public class AndroidModule {
     private final CarnetApp application;
 

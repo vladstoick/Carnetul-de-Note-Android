@@ -35,7 +35,6 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         CarnetApp.get(getActivity()).inject(this);
-//        Toast.makeText(getActivity(),noteDatabase.getMaterii(),Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
