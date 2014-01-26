@@ -29,6 +29,7 @@ import butterknife.InjectView;
 public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener{
     @Inject NoteDatabase noteDatabase;
     @InjectView(R.id.materie_spinner) Spinner mMaterieSpinner;
+    private Button mOKButton;
     private int lastClicked = -1;
     private View mRootView;
     @Override
@@ -55,7 +56,11 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                // sign in the user ...
+                Button selectedButton = (Button) mRootView.findViewById(lastClicked);
+                Materie materie =
+                        noteDatabase.getMaterii()[mMaterieSpinner.getSelectedItemPosition()];
+                noteDatabase.addNota(Integer.parseInt(selectedButton.getText().toString())
+                        ,materie.getName());
             }
         })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -67,14 +72,33 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         return builder.create();
     }
 
+    private Button getOkButton(){
+        if(mOKButton == null ){
+            AlertDialog alertDialog = (AlertDialog) getDialog();
+            mOKButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+        }
+        return this.mOKButton;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getOkButton().setEnabled(false);
+    }
+
     @Override
     public void onClick(View view) {
         view.setPressed(true);
-
-        if(lastClicked!=-1 && lastClicked!=view.getId()){
+        if(lastClicked!=-1){
             ToggleButton mLastButton = (ToggleButton) mRootView.findViewById(lastClicked);
             mLastButton.setChecked(false);
         }
-        lastClicked = view.getId();
+        if(lastClicked == view.getId()){
+            lastClicked = -1;
+        } else {
+            lastClicked = view.getId();
+        }
+        getOkButton().setEnabled(lastClicked != -1);
     }
 }
