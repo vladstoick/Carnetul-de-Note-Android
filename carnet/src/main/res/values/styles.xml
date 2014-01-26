@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+
+    </style>
+    <style name="AppTheme.CircleButton">
+        <item name="android:layout_width">@dimen/add_nota_dialog_fragment_button_size</item>
+        <item name="android:layout_height">@dimen/add_nota_dialog_fragment_button_size</item>
+        <item name="android:background">@drawable/circle_button</item>
+        <item name="android:layout_margin">@dimen/add_nota_dialog_fragmnet_button_margin</item>
+        <item name="android:textColor">@color/dialog_add_nota</item>
+    </style>
+</resources>
