@@ -43,6 +43,25 @@ public class MateriiDatabase {
         return (Materie[])materii.toArray(new Materie[materii.size()]);
     }
 
+    public Materie[] getMateriiFaraTeza(){
+        Materie[] materii = getMaterii();
+        ArrayList<Materie> materiiFaraTeza = new ArrayList<Materie>();
+        for(int i=0;i<materii.length;i++){
+            Materie materie = materii[i];
+            boolean areTeza = false;
+            for(int j=0;j<materie.getNote().length;j++){
+                Nota nota = materie.getNote()[j];
+                if(nota.tip == Nota.TIP_NOTA_TEZA){
+                    areTeza = true;
+                }
+            }
+            if(areTeza == false){
+                materiiFaraTeza.add(materie);
+            }
+        }
+        return (Materie[])materiiFaraTeza.toArray(new Materie[materiiFaraTeza.size()]);
+    }
+
     private Nota[] getNoteForMaterie(Materie materie, SQLiteDatabase db){
         ArrayList<Nota> note = new ArrayList<Nota>();
         Cursor cursor = db.query(SqlHelper.NOTE_TABLE, SqlHelper.NOTE_COLUMNS,

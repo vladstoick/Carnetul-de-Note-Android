@@ -9,15 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.data.note.Nota;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteFragment;
+import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
+
+import javax.inject.Inject;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
+    @Inject MateriiDatabase materiiDatabase;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -27,7 +32,7 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        CarnetApp.get(getApplicationContext()).inject(this);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mNavigationDrawerFragment.setUp(
@@ -100,8 +105,15 @@ public class MainActivity extends ActionBarActivity
      * Shows an AddTezaDialogFragment
      */
     private void showAddTezaDialogFragment(){
-        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_TEZA);
-        dialogFragment.show(getSupportFragmentManager(),"ADD_NOTA");
+        if(materiiDatabase.getMateriiFaraTeza().length > 0 ){
+            AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_TEZA);
+            dialogFragment.show(getSupportFragmentManager(),"ADD_NOTA");
+        } else {
+            SimpleDialogFragment dialogFragment =
+                    new SimpleDialogFragment(getString(R.string.add_teza_full));
+            dialogFragment.show(getSupportFragmentManager(),"WARNING");
+        }
+
     }
     /**
      * Shows an AddAbsentaDialogFragment

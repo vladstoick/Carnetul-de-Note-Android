@@ -18,6 +18,7 @@ import com.stoicavlad.carnet.data.DataSetChangedEvent;
 import com.stoicavlad.carnet.data.note.Materie;
 import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.note.Nota;
 
 import javax.inject.Inject;
 
@@ -30,6 +31,7 @@ import butterknife.InjectView;
 public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener{
     @Inject MateriiDatabase materiiDatabase;
     @InjectView(R.id.materie_spinner) Spinner mMaterieSpinner;
+    private Materie[] materii;
     private Button mOKButton;
     private int type ;
     private int lastClicked = -1;
@@ -39,24 +41,33 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //Register for Dagger and Otto
         BusProvider.getInstance().register(this);
         CarnetApp.get(getActivity()).inject(this);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+        //Initial inflating
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
         mRootView = inflater.inflate(R.layout.dialog_addnota,null);
         ButterKnife.inject(this,mRootView);
+
+        //Adding button events
         for(int i=1;i<=10;i++){
             String buttonID = "button_"+i;
             int resID = getResources().getIdentifier(buttonID, "id", "com.stoicavlad.carnet");
             Button btn = (Button) mRootView.findViewById(resID);
             btn.setOnClickListener(this);
         }
-        SpinnerAdapter mAdapter =   new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
+
+        //Setting Spinner adapter
+        materii = type == Nota.TIP_NOTA_SIMPLA ? materiiDatabase.getMaterii() :
+                materiiDatabase.getMateriiFaraTeza();
+        SpinnerAdapter mAdapter =   new NoteAdapter(getActivity(), materii);
         mMaterieSpinner.setAdapter(mAdapter);
+
+        //Getting title
+        String title = type == Nota.TIP_NOTA_SIMPLA ? getString(R.string.add_nota) :
+                getString(R.string.add_teza);
         builder.setView(mRootView)
                 // Add action buttons
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -70,14 +81,13 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
                         AddNotaDialogFragment.this.getDialog().cancel();
                     }
                 });
-        builder.setTitle(getString(R.string.add_nota));
+        builder.setTitle(title);
         return builder.create();
     }
 
     public void okButtonSelected(){
         Button selectedButton = (Button) mRootView.findViewById(lastClicked);
-        Materie materie =
-                materiiDatabase.getMaterii()[mMaterieSpinner.getSelectedItemPosition()];
+        Materie materie = materii[mMaterieSpinner.getSelectedItemPosition()];
         int nota = Integer.parseInt(selectedButton.getText().toString());
         if(materiiDatabase.addNota(nota, materie.getName(), type) ) {
             BusProvider.getInstance()
