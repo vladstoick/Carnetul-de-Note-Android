@@ -11,6 +11,8 @@
         <item>Materie</item>
     </string-array>
     <!--Note-->
+    <string name="note">Note</string>
+    <string name="teza">Teza</string>
     <string name="add_teza">Adaugă teza</string>
     <string name="add_teza_full">Nu ai materii la care să poți adaugă o teză</string>
     <string name="add_nota">Adaugă o notă</string>

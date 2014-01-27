@@ -13,9 +13,10 @@ import android.widget.ListAdapter;
 import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.data.BusProvider;
-import com.stoicavlad.carnet.data.note.MateriiDatabase;
+import com.stoicavlad.carnet.data.MateriiDatabase;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.DataSetChangedEvent;
+import com.stoicavlad.carnet.ui.general.ComplexNoteAdapter;
 
 import javax.inject.Inject;
 
@@ -34,7 +35,7 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CarnetApp.get(getActivity()).inject(this);
-        mAdapter = new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
+        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
         BusProvider.getInstance().register(this);
     }
 
@@ -86,7 +87,7 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
     }
 
     @Subscribe public void onDataSetChanged(DataSetChangedEvent event){
-        mAdapter = new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
+        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
         ((AdapterView<ListAdapter>)mListView).setAdapter(mAdapter);
     }
 }

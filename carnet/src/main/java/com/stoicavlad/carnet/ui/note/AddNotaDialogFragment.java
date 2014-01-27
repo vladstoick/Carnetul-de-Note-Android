@@ -15,10 +15,10 @@ import android.widget.ToggleButton;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.data.BusProvider;
 import com.stoicavlad.carnet.data.DataSetChangedEvent;
-import com.stoicavlad.carnet.data.note.Materie;
-import com.stoicavlad.carnet.data.note.MateriiDatabase;
+import com.stoicavlad.carnet.data.Materie;
+import com.stoicavlad.carnet.data.MateriiDatabase;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.note.Nota;
+import com.stoicavlad.carnet.data.Nota;
 
 import javax.inject.Inject;
 
@@ -62,7 +62,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         //Setting Spinner adapter
         materii = type == Nota.TIP_NOTA_SIMPLA ? materiiDatabase.getMaterii() :
                 materiiDatabase.getMateriiFaraTeza();
-        SpinnerAdapter mAdapter =   new NoteAdapter(getActivity(), materii);
+        SpinnerAdapter mAdapter =   new SimpleNoteAdapter(getActivity(), materii);
         mMaterieSpinner.setAdapter(mAdapter);
 
         //Getting title

@@ -1,26 +1,28 @@
 package com.stoicavlad.carnet.ui.main;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.note.MateriiDatabase;
-import com.stoicavlad.carnet.data.note.Nota;
+import com.stoicavlad.carnet.data.MateriiDatabase;
+import com.stoicavlad.carnet.data.Nota;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteFragment;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import javax.inject.Inject;
-
-public class MainActivity extends ActionBarActivity
+import com.doomonafireball.betterpickers.*;
+public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
     @Inject MateriiDatabase materiiDatabase;
     /**

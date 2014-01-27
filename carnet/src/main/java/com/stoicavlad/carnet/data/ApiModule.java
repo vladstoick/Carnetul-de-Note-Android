@@ -1,7 +1,5 @@
 package com.stoicavlad.carnet.data;
 
-import com.stoicavlad.carnet.data.note.MateriiDatabase;
-
 import javax.inject.Singleton;
 
 import dagger.Module;

@@ -6,14 +6,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.BusProvider;
 import com.stoicavlad.carnet.data.DataSetChangedEvent;
-import com.stoicavlad.carnet.data.note.MateriiDatabase;
-import com.stoicavlad.carnet.utils.KeyboardUtils;
+import com.stoicavlad.carnet.data.MateriiDatabase;
 
 import javax.inject.Inject;
 
