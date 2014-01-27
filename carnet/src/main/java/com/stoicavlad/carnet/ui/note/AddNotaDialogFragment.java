@@ -13,6 +13,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.CarnetApp;
+import com.stoicavlad.carnet.data.BusProvider;
+import com.stoicavlad.carnet.data.DataSetChangedEvent;
 import com.stoicavlad.carnet.data.note.Materie;
 import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.R;
@@ -26,14 +28,18 @@ import butterknife.InjectView;
  * Created by Vlad on 1/26/14.
  */
 public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener{
-    @Inject
-    MateriiDatabase materiiDatabase;
+    @Inject MateriiDatabase materiiDatabase;
     @InjectView(R.id.materie_spinner) Spinner mMaterieSpinner;
     private Button mOKButton;
+    private int type ;
     private int lastClicked = -1;
     private View mRootView;
+    public AddNotaDialogFragment(int type){
+        this.type = type;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        BusProvider.getInstance().register(this);
         CarnetApp.get(getActivity()).inject(this);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
@@ -54,15 +60,11 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         builder.setView(mRootView)
                 // Add action buttons
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                Button selectedButton = (Button) mRootView.findViewById(lastClicked);
-                Materie materie =
-                        materiiDatabase.getMaterii()[mMaterieSpinner.getSelectedItemPosition()];
-                materiiDatabase.addNota(Integer.parseInt(selectedButton.getText().toString())
-                        ,materie.getName());
-            }
-        })
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        okButtonSelected();
+                    }
+                })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         AddNotaDialogFragment.this.getDialog().cancel();
@@ -70,6 +72,17 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
                 });
         builder.setTitle(getString(R.string.add_nota));
         return builder.create();
+    }
+
+    public void okButtonSelected(){
+        Button selectedButton = (Button) mRootView.findViewById(lastClicked);
+        Materie materie =
+                materiiDatabase.getMaterii()[mMaterieSpinner.getSelectedItemPosition()];
+        int nota = Integer.parseInt(selectedButton.getText().toString());
+        if(materiiDatabase.addNota(nota, materie.getName(), type) ) {
+            BusProvider.getInstance()
+                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
+        }
     }
 
     private Button getOkButton(){

@@ -34,12 +34,29 @@ public class MateriiDatabase {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            materii.add(new Materie(cursor));
+            Materie materie = new Materie(cursor);
+            materie.setNote(getNoteForMaterie(materie,db));
+            materii.add(materie);
             cursor.moveToNext();
         }
 
         return (Materie[])materii.toArray(new Materie[materii.size()]);
     }
+
+    private Nota[] getNoteForMaterie(Materie materie, SQLiteDatabase db){
+        ArrayList<Nota> note = new ArrayList<Nota>();
+        Cursor cursor = db.query(SqlHelper.NOTE_TABLE, SqlHelper.NOTE_COLUMNS,
+                SqlHelper.COLUMN_MATERIE_FATHER + " = \"" + materie.getName()+"\"",
+                null, null, null, null, null);
+        cursor.moveToFirst();
+        while ((!cursor.isAfterLast())){
+            note.add(new Nota(cursor));
+            cursor.moveToNext();
+        }
+        return (Nota[])note.toArray(new Nota[note.size()]);
+
+    }
+
     public boolean addMaterie(String title){
         ContentValues values = new ContentValues();
         values.put(SqlHelper.COLUMN_TITLE, title);
@@ -51,10 +68,11 @@ public class MateriiDatabase {
         }
         return false;
     }
-    public boolean addNota(int nota,String materie){
+    public boolean addNota(int nota,String materie,int type){
         ContentValues values = new ContentValues();
         values.put(SqlHelper.COLUMN_MATERIE_FATHER, materie);
         values.put(SqlHelper.COLUMN_NOTA, nota);
+        values.put(SqlHelper.COLUMN_TYPE, type);
         SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
         if (sqlLiteDatabase != null) {
             sqlLiteDatabase.insertWithOnConflict(SqlHelper.NOTE_TABLE, null,
@@ -63,4 +81,5 @@ public class MateriiDatabase {
         }
         return false;
     }
+
 }

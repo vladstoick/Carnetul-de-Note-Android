@@ -1,14 +1,9 @@
 package com.stoicavlad.carnet.data;
 
 import android.app.Application;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.stoicavlad.carnet.data.note.Materie;
-
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -30,19 +25,25 @@ public class SqlHelper extends SQLiteOpenHelper
     public static String COLUMN_TITLE = "title";
     public static String COLUMN_MATERIE_FATHER = "materie";
     public static String COLUMN_NOTA = "nota";
-    public static String COLUMN_ABSENTA_DATA = "absenta";
+    public static String COLUMN_DATE = "data";
+    public static String COLUMN_TYPE = "tip";
 
     private static String CREATE_ABSENTE_TABLE = "CREATE TABLE " + ABSENTE_TABLE + " ( " +
             COLUMN_MATERIE_FATHER + " text , " +
-            COLUMN_ABSENTA_DATA +" int " + ")";
+            COLUMN_DATE +" int " + ")";
 
     private static String CREATE_NOTE_TABLE = "CREATE TABLE " + NOTE_TABLE + " ( " +
              COLUMN_MATERIE_FATHER + " text , " +
-            COLUMN_NOTA +" int " + ")";
+            COLUMN_NOTA +" int , " +
+            COLUMN_DATE + " int ," +
+            COLUMN_TYPE + " int , " +
+            COLUMN_ID + " integer primary key autoincrement " +
+            ")";
     private static String CREATE_MATERII_TABLE = "CREATE TABLE " + MATERII_TABLE + " ( " +
             COLUMN_TITLE + " text primary key )";
     public static String[] MATERII_COLUMNS = {COLUMN_TITLE};
-    public static String[] NOTE_COLUMNS = {COLUMN_ID, COLUMN_MATERIE_FATHER, COLUMN_NOTA };
+    public static String[] NOTE_COLUMNS = {COLUMN_MATERIE_FATHER, COLUMN_NOTA,
+            COLUMN_DATE, COLUMN_TYPE};
 
     public SqlHelper(Application application) {
         super(application, DB_NAME, null, DBVERSION);

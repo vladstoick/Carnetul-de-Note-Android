@@ -21,12 +21,13 @@ public class NoteAdapter extends ArrayAdapter<Materie> {
     private final Materie[] materii;
     static class RowHolder{
         @InjectView(R.id.title) TextView mTitle;
+        @InjectView(R.id.value) TextView mValue;
         public RowHolder(View view){
             ButterKnife.inject(this,view);
         }
     }
     public NoteAdapter(Context context, Materie[] materii) {
-        super(context, R.layout.fragment_notefragment_list_row, materii);
+        super(context, R.layout.list_row_note, materii);
         this.context = context;
         this.materii = materii;
     }
@@ -38,7 +39,7 @@ public class NoteAdapter extends ArrayAdapter<Materie> {
         RowHolder holder;
         View rowView = convertView;
         if( rowView == null ){
-            rowView = inflater.inflate(R.layout.fragment_notefragment_list_row, parent, false);
+            rowView = inflater.inflate(R.layout.list_row_note, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {
@@ -46,6 +47,7 @@ public class NoteAdapter extends ArrayAdapter<Materie> {
         }
         ButterKnife.inject(this,rowView);
         holder.mTitle.setText(materii[position].getName());
+        holder.mValue.setText(materii[position].getMedie() + "");
         return rowView;
     }
 

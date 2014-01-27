@@ -5,6 +5,7 @@
     <string name="add_title">Ce vrei să adaugi?</string>
     <string-array name="add_options">
         <item>Notă</item>
+        <item>Teză</item>
         <item>Absență</item>
         <item>Temă</item>
         <item>Materie</item>

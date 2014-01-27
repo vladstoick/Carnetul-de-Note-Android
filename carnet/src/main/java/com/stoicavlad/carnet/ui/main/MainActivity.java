@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.note.Nota;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteFragment;
@@ -68,6 +69,7 @@ public class MainActivity extends ActionBarActivity
 
     /**
      * Shows and AddDialogFragment
+     * After a user selects an option another showDialogFunction is called
      */
     private void showAddDialogFragment(){
         AddDialogFragment dialogFragment = new AddDialogFragment();
@@ -75,8 +77,11 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onItemSelected(int position) {
                 switch (position){
-                    case 0: showAddNotaDialogFragment();
-                    case 3: showAddMaterieDialogFragment();
+                    case 0: showAddNotaDialogFragment(); break;
+                    case 1: showAddTezaDialogFragment(); break;
+                    case 2: showAddAbsentaDialogFragment(); break;
+                    case 3: showAddTemaDialogFragment(); break;
+                    case 4: showAddMaterieDialogFragment(); break;
                     default:
                 }
             }
@@ -88,10 +93,28 @@ public class MainActivity extends ActionBarActivity
      * Shows an AddNotaDialogFragment
      */
     private void showAddNotaDialogFragment(){
-        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment();
+        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_SIMPLA);
         dialogFragment.show(getSupportFragmentManager(),"ADD_NOTA");
     }
+    /**
+     * Shows an AddTezaDialogFragment
+     */
+    private void showAddTezaDialogFragment(){
+        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_TEZA);
+        dialogFragment.show(getSupportFragmentManager(),"ADD_NOTA");
+    }
+    /**
+     * Shows an AddAbsentaDialogFragment
+     */
+    private void showAddAbsentaDialogFragment(){
 
+    }
+    /**
+     * Shows an AddTemaDialogFragment
+     */
+    private void showAddTemaDialogFragment(){
+
+    }
     /**
      * Shows an AddMaterieDialogFragment
      */
