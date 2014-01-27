@@ -1,12 +1,6 @@
 package com.stoicavlad.carnet.data;
 
 import android.app.Application;
-import android.content.Context;
-
-import com.stoicavlad.carnet.DaggerModules.ForApplication;
-import com.stoicavlad.carnet.data.note.NoteDatabase;
-
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;

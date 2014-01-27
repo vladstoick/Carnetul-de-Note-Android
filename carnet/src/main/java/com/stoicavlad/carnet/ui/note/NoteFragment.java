@@ -11,18 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
 import com.stoicavlad.carnet.CarnetApp;
-import com.stoicavlad.carnet.data.note.NoteDatabase;
+import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.R;
 
 import javax.inject.Inject;
 
 public class NoteFragment extends Fragment implements AbsListView.OnItemClickListener {
 
-    @Inject NoteDatabase noteDatabase;
+    @Inject
+    MateriiDatabase materiiDatabase;
 
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
@@ -34,7 +34,7 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CarnetApp.get(getActivity()).inject(this);
-        mAdapter = new NoteAdapter(getActivity(),noteDatabase.getMaterii());
+        mAdapter = new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
     }
 
     @Override
@@ -55,12 +55,12 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                + " must implement OnFragmentInteractionListener");
-        }
+//        try {
+//            mListener = (OnFragmentInteractionListener) activity;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(activity.toString()
+//                + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
@@ -82,21 +82,5 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void showAddNotaDialogFragment();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.note,menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.add_nota:{
-                mListener.showAddNotaDialogFragment();
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

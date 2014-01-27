@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -15,7 +14,7 @@ import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.data.note.Materie;
-import com.stoicavlad.carnet.data.note.NoteDatabase;
+import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.R;
 
 import javax.inject.Inject;
@@ -27,7 +26,8 @@ import butterknife.InjectView;
  * Created by Vlad on 1/26/14.
  */
 public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener{
-    @Inject NoteDatabase noteDatabase;
+    @Inject
+    MateriiDatabase materiiDatabase;
     @InjectView(R.id.materie_spinner) Spinner mMaterieSpinner;
     private Button mOKButton;
     private int lastClicked = -1;
@@ -49,7 +49,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
             Button btn = (Button) mRootView.findViewById(resID);
             btn.setOnClickListener(this);
         }
-        SpinnerAdapter mAdapter =   new NoteAdapter(getActivity(),noteDatabase.getMaterii());
+        SpinnerAdapter mAdapter =   new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
         mMaterieSpinner.setAdapter(mAdapter);
         builder.setView(mRootView)
                 // Add action buttons
@@ -58,8 +58,8 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
             public void onClick(DialogInterface dialog, int id) {
                 Button selectedButton = (Button) mRootView.findViewById(lastClicked);
                 Materie materie =
-                        noteDatabase.getMaterii()[mMaterieSpinner.getSelectedItemPosition()];
-                noteDatabase.addNota(Integer.parseInt(selectedButton.getText().toString())
+                        materiiDatabase.getMaterii()[mMaterieSpinner.getSelectedItemPosition()];
+                materiiDatabase.addNota(Integer.parseInt(selectedButton.getText().toString())
                         ,materie.getName());
             }
         })

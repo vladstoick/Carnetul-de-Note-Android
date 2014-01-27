@@ -1,10 +1,6 @@
 package com.stoicavlad.carnet;
 
 import android.app.Application;
-import android.content.Context;
-
-import com.stoicavlad.carnet.CarnetApp;
-import com.stoicavlad.carnet.DaggerModules.ForApplication;
 import com.stoicavlad.carnet.data.DataModule;
 import com.stoicavlad.carnet.ui.UiModule;
 

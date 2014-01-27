@@ -23,11 +23,18 @@ public class SqlHelper extends SQLiteOpenHelper
 
     public static String MATERII_TABLE = "materii";
     public static String NOTE_TABLE = "note";
+    public static String ABSENTE_TABLE = "absente";
+
 
     public static String COLUMN_ID = "id";
     public static String COLUMN_TITLE = "title";
     public static String COLUMN_MATERIE_FATHER = "materie";
     public static String COLUMN_NOTA = "nota";
+    public static String COLUMN_ABSENTA_DATA = "absenta";
+
+    private static String CREATE_ABSENTE_TABLE = "CREATE TABLE " + ABSENTE_TABLE + " ( " +
+            COLUMN_MATERIE_FATHER + " text , " +
+            COLUMN_ABSENTA_DATA +" int " + ")";
 
     private static String CREATE_NOTE_TABLE = "CREATE TABLE " + NOTE_TABLE + " ( " +
              COLUMN_MATERIE_FATHER + " text , " +
@@ -44,6 +51,7 @@ public class SqlHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_MATERII_TABLE);
         sqLiteDatabase.execSQL(CREATE_NOTE_TABLE);
+        sqLiteDatabase.execSQL(CREATE_ABSENTE_TABLE);
     }
 
     @Override

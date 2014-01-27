@@ -1,8 +1,6 @@
 package com.stoicavlad.carnet.data;
 
-import android.app.Application;
-
-import com.stoicavlad.carnet.data.note.NoteDatabase;
+import com.stoicavlad.carnet.data.note.MateriiDatabase;
 
 import javax.inject.Singleton;
 
@@ -19,8 +17,8 @@ import dagger.Provides;
 public class ApiModule {
     @Provides
     @Singleton
-    NoteDatabase providesNoteDatabase(SqlHelper sqlHelper){
-        return new NoteDatabase(sqlHelper);
+    MateriiDatabase providesNoteDatabase(SqlHelper sqlHelper){
+        return new MateriiDatabase(sqlHelper);
     }
 
 }
