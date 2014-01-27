@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--ADD-->
+    <!-- ADD -->
     <string name="add_title">Ce vrei să adaugi?</string>
+
     <string-array name="add_options">
         <item>Notă</item>
         <item>Teză</item>
@@ -10,7 +11,7 @@
         <item>Temă</item>
         <item>Materie</item>
     </string-array>
-    <!--Note-->
+    <!-- Note -->
     <string name="note">Note</string>
     <string name="teza">Teza</string>
     <string name="add_teza">Adaugă teza</string>
@@ -26,20 +27,17 @@
     <string name="eight">8</string>
     <string name="nine">9</string>
     <string name="ten">10</string>
-    <!--MATERII-->
+    <!-- MATERII -->
     <string name="add_materie">Adaugă o materie</string>
     <string name="add_materie_edit_text_hint">Numele materiei</string>
-    <!--LOREM-->
+    <!-- LOREM -->
     <string name="lorem_short">Lorem ipsum dolor</string>
     <string name="lorem_nota">10.00</string>
-    <!--NAVIGATION DRAWER-->
+    <!-- NAVIGATION DRAWER -->
     <string name="general_section">General</string>
     <string name="note_section">Note</string>
     <string name="absente_section">Absente</string>
     <string name="teme_section">Teme</string>
-
-
-
     <string name="app_name">Carnetul de note</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -48,5 +46,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

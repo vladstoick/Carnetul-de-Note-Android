@@ -9,9 +9,9 @@ import android.widget.EditText;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.BusProvider;
-import com.stoicavlad.carnet.data.DataSetChangedEvent;
-import com.stoicavlad.carnet.data.MateriiDatabase;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
 
 import javax.inject.Inject;
 

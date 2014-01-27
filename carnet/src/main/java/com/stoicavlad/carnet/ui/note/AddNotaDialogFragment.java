@@ -13,12 +13,12 @@ import android.widget.SpinnerAdapter;
 import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.CarnetApp;
-import com.stoicavlad.carnet.data.BusProvider;
-import com.stoicavlad.carnet.data.DataSetChangedEvent;
-import com.stoicavlad.carnet.data.Materie;
-import com.stoicavlad.carnet.data.MateriiDatabase;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.Nota;
+import com.stoicavlad.carnet.data.model.Nota;
 
 import javax.inject.Inject;
 

@@ -1,33 +1,35 @@
 package com.stoicavlad.carnet.ui.main;
 
-import android.app.Activity;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 
+import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.MateriiDatabase;
-import com.stoicavlad.carnet.data.Nota;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
+import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
-import com.stoicavlad.carnet.ui.note.NoteFragment;
+import com.stoicavlad.carnet.ui.note.NoteDetailFragment;
+import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
-import com.doomonafireball.betterpickers.*;
+
 public class MainActivity extends FragmentActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        NoteListFragment.OnFragmentInteractionListener{
     @Inject MateriiDatabase materiiDatabase;
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
+    private int mStackLevel = 0;
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
@@ -44,16 +46,16 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = new NoteFragment();
+        Fragment fragment = new NoteListFragment();
 //        switch (position){
-//            case 0: fragment = new NoteFragment();
+//            case 0: fragment = new NoteListFragment();
 //            default: fragment= PlaceholderFragment.newInstance(position+1);
 //        }
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+        mStackLevel = 0;
     }
 
     @Override
@@ -66,18 +68,51 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mNavigationDrawerFragment.mDrawerToggle.isDrawerIndicatorEnabled() &&
+                mNavigationDrawerFragment.mDrawerToggle.onOptionsItemSelected(item) ) {
+            return true;
+        }
         switch (item.getItemId()){
-            case R.id.add:{
-                showAddDialogFragment();
+            case R.id.add: showAddDialogFragment(); break;
+            case android.R.id.home: {
+                popFragment();
+                return true;
+
             }
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Shows and AddDialogFragment
-     * After a user selects an option another showDialogFunction is called
-     */
+    //FRAGMENT MANAGMENT
+
+    public void addFragment(Fragment fragment, boolean addToBack){
+        if(addToBack){
+            modifyStackLevelBy(1);
+        }
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void popFragment(){
+        modifyStackLevelBy(-1);
+        getSupportFragmentManager().popBackStack();
+    }
+
+    public void modifyStackLevelBy (int x) {
+        mStackLevel += x;
+        mNavigationDrawerFragment.mDrawerToggle.setDrawerIndicatorEnabled(mStackLevel==0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        modifyStackLevelBy(-1);
+    }
+
+//DIALOG FRAGMENTS
+
     private void showAddDialogFragment(){
         AddDialogFragment dialogFragment = new AddDialogFragment();
         dialogFragment.setListener(new AddDialogFragment.AddDialogFragmentListener() {
@@ -96,16 +131,10 @@ public class MainActivity extends FragmentActivity
         dialogFragment.show(getSupportFragmentManager(),"ADD");
     }
 
-    /**
-     * Shows an AddNotaDialogFragment
-     */
     private void showAddNotaDialogFragment(){
         AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_SIMPLA);
         dialogFragment.show(getSupportFragmentManager(),"ADD_NOTA");
     }
-    /**
-     * Shows an AddTezaDialogFragment
-     */
     private void showAddTezaDialogFragment(){
         if(materiiDatabase.getMateriiFaraTeza().length > 0 ){
             AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_TEZA);
@@ -117,23 +146,30 @@ public class MainActivity extends FragmentActivity
         }
 
     }
-    /**
-     * Shows an AddAbsentaDialogFragment
-     */
     private void showAddAbsentaDialogFragment(){
-
+        Calendar calendar = Calendar.getInstance();
+        DatePickerBuilder dpb = new DatePickerBuilder()
+                .setFragmentManager(getSupportFragmentManager())
+                .setStyleResId(R.style.BetterPickersDialogFragment)
+                .setYear(calendar.get(calendar.YEAR))
+                .setDayOfMonth(calendar.get(calendar.DAY_OF_MONTH))
+                .setMonthOfYear(calendar.get(calendar.MONTH));
+        dpb.show();
     }
-    /**
-     * Shows an AddTemaDialogFragment
-     */
+
     private void showAddTemaDialogFragment(){
 
     }
-    /**
-     * Shows an AddMaterieDialogFragment
-     */
     private void showAddMaterieDialogFragment(){
         AddMaterieDialogFragment dialogFragment = new AddMaterieDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), "ADD_MATERIE");
+    }
+
+    //FRAGMENT INTERACTION
+
+    @Override
+    public void showNotaDetailFragment(Materie materie) {
+        Fragment fragment = NoteDetailFragment.newInstance(materie);
+        addFragment(fragment,true);
     }
 }
