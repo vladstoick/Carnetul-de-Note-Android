@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.stoicavlad.carnet.data.BusProvider;
 import com.stoicavlad.carnet.data.SqlHelper;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class MateriiDatabase {
     SqlHelper sqlHelper;
     @Inject public MateriiDatabase(SqlHelper sqlHelper){
         this.sqlHelper = sqlHelper;
+        BusProvider.getInstance().register(this);
     }
     public Materie[] getMaterii(){
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
@@ -45,7 +47,7 @@ public class MateriiDatabase {
         if (sqlLiteDatabase != null) {
             sqlLiteDatabase.insertWithOnConflict(SqlHelper.MATERII_TABLE, null,
                     values,SQLiteDatabase.CONFLICT_FAIL);
-           return true;
+            return true;
         }
         return false;
     }

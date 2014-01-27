@@ -16,6 +16,7 @@ public class Materie {
         this.name = cursor.getString(0);
     }
 
+
     public String getName() {
         return name;
     }

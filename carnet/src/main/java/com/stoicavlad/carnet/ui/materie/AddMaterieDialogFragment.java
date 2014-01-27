@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.BusProvider;
+import com.stoicavlad.carnet.data.DataSetChangedEvent;
 import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.utils.KeyboardUtils;
 
@@ -33,7 +35,10 @@ public class AddMaterieDialogFragment extends DialogFragment{
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        materiiDatabase.addMaterie(mEditText.getText().toString());
+                        if (materiiDatabase.addMaterie(mEditText.getText().toString())) {
+                            BusProvider.getInstance()
+                                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

@@ -4,18 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 
+import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
+import com.stoicavlad.carnet.data.BusProvider;
 import com.stoicavlad.carnet.data.note.MateriiDatabase;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.DataSetChangedEvent;
 
 import javax.inject.Inject;
 
@@ -35,6 +35,7 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
         super.onCreate(savedInstanceState);
         CarnetApp.get(getActivity()).inject(this);
         mAdapter = new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
+        BusProvider.getInstance().register(this);
     }
 
     @Override
@@ -82,5 +83,10 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void showAddNotaDialogFragment();
+    }
+
+    @Subscribe public void onDataSetChanged(DataSetChangedEvent event){
+        mAdapter = new NoteAdapter(getActivity(), materiiDatabase.getMaterii());
+        ((AdapterView<ListAdapter>)mListView).setAdapter(mAdapter);
     }
 }
