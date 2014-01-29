@@ -8,23 +8,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.common.eventbus.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.model.Absenta;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
 import javax.inject.Inject;
 
-public class AbsentaFragment extends Fragment implements AbsListView.OnItemClickListener {
-    @Inject AbsenteDatabase absenteDatabase;
-    private OnFragmentInteractionListener mListener;
-    private AbsListView mListView;
-    private ListAdapter mAdapter;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
+public class AbsentaFragment extends Fragment implements AbsListView.OnItemClickListener,
+        Button.OnClickListener {
+    @Inject
+    AbsenteDatabase absenteDatabase;
+    private OnFragmentInteractionListener mListener;
+    @InjectView(R.id.list)
+    ListView mListView;
+    private ListAdapter mAdapter;
+    private Button mCalculate;
 
     public AbsentaFragment() {
     }
@@ -35,6 +45,7 @@ public class AbsentaFragment extends Fragment implements AbsListView.OnItemClick
         CarnetApp.get(getActivity()).inject(this);
         Absenta[] absente = absenteDatabase.getAbsente();
         mAdapter = new AbsenteAdapter(getActivity(), absente);
+        BusProvider.getInstance().register(this);
     }
 
     @Override
@@ -42,12 +53,12 @@ public class AbsentaFragment extends Fragment implements AbsListView.OnItemClick
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_absenta, container, false);
-
-        // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        ButterKnife.inject(this, view);
+        mCalculate = new Button(getActivity());
+        mCalculate.setText(R.string.calculeaza_absente);
+        mCalculate.setOnClickListener(this);
+        mListView.addHeaderView(mCalculate);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-        // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
         return view;
@@ -80,11 +91,18 @@ public class AbsentaFragment extends Fragment implements AbsListView.OnItemClick
         }
     }
 
-    public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
+    @Override
+    public void onClick(View v) {
+        //calculeaza optim;
+        Toast.makeText(getActivity(), absenteDatabase.calculeazaScutiriOptim() + "",
+                Toast.LENGTH_LONG).show();
+    }
 
-        if (emptyText instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
+    @Subscribe
+    public void onAbsenteChanged(DataSetChangedEvent event) {
+        if (event.tag == DataSetChangedEvent.TAG_ABSENTA) {
+            mAdapter = new AbsenteAdapter(getActivity(), absenteDatabase.getAbsente());
+            mListView.setAdapter(mAdapter);
         }
     }
 

@@ -10,8 +10,7 @@ import javax.inject.Singleton;
  * Created by Vlad on 1/26/14.
  */
 @Singleton
-public class SqlHelper extends SQLiteOpenHelper
-{
+public class SqlHelper extends SQLiteOpenHelper {
     private static int DBVERSION = 3;
     private static String DB_NAME = "carnet.db";
 
@@ -29,13 +28,13 @@ public class SqlHelper extends SQLiteOpenHelper
     public static String COLUMN_TYPE = "tip";
 
     private static String CREATE_ABSENTE_TABLE = "CREATE TABLE " + ABSENTE_TABLE + " ( " +
-            COLUMN_DATE +" long , " +
+            COLUMN_DATE + " long , " +
             COLUMN_ID + " integer primary key autoincrement" +
             ")";
 
     private static String CREATE_NOTE_TABLE = "CREATE TABLE " + NOTE_TABLE + " ( " +
-             COLUMN_MATERIE_FATHER + " text , " +
-            COLUMN_NOTA +" int , " +
+            COLUMN_MATERIE_FATHER + " text , " +
+            COLUMN_NOTA + " int , " +
             COLUMN_DATE + " int ," +
             COLUMN_TYPE + " int , " +
             COLUMN_ID + " integer primary key autoincrement " +
@@ -50,6 +49,7 @@ public class SqlHelper extends SQLiteOpenHelper
     public SqlHelper(Application application) {
         super(application, DB_NAME, null, DBVERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_MATERII_TABLE);
@@ -59,14 +59,13 @@ public class SqlHelper extends SQLiteOpenHelper
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-        if(i==1 && i2==2){
+        if (i == 1 && i2 == 2) {
             sqLiteDatabase.execSQL("DROP TABLE " + ABSENTE_TABLE);
         }
-        if(i==2 && i2==3){
+        if (i == 2 && i2 == 3) {
             sqLiteDatabase.execSQL("DROP TABLE " + ABSENTE_TABLE);
         }
     }
-
 
 
 }

@@ -12,9 +12,10 @@ import com.stoicavlad.carnet.R;
  * Created by Vlad on 1/27/14.
  */
 public class AddDialogFragment extends DialogFragment {
-    public interface AddDialogFragmentListener{
+    public interface AddDialogFragmentListener {
         public void onItemSelected(int position);
     }
+
     AddDialogFragmentListener mListener;
 
     public void setListener(AddDialogFragmentListener mListener) {

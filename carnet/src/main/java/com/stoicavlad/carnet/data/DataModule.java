@@ -19,15 +19,21 @@ import dagger.Provides;
         library = true
 )
 public class DataModule {
-    @Provides @Singleton SqlHelper sqlHelper(Application application){
+    @Provides
+    @Singleton
+    SqlHelper sqlHelper(Application application) {
         return new SqlHelper(application);
     }
-    @Provides @Singleton
-    MateriiDatabase providesNoteDatabase(SqlHelper sqlHelper){
+
+    @Provides
+    @Singleton
+    MateriiDatabase providesNoteDatabase(SqlHelper sqlHelper) {
         return new MateriiDatabase(sqlHelper);
     }
-    @Provides @Singleton
-    AbsenteDatabase providedAbsenteDatabse(SqlHelper sqlHelper){
+
+    @Provides
+    @Singleton
+    AbsenteDatabase providedAbsenteDatabse(SqlHelper sqlHelper) {
         return new AbsenteDatabase(sqlHelper);
     }
 }

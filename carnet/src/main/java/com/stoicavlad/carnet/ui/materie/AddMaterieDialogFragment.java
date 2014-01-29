@@ -9,19 +9,21 @@ import android.widget.EditText;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
 
 import javax.inject.Inject;
 
 /**
  * Created by Vlad on 1/27/14.
  */
-public class AddMaterieDialogFragment extends DialogFragment{
-    @Inject MateriiDatabase materiiDatabase;
+public class AddMaterieDialogFragment extends DialogFragment {
+    @Inject
+    MateriiDatabase materiiDatabase;
 
     EditText mEditText;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         CarnetApp.get(getActivity()).inject(this);

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <!-- ADD -->
     <string name="add_title">Ce vrei să adaugi?</string>
-
     <string-array name="add_options">
         <item>Notă</item>
         <item>Teză</item>
         <item>Absență</item>
-        <item>Temă</item>
+        <item>Scutire</item>
         <item>Materie</item>
     </string-array>
     <!-- Note -->
@@ -30,6 +30,8 @@
     <!-- MATERII -->
     <string name="add_materie">Adaugă o materie</string>
     <string name="add_materie_edit_text_hint">Numele materiei</string>
+    <!--ABSENTE-->
+    <string name="calculeaza_absente">Ce scutiri trebuie sa aduci</string>
     <!-- LOREM -->
     <string name="lorem_short">Lorem ipsum dolor</string>
     <string name="lorem_nota">10.00</string>
@@ -37,7 +39,7 @@
     <string name="general_section">General</string>
     <string name="note_section">Note</string>
     <string name="absente_section">Absente</string>
-    <string name="teme_section">Teme</string>
+
     <string name="app_name">Carnetul de note</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

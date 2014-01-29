@@ -7,20 +7,21 @@ import android.os.Parcelable;
 /**
  * Created by Vlad on 1/27/14.
  */
-public class Nota implements Parcelable{
+public class Nota implements Parcelable {
     public String materieFather;
     public int date;
     public int nota;
     public int tip;
     public static final int TIP_NOTA_SIMPLA = 1;
     public static final int TIP_NOTA_TEZA = 2;
+
     public Nota(String materieFather, int date, int nota) {
         this.materieFather = materieFather;
         this.date = date;
         this.nota = nota;
     }
 
-    public Nota(Cursor cursor){
+    public Nota(Cursor cursor) {
         this.materieFather = cursor.getString(0);
         this.nota = cursor.getInt(1);
         this.date = cursor.getInt(2);
@@ -42,7 +43,7 @@ public class Nota implements Parcelable{
         dest.writeInt(tip);
     }
 
-    public Nota(Parcel parcel){
+    public Nota(Parcel parcel) {
         this.materieFather = parcel.readString();
         this.nota = parcel.readInt();
         this.date = parcel.readInt();

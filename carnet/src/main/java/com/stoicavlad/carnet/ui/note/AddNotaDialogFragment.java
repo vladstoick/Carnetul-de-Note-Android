@@ -13,12 +13,12 @@ import android.widget.SpinnerAdapter;
 import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.CarnetApp;
+import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
+import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
-import com.stoicavlad.carnet.data.model.Materie;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Nota;
 
 import javax.inject.Inject;
 
@@ -28,17 +28,21 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/26/14.
  */
-public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener{
-    @Inject MateriiDatabase materiiDatabase;
-    @InjectView(R.id.materie_spinner) Spinner mMaterieSpinner;
+public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener {
+    @Inject
+    MateriiDatabase materiiDatabase;
+    @InjectView(R.id.materie_spinner)
+    Spinner mMaterieSpinner;
     private Materie[] materii;
     private Button mOKButton;
-    private int type ;
+    private int type;
     private int lastClicked = -1;
     private View mRootView;
-    public AddNotaDialogFragment(int type){
+
+    public AddNotaDialogFragment(int type) {
         this.type = type;
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //Register for Dagger and Otto
@@ -48,12 +52,12 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         //Initial inflating
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        mRootView = inflater.inflate(R.layout.dialog_addnota,null);
-        ButterKnife.inject(this,mRootView);
+        mRootView = inflater.inflate(R.layout.dialog_addnota, null);
+        ButterKnife.inject(this, mRootView);
 
         //Adding button events
-        for(int i=1;i<=10;i++){
-            String buttonID = "button_"+i;
+        for (int i = 1; i <= 10; i++) {
+            String buttonID = "button_" + i;
             int resID = getResources().getIdentifier(buttonID, "id", "com.stoicavlad.carnet");
             Button btn = (Button) mRootView.findViewById(resID);
             btn.setOnClickListener(this);
@@ -62,7 +66,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         //Setting Spinner adapter
         materii = type == Nota.TIP_NOTA_SIMPLA ? materiiDatabase.getMaterii() :
                 materiiDatabase.getMateriiFaraTeza();
-        SpinnerAdapter mAdapter =   new SimpleNoteAdapter(getActivity(), materii);
+        SpinnerAdapter mAdapter = new SimpleNoteAdapter(getActivity(), materii);
         mMaterieSpinner.setAdapter(mAdapter);
 
         //Getting title
@@ -85,18 +89,18 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         return builder.create();
     }
 
-    public void okButtonSelected(){
+    public void okButtonSelected() {
         Button selectedButton = (Button) mRootView.findViewById(lastClicked);
         Materie materie = materii[mMaterieSpinner.getSelectedItemPosition()];
         int nota = Integer.parseInt(selectedButton.getText().toString());
-        if(materiiDatabase.addNota(nota, materie.getName(), type) ) {
+        if (materiiDatabase.addNota(nota, materie.getName(), type)) {
             BusProvider.getInstance()
                     .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
         }
     }
 
-    private Button getOkButton(){
-        if(mOKButton == null ){
+    private Button getOkButton() {
+        if (mOKButton == null) {
             AlertDialog alertDialog = (AlertDialog) getDialog();
             mOKButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
@@ -113,11 +117,11 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
     @Override
     public void onClick(View view) {
         view.setPressed(true);
-        if(lastClicked!=-1){
+        if (lastClicked != -1) {
             ToggleButton mLastButton = (ToggleButton) mRootView.findViewById(lastClicked);
             mLastButton.setChecked(false);
         }
-        if(lastClicked == view.getId()){
+        if (lastClicked == view.getId()) {
             lastClicked = -1;
         } else {
             lastClicked = view.getId();

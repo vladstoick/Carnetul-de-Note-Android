@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.model.Absenta;
-import com.stoicavlad.carnet.data.model.Materie;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -20,12 +19,16 @@ import butterknife.InjectView;
 public class AbsenteAdapter extends ArrayAdapter<Absenta> {
     private final Context context;
     private final Absenta[] absente;
-    static class RowHolder{
-        @InjectView(R.id.value) TextView mValue;
-        public RowHolder(View view){
+
+    static class RowHolder {
+        @InjectView(R.id.value)
+        TextView mValue;
+
+        public RowHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
+
     public AbsenteAdapter(Context context, Absenta[] absente) {
         super(context, R.layout.list_row_absente, absente);
         this.context = context;
@@ -38,14 +41,14 @@ public class AbsenteAdapter extends ArrayAdapter<Absenta> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RowHolder holder;
         View rowView = convertView;
-        if( rowView == null ){
+        if (rowView == null) {
             rowView = inflater.inflate(R.layout.list_row_absente, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {
             holder = (RowHolder) rowView.getTag();
         }
-        ButterKnife.inject(this,rowView);
+        ButterKnife.inject(this, rowView);
         holder.mValue.setText(absente[position].getDate());
 
         return rowView;
@@ -53,6 +56,6 @@ public class AbsenteAdapter extends ArrayAdapter<Absenta> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position,convertView,parent);
+        return getView(position, convertView, parent);
     }
 }

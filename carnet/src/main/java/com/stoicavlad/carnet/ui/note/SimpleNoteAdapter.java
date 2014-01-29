@@ -19,13 +19,18 @@ import butterknife.InjectView;
 public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
     private final Context context;
     private final Materie[] materii;
-    static class RowHolder{
-        @InjectView(R.id.title) TextView mTitle;
-        @InjectView(R.id.value) TextView mValue;
-        public RowHolder(View view){
-            ButterKnife.inject(this,view);
+
+    static class RowHolder {
+        @InjectView(R.id.title)
+        TextView mTitle;
+        @InjectView(R.id.value)
+        TextView mValue;
+
+        public RowHolder(View view) {
+            ButterKnife.inject(this, view);
         }
     }
+
     public SimpleNoteAdapter(Context context, Materie[] materii) {
         super(context, R.layout.list_row_note_advanced, materii);
         this.context = context;
@@ -38,14 +43,14 @@ public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RowHolder holder;
         View rowView = convertView;
-        if( rowView == null ){
+        if (rowView == null) {
             rowView = inflater.inflate(R.layout.list_row_simple_note, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {
             holder = (RowHolder) rowView.getTag();
         }
-        ButterKnife.inject(this,rowView);
+        ButterKnife.inject(this, rowView);
         holder.mTitle.setText(materii[position].getName());
         holder.mValue.setText(materii[position].getMedie() + "");
         return rowView;
@@ -53,6 +58,6 @@ public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position,convertView,parent);
+        return getView(position, convertView, parent);
     }
 }

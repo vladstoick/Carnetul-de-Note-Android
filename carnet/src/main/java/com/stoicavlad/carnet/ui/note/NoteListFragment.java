@@ -12,10 +12,10 @@ import android.widget.ListAdapter;
 
 import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
+import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
 import javax.inject.Inject;
@@ -28,6 +28,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
     private ListAdapter mAdapter;
+
     public NoteListFragment() {
     }
 
@@ -45,7 +46,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         View view = inflater.inflate(R.layout.fragment_notefragment, container, false);
         setHasOptionsMenu(true);
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView = (AbsListView) view.findViewById(R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
@@ -61,7 +62,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -86,10 +87,11 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         public void showNotaDetailFragment(Materie materie);
     }
 
-    @Subscribe public void onDataSetChanged(DataSetChangedEvent event){
-        if(event.tag == DataSetChangedEvent.TAG_MATERIE){
+    @Subscribe
+    public void onDataSetChanged(DataSetChangedEvent event) {
+        if (event.tag == DataSetChangedEvent.TAG_MATERIE) {
             mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
-            ((AdapterView<ListAdapter>)mListView).setAdapter(mAdapter);
+            ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
         }
     }
 }

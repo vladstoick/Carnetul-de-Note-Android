@@ -23,15 +23,22 @@ import butterknife.InjectView;
 public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
     private final Context context;
     private final Materie[] materii;
-    static class RowHolder{
-        @InjectView(R.id.title) TextView mTitleTextView;
-        @InjectView(R.id.value) TextView mValueTextView;
-        @InjectView(R.id.note) TextView mNoteTextView;
-        @InjectView(R.id.teza) TextView mTezaTextView;
-        public RowHolder(View view){
+
+    static class RowHolder {
+        @InjectView(R.id.title)
+        TextView mTitleTextView;
+        @InjectView(R.id.value)
+        TextView mValueTextView;
+        @InjectView(R.id.note)
+        TextView mNoteTextView;
+        @InjectView(R.id.teza)
+        TextView mTezaTextView;
+
+        public RowHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
+
     public ComplexNoteAdapter(Context context, Materie[] materii) {
         super(context, R.layout.list_row_note_advanced, materii);
         this.context = context;
@@ -44,20 +51,20 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RowHolder holder;
         View rowView = convertView;
-        if( rowView == null ){
+        if (rowView == null) {
             rowView = inflater.inflate(R.layout.list_row_note_advanced, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {
             holder = (RowHolder) rowView.getTag();
         }
-        ButterKnife.inject(this,rowView);
+        ButterKnife.inject(this, rowView);
         Materie materie = materii[position];
         holder.mTitleTextView.setText(materie.getName());
         holder.mValueTextView.setText(materie.getMedie() + "");
         holder.mNoteTextView.setText(materie.getNoteAsString(context.getString(R.string.note)));
         int teza = materie.getTeza();
-        if(teza == 0 ){
+        if (teza == 0) {
             holder.mTezaTextView.setVisibility(View.GONE);
         } else {
             holder.mTezaTextView.setVisibility(View.VISIBLE);
@@ -68,6 +75,6 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position,convertView,parent);
+        return getView(position, convertView, parent);
     }
 }

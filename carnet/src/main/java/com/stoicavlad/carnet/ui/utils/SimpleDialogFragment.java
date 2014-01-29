@@ -6,14 +6,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-import com.stoicavlad.carnet.R;
-
 /**
  * Created by Vlad on 1/27/14.
  */
-public class SimpleDialogFragment extends DialogFragment{
+public class SimpleDialogFragment extends DialogFragment {
     public String message;
-    public SimpleDialogFragment(String message){
+
+    public SimpleDialogFragment(String message) {
         this.message = message;
     }
 

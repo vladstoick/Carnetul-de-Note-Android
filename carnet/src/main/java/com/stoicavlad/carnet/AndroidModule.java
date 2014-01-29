@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet;
 
 import android.app.Application;
+
 import com.stoicavlad.carnet.data.DataModule;
 import com.stoicavlad.carnet.ui.UiModule;
 
@@ -28,8 +29,9 @@ public class AndroidModule {
         this.application = application;
     }
 
-    @Provides @Singleton
-    Application provideApplication(){
+    @Provides
+    @Singleton
+    Application provideApplication() {
         return application;
     }
 

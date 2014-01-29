@@ -1,7 +1,6 @@
 package com.stoicavlad.carnet.ui.note;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ public class NoteDetailFragment extends Fragment {
 
     private Materie materie;
 
-    public static NoteDetailFragment newInstance(Materie materie){
+    public static NoteDetailFragment newInstance(Materie materie) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_MATERIE, materie);
@@ -26,6 +25,7 @@ public class NoteDetailFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     public NoteDetailFragment() {
         // Required empty public constructor
     }

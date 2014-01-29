@@ -14,7 +14,8 @@ import dagger.ObjectGraph;
 public class CarnetApp extends Application {
     private ObjectGraph applicationGraph;
 
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
         applicationGraph = ObjectGraph.create(getModules().toArray());
     }
@@ -30,6 +31,7 @@ public class CarnetApp extends Application {
     ObjectGraph getApplicationGraph() {
         return applicationGraph;
     }
+
     public void inject(Object o) {
         applicationGraph.inject(o);
     }
