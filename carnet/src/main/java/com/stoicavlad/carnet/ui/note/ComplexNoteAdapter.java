@@ -33,7 +33,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         }
     }
     public ComplexNoteAdapter(Context context, Materie[] materii) {
-        super(context, R.layout.list_row_general, materii);
+        super(context, R.layout.list_row_note_advanced, materii);
         this.context = context;
         this.materii = materii;
     }
@@ -45,7 +45,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         RowHolder holder;
         View rowView = convertView;
         if( rowView == null ){
-            rowView = inflater.inflate(R.layout.list_row_general, parent, false);
+            rowView = inflater.inflate(R.layout.list_row_note_advanced, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {

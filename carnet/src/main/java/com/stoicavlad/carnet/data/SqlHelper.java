@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 @Singleton
 public class SqlHelper extends SQLiteOpenHelper
 {
-    private static int DBVERSION = 2;
+    private static int DBVERSION = 3;
     private static String DB_NAME = "carnet.db";
 
 
@@ -29,7 +29,7 @@ public class SqlHelper extends SQLiteOpenHelper
     public static String COLUMN_TYPE = "tip";
 
     private static String CREATE_ABSENTE_TABLE = "CREATE TABLE " + ABSENTE_TABLE + " ( " +
-            COLUMN_DATE +" int , " +
+            COLUMN_DATE +" long , " +
             COLUMN_ID + " integer primary key autoincrement" +
             ")";
 
@@ -45,6 +45,7 @@ public class SqlHelper extends SQLiteOpenHelper
     public static String[] MATERII_COLUMNS = {COLUMN_TITLE};
     public static String[] NOTE_COLUMNS = {COLUMN_MATERIE_FATHER, COLUMN_NOTA,
             COLUMN_DATE, COLUMN_TYPE};
+    public static String[] ABSENTE_COLUMNS = {COLUMN_DATE};
 
     public SqlHelper(Application application) {
         super(application, DB_NAME, null, DBVERSION);
@@ -59,6 +60,9 @@ public class SqlHelper extends SQLiteOpenHelper
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
         if(i==1 && i2==2){
+            sqLiteDatabase.execSQL("DROP TABLE " + ABSENTE_TABLE);
+        }
+        if(i==2 && i2==3){
             sqLiteDatabase.execSQL("DROP TABLE " + ABSENTE_TABLE);
         }
     }

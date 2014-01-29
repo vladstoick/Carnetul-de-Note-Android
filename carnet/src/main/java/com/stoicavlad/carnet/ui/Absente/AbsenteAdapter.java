@@ -1,4 +1,4 @@
-package com.stoicavlad.carnet.ui.note;
+package com.stoicavlad.carnet.ui.absente;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,28 +8,28 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.note.Materie;
+import com.stoicavlad.carnet.data.model.Absenta;
+import com.stoicavlad.carnet.data.model.Materie;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Vlad on 1/26/14.
+ * Created by Vlad on 1/29/14.
  */
-public class NoteAdapter extends ArrayAdapter<Materie> {
+public class AbsenteAdapter extends ArrayAdapter<Absenta> {
     private final Context context;
-    private final Materie[] materii;
+    private final Absenta[] absente;
     static class RowHolder{
-        @InjectView(R.id.title) TextView mTitle;
         @InjectView(R.id.value) TextView mValue;
         public RowHolder(View view){
-            ButterKnife.inject(this,view);
+            ButterKnife.inject(this, view);
         }
     }
-    public NoteAdapter(Context context, Materie[] materii) {
-        super(context, R.layout.list_row_note, materii);
+    public AbsenteAdapter(Context context, Absenta[] absente) {
+        super(context, R.layout.list_row_absente, absente);
         this.context = context;
-        this.materii = materii;
+        this.absente = absente;
     }
 
     @Override
@@ -39,15 +39,15 @@ public class NoteAdapter extends ArrayAdapter<Materie> {
         RowHolder holder;
         View rowView = convertView;
         if( rowView == null ){
-            rowView = inflater.inflate(R.layout.list_row_note, parent, false);
+            rowView = inflater.inflate(R.layout.list_row_absente, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {
             holder = (RowHolder) rowView.getTag();
         }
         ButterKnife.inject(this,rowView);
-        holder.mTitle.setText(materii[position].getName());
-        holder.mValue.setText(materii[position].getMedie() + "");
+        holder.mValue.setText(absente[position].getDate());
+
         return rowView;
     }
 

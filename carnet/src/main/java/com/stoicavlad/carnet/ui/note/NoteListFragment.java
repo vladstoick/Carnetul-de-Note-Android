@@ -87,7 +87,9 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     }
 
     @Subscribe public void onDataSetChanged(DataSetChangedEvent event){
-        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
-        ((AdapterView<ListAdapter>)mListView).setAdapter(mAdapter);
+        if(event.tag == DataSetChangedEvent.TAG_MATERIE){
+            mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
+            ((AdapterView<ListAdapter>)mListView).setAdapter(mAdapter);
+        }
     }
 }

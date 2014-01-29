@@ -1,4 +1,4 @@
-package com.stoicavlad.carnet.ui.note;
+package com.stoicavlad.carnet.ui.absente;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,42 +8,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
-import com.stoicavlad.carnet.data.BusProvider;
-import com.stoicavlad.carnet.data.MateriiDatabase;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.DataSetChangedEvent;
-import com.stoicavlad.carnet.ui.general.ComplexNoteAdapter;
+import com.stoicavlad.carnet.data.api.AbsenteDatabase;
+import com.stoicavlad.carnet.data.model.Absenta;
 
 import javax.inject.Inject;
 
-public class NoteFragment extends Fragment implements AbsListView.OnItemClickListener {
-
-    @Inject
-    MateriiDatabase materiiDatabase;
-
+public class AbsentaFragment extends Fragment implements AbsListView.OnItemClickListener {
+    @Inject AbsenteDatabase absenteDatabase;
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
     private ListAdapter mAdapter;
-    public NoteFragment() {
+
+
+    public AbsentaFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CarnetApp.get(getActivity()).inject(this);
-        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
-        BusProvider.getInstance().register(this);
+        Absenta[] absente = absenteDatabase.getAbsente();
+        mAdapter = new AbsenteAdapter(getActivity(), absente);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notefragment, container, false);
-        setHasOptionsMenu(true);
+
+        View view = inflater.inflate(R.layout.fragment_absenta, container, false);
+
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
@@ -81,13 +80,17 @@ public class NoteFragment extends Fragment implements AbsListView.OnItemClickLis
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void showAddNotaDialogFragment();
+    public void setEmptyText(CharSequence emptyText) {
+        View emptyView = mListView.getEmptyView();
+
+        if (emptyText instanceof TextView) {
+            ((TextView) emptyView).setText(emptyText);
+        }
     }
 
-    @Subscribe public void onDataSetChanged(DataSetChangedEvent event){
-        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
-        ((AdapterView<ListAdapter>)mListView).setAdapter(mAdapter);
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        public void onFragmentInteraction(String id);
     }
+
 }

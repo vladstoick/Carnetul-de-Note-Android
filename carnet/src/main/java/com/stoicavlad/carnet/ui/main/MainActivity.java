@@ -6,15 +6,21 @@ import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
+import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteDetailFragment;
@@ -22,19 +28,23 @@ import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.inject.Inject;
 
 public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        NoteListFragment.OnFragmentInteractionListener{
+        NoteListFragment.OnFragmentInteractionListener,
+        DatePickerDialogFragment.DatePickerDialogHandler {
     @Inject MateriiDatabase materiiDatabase;
+    @Inject AbsenteDatabase absenteDatabase;
     private int mStackLevel = 0;
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BusProvider.getInstance().register(this);
         setContentView(R.layout.activity_main);
         CarnetApp.get(getApplicationContext()).inject(this);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -47,11 +57,12 @@ public class MainActivity extends FragmentActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = new NoteListFragment();
-//        switch (position){
-//            case 0: fragment = new NoteListFragment();
-//            default: fragment= PlaceholderFragment.newInstance(position+1);
-//        }
+        Fragment fragment;
+        switch (position){
+            case 1: fragment = new NoteListFragment(); break;
+            case 2: fragment = new AbsentaFragment(); break;
+            default: fragment= new NoteListFragment(); break;
+        }
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
@@ -101,7 +112,7 @@ public class MainActivity extends FragmentActivity
     }
 
     public void modifyStackLevelBy (int x) {
-        mStackLevel += x;
+        mStackLevel = mStackLevel +x >= 0 ? mStackLevel -x : 0;
         mNavigationDrawerFragment.mDrawerToggle.setDrawerIndicatorEnabled(mStackLevel==0);
     }
 
@@ -157,6 +168,16 @@ public class MainActivity extends FragmentActivity
         dpb.show();
     }
 
+    @Override
+    public void onDialogDateSet(int i, int i2, int i3, int i4) {
+        Calendar c = Calendar.getInstance();
+        c.set(i2,i3,i4);
+        if(absenteDatabase.addAbsenta(c)){
+            BusProvider.getInstance()
+                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
+        }
+    }
+
     private void showAddTemaDialogFragment(){
 
     }
@@ -171,5 +192,6 @@ public class MainActivity extends FragmentActivity
     public void showNotaDetailFragment(Materie materie) {
         Fragment fragment = NoteDetailFragment.newInstance(materie);
         addFragment(fragment,true);
+
     }
 }

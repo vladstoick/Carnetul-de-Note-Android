@@ -5,6 +5,7 @@ package com.stoicavlad.carnet.data.otto;
  */
 public class DataSetChangedEvent {
     public static final String TAG_MATERIE = "materie";
+    public static final String TAG_ABSENTA = "absenta";
     public String tag;
     public DataSetChangedEvent(String tag){
         this.tag = tag;

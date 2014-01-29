@@ -27,7 +27,7 @@ public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
         }
     }
     public SimpleNoteAdapter(Context context, Materie[] materii) {
-        super(context, R.layout.list_row_general, materii);
+        super(context, R.layout.list_row_note_advanced, materii);
         this.context = context;
         this.materii = materii;
     }
