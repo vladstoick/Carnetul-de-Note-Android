@@ -33,7 +33,7 @@ public class Materie implements Parcelable {
         return name;
     }
 
-    public String getMedie() {
+    public double getMedie(){
         double rezultat = 0;
         int teza = 0;
         for (int i = 0; i < note.length; i++) {
@@ -44,7 +44,7 @@ public class Materie implements Parcelable {
             }
         }
         if (note.length == 0 || (note.length == 1 && teza != 0)) {
-            return "-";
+            return 0;
         }
         if (teza != 0) {
             double medieOral = rezultat / (note.length - 1);
@@ -52,8 +52,24 @@ public class Materie implements Parcelable {
         } else {
             rezultat = rezultat / note.length;
         }
+        return rezultat;
+    }
+
+    public String getMedieAsString(double medie){
+        if(medie == 0 ){
+            return "-";
+        }
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        return decimalFormat.format(rezultat);
+        return decimalFormat.format(medie);
+    }
+
+    public String getMedieAsString() {
+        double medie = getMedie();
+        if(medie == 0 ){
+            return "-";
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        return decimalFormat.format(medie);
     }
 
     public String getNoteAsString(String intro) {

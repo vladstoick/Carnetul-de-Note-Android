@@ -52,7 +52,7 @@ public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
         }
         ButterKnife.inject(this, rowView);
         holder.mTitle.setText(materii[position].getName());
-        holder.mValue.setText(materii[position].getMedie() + "");
+        holder.mValue.setText(materii[position].getMedieAsString() + "");
         return rowView;
     }
 

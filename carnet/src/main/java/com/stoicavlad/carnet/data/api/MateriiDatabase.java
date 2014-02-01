@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * Created by Vlad on 1/26/14.
- */
+
 @Singleton
 public class MateriiDatabase {
     SqlHelper sqlHelper;
@@ -44,14 +42,16 @@ public class MateriiDatabase {
             cursor.moveToNext();
         }
 
-        return (Materie[]) materii.toArray(new Materie[materii.size()]);
+        return materii.toArray(new Materie[materii.size()]);
     }
+
+    //MATERII
+
 
     public Materie[] getMateriiFaraTeza() {
         Materie[] materii = getMaterii();
         ArrayList<Materie> materiiFaraTeza = new ArrayList<Materie>();
-        for (int i = 0; i < materii.length; i++) {
-            Materie materie = materii[i];
+        for(Materie materie:materii){
             boolean areTeza = false;
             for (int j = 0; j < materie.getNote().length; j++) {
                 Nota nota = materie.getNote()[j];
@@ -59,12 +59,36 @@ public class MateriiDatabase {
                     areTeza = true;
                 }
             }
-            if (areTeza == false) {
+            if (!areTeza) {
                 materiiFaraTeza.add(materie);
             }
         }
-        return (Materie[]) materiiFaraTeza.toArray(new Materie[materiiFaraTeza.size()]);
+        return materiiFaraTeza.toArray(new Materie[materiiFaraTeza.size()]);
     }
+
+    public boolean addMaterie(String title) {
+        ContentValues values = new ContentValues();
+        values.put(SqlHelper.COLUMN_TITLE, title);
+        SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
+        if (sqlLiteDatabase != null) {
+            sqlLiteDatabase.insertWithOnConflict(SqlHelper.MATERII_TABLE, null,
+                    values, SQLiteDatabase.CONFLICT_FAIL);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteMaterie(Materie materie){
+        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
+        if(sqLiteDatabase!=null){
+            sqLiteDatabase.delete(SqlHelper.MATERII_TABLE,
+                    SqlHelper.COLUMN_TITLE + " = " + materie.getName() , null);
+            return true;
+        }
+        return false;
+    }
+
+    //NOTA
 
     private Nota[] getNoteForMaterie(Materie materie, SQLiteDatabase db) {
         ArrayList<Nota> note = new ArrayList<Nota>();
@@ -80,17 +104,7 @@ public class MateriiDatabase {
 
     }
 
-    public boolean addMaterie(String title) {
-        ContentValues values = new ContentValues();
-        values.put(SqlHelper.COLUMN_TITLE, title);
-        SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
-        if (sqlLiteDatabase != null) {
-            sqlLiteDatabase.insertWithOnConflict(SqlHelper.MATERII_TABLE, null,
-                    values, SQLiteDatabase.CONFLICT_FAIL);
-            return true;
-        }
-        return false;
-    }
+
 
     public boolean addNota(int nota, String materie, int type) {
         ContentValues values = new ContentValues();
@@ -105,5 +119,7 @@ public class MateriiDatabase {
         }
         return false;
     }
+
+
 
 }

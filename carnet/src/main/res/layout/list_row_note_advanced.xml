@@ -1,42 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:padding="@dimen/small_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/small_margin">
 
-    android:layout_height="wrap_content">
     <TextView
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="@dimen/ultra_x2_large_text"
-        android:textStyle="bold"
         android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/value"
+        android:fontFamily="sans-serif-condensed"
         android:text="@string/lorem_short"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="@dimen/ultra_x2_large_text"
+        android:textStyle="bold" />
+
     <TextView
-        android:fontFamily="sans-serif-thin"
+        android:id="@+id/note"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_toLeftOf="@id/value"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/lorem_short"
+        android:textSize="@dimen/medium_text" />
+
+    <TextView
+        android:id="@+id/teza"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/note"
+        android:layout_toLeftOf="@+id/value"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/lorem_short"
+        android:textSize="@dimen/medium_text" />
+
+    <TextView
         android:id="@+id/value"
-        android:textSize="@dimen/ultra_large_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/overflow"
+        android:fontFamily="sans-serif-thin"
+        android:text="@string/lorem_nota"
+        android:textSize="@dimen/ultra_large_text" />
+
+    <ImageButton
+        android:id="@+id/overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="@string/lorem_nota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textSize="@dimen/medium_text"
-        android:fontFamily="sans-serif-light"
-        android:id="@+id/note"
-        android:layout_below="@+id/title"
-        android:text="@string/lorem_short"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textSize="@dimen/medium_text"
-        android:fontFamily="sans-serif-light"
-        android:id="@+id/teza"
-        android:layout_below="@+id/note"
-        android:text="@string/lorem_short"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_action_overflow" />
+
 </RelativeLayout>
