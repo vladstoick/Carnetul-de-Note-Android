@@ -19,6 +19,8 @@ import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
 import javax.inject.Inject;
 
@@ -37,6 +39,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
     public ComplexNoteAdapter(Context context, Materie[] materii) {
         super(context, R.layout.list_row_note_advanced, materii);
         CarnetApp.get(context).inject(this);
+        BusProvider.getInstance().register(this);
         this.context = context;
         this.materii = materii;
     }
@@ -98,6 +101,8 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
                 switch (item.getItemId()) {
                     case R.id.delete: {
                         materiiDatabase.deleteMaterie(materie);
+                        BusProvider.getInstance()
+                                .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
                         return true;
                     }
                 }
