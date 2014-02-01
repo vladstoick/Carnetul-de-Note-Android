@@ -18,7 +18,6 @@ import dagger.Module;
                 //NOTE
                 AddNotaDialogFragment.class,
                 NoteListFragment.class,
-                ComplexNoteAdapter.class,
                 //MATERIE
                 AddMaterieDialogFragment.class,
 

@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -22,7 +23,7 @@ import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
-import com.stoicavlad.carnet.ui.note.NoteDetailFragment;
+import com.stoicavlad.carnet.ui.note.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
@@ -211,8 +212,8 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void showNotaDetailFragment(Materie materie) {
-        Fragment fragment = NoteDetailFragment.newInstance(materie);
-        addFragment(fragment, true);
-
+        Intent intent = new Intent(this, NoteDetailActivity.class);
+        intent.putExtra(NoteDetailActivity.TAG_MATERIE,materie);
+        startActivity(intent);
     }
 }

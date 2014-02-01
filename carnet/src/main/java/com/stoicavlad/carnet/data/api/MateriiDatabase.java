@@ -88,6 +88,18 @@ public class MateriiDatabase {
         return false;
     }
 
+    public boolean renameMaterie(Materie materie,String title){
+        ContentValues values = new ContentValues();
+        values.put(SqlHelper.COLUMN_TITLE,title);
+        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
+        if(sqLiteDatabase!=null){
+            sqLiteDatabase.update(SqlHelper.MATERII_TABLE, values,
+                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
+            return true;
+        }
+        return false;
+    }
+
     //NOTA
 
     private Nota[] getNoteForMaterie(Materie materie, SQLiteDatabase db) {

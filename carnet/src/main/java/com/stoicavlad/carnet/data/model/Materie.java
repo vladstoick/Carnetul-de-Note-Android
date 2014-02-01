@@ -5,6 +5,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Vlad on 1/26/14.
@@ -21,9 +23,31 @@ public class Materie implements Parcelable {
         this.name = cursor.getString(0);
     }
 
+    //NOTE
+
     public Nota[] getNote() {
         return note;
     }
+
+    public Nota[] getNoteFaraTeza(){
+        ArrayList<Nota> note = new ArrayList<Nota>();
+        for(Nota nota:this.note){
+            if (nota.tip != Nota.TIP_NOTA_TEZA) {
+                note.add(nota);
+            }
+        }
+        return note.toArray(new Nota[note.size()]);
+    }
+
+    public Nota getTeza() {
+        for (int i = 0; i < note.length; i++) {
+            if (note[i].tip == Nota.TIP_NOTA_TEZA) {
+                return note[i];
+            }
+        }
+        return null;
+    }
+
 
     public void setNote(Nota[] note) {
         this.note = note;
@@ -87,14 +111,6 @@ public class Materie implements Parcelable {
         return intro + " : " + stringBuilder.toString();
     }
 
-    public int getTeza() {
-        for (int i = 0; i < note.length; i++) {
-            if (note[i].tip == Nota.TIP_NOTA_TEZA) {
-                return note[i].nota;
-            }
-        }
-        return 0;
-    }
 
     //PARCELABLE
 
@@ -106,12 +122,15 @@ public class Materie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
-        dest.writeArray(this.note);
+        dest.writeParcelableArray(this.note, 0);
     }
 
     public Materie(Parcel parcel) {
         this.name = parcel.readString();
-        this.note = (Nota[]) parcel.readArray(Nota.class.getClassLoader());
+        Parcelable[] parcelables = parcel.readParcelableArray(Nota.class.getClassLoader());
+        if (parcelables != null) {
+            this.note = Arrays.copyOf(parcelables, parcelables.length, Nota[].class);
+        }
     }
 
     public static final Creator<Materie> CREATOR = new Creator<Materie>() {

@@ -20,7 +20,8 @@ import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
 import javax.inject.Inject;
 
-public class NoteListFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class NoteListFragment extends Fragment implements AbsListView.OnItemClickListener,
+        ComplexNoteAdapter.ComplexNoteAdapterInteractionListener{
 
     @Inject
     MateriiDatabase materiiDatabase;
@@ -83,7 +84,6 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void showNotaDetailFragment(Materie materie);
     }
 
@@ -93,5 +93,18 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
             mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
             ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
         }
+    }
+
+    @Override
+    public void onDeleteMaterie(Materie materie) {
+        if(materiiDatabase.deleteMaterie(materie)){
+            BusProvider.getInstance()
+                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
+        }
+    }
+
+    @Override
+    public void onRenameMaterie(Materie materie) {
+
     }
 }

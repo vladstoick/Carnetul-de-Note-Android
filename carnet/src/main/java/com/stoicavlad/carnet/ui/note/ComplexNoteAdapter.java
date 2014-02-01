@@ -15,14 +15,10 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,14 +27,13 @@ import butterknife.InjectView;
  * Created by Vlad on 1/26/14.
  */
 public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
+
     private final Context context;
     private final Materie[] materii;
-    @Inject
-    MateriiDatabase materiiDatabase;
+    public ComplexNoteAdapterInteractionListener mListener;
 
     public ComplexNoteAdapter(Context context, Materie[] materii) {
-        super(context, R.layout.list_row_note_advanced, materii);
-        CarnetApp.get(context).inject(this);
+        super(context, R.layout.list_row_note_list_advanced, materii);
         BusProvider.getInstance().register(this);
         this.context = context;
         this.materii = materii;
@@ -51,7 +46,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         RowHolder holder;
         View rowView = convertView;
         if (rowView == null) {
-            rowView = inflater.inflate(R.layout.list_row_note_advanced, parent, false);
+            rowView = inflater.inflate(R.layout.list_row_note_list_advanced, parent, false);
             holder = new RowHolder(rowView);
             rowView.setTag(holder);
         } else {
@@ -74,18 +69,19 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         //note
         holder.mNoteTextView.setText(materie.getNoteAsString(context.getString(R.string.note)));
         //teza
-        int teza = materie.getTeza();
-        if (teza == 0) {
-            holder.mTezaTextView.setVisibility(View.GONE);
-        } else {
+        try {
+            Nota teza = materie.getTeza();
             holder.mTezaTextView.setVisibility(View.VISIBLE);
-            holder.mTezaTextView.setText(context.getString(R.string.teza) + " : " + teza);
+            holder.mTezaTextView.setText(context.getString(R.string.teza) + " : " + teza.nota);
+
+        } catch (NullPointerException e) {
+            holder.mTezaTextView.setVisibility(View.GONE);
         }
         //overflowButton
         holder.mOverflowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(v,materie);
+                showPopup(v, materie);
             }
         });
         return rowView;
@@ -100,16 +96,27 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.delete: {
-                        materiiDatabase.deleteMaterie(materie);
-                        BusProvider.getInstance()
-                                .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
-                        return true;
+                        if (mListener != null) {
+                            mListener.onDeleteMaterie(materie);
+                            return true;
+                        }
+                    }
+                    case R.id.rename: {
+                        if (mListener != null) {
+                            mListener.onRenameMaterie(materie);
+                        }
                     }
                 }
                 return false;
             }
         });
         popupMenu.show();
+    }
+
+    public interface ComplexNoteAdapterInteractionListener {
+        public void onDeleteMaterie(Materie materie);
+
+        public void onRenameMaterie(Materie materie);
     }
 
     static class RowHolder {
