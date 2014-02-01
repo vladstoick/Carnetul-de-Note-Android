@@ -77,7 +77,7 @@ public class AbsenteDatabase {
 
 
         //sortam dupa nrAbsente
-        for (int i = 0; i < absenteCount.size()-1; i++) {
+        for (int i = 0; i < absenteCount.size() - 1; i++) {
             for (int j = i + 1; j < absenteCount.size(); j++) {
                 if (absenteCount.get(i) < absenteCount.get(j)) {
                     Integer aux = absenteCount.get(i);

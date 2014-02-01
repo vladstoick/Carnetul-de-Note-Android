@@ -30,13 +30,17 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
 
     private final Context context;
     private final Materie[] materii;
-    public ComplexNoteAdapterInteractionListener mListener;
+    private ComplexNoteAdapterInteractionListener mListener;
 
     public ComplexNoteAdapter(Context context, Materie[] materii) {
         super(context, R.layout.list_row_note_list_advanced, materii);
         BusProvider.getInstance().register(this);
         this.context = context;
         this.materii = materii;
+    }
+
+    public void setmListener(ComplexNoteAdapterInteractionListener mListener) {
+        this.mListener = mListener;
     }
 
     @Override

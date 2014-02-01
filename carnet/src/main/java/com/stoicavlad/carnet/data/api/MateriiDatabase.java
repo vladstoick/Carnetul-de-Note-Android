@@ -51,7 +51,7 @@ public class MateriiDatabase {
     public Materie[] getMateriiFaraTeza() {
         Materie[] materii = getMaterii();
         ArrayList<Materie> materiiFaraTeza = new ArrayList<Materie>();
-        for(Materie materie:materii){
+        for (Materie materie : materii) {
             boolean areTeza = false;
             for (int j = 0; j < materie.getNote().length; j++) {
                 Nota nota = materie.getNote()[j];
@@ -78,9 +78,9 @@ public class MateriiDatabase {
         return false;
     }
 
-    public boolean deleteMaterie(Materie materie){
+    public boolean deleteMaterie(Materie materie) {
         SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-        if(sqLiteDatabase!=null){
+        if (sqLiteDatabase != null) {
             sqLiteDatabase.delete(SqlHelper.MATERII_TABLE,
                     SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
             return true;
@@ -88,11 +88,11 @@ public class MateriiDatabase {
         return false;
     }
 
-    public boolean renameMaterie(Materie materie,String title){
+    public boolean renameMaterie(Materie materie, String title) {
         ContentValues values = new ContentValues();
-        values.put(SqlHelper.COLUMN_TITLE,title);
+        values.put(SqlHelper.COLUMN_TITLE, title);
         SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-        if(sqLiteDatabase!=null){
+        if (sqLiteDatabase != null) {
             sqLiteDatabase.update(SqlHelper.MATERII_TABLE, values,
                     SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
             return true;
@@ -117,7 +117,6 @@ public class MateriiDatabase {
     }
 
 
-
     public boolean addNota(int nota, String materie, int type) {
         ContentValues values = new ContentValues();
         values.put(SqlHelper.COLUMN_MATERIE_FATHER, materie);
@@ -131,7 +130,6 @@ public class MateriiDatabase {
         }
         return false;
     }
-
 
 
 }

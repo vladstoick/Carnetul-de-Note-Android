@@ -29,9 +29,9 @@ public class Materie implements Parcelable {
         return note;
     }
 
-    public Nota[] getNoteFaraTeza(){
+    public Nota[] getNoteFaraTeza() {
         ArrayList<Nota> note = new ArrayList<Nota>();
-        for(Nota nota:this.note){
+        for (Nota nota : this.note) {
             if (nota.tip != Nota.TIP_NOTA_TEZA) {
                 note.add(nota);
             }
@@ -57,7 +57,7 @@ public class Materie implements Parcelable {
         return name;
     }
 
-    public double getMedie(){
+    public double getMedie() {
         double rezultat = 0;
         int teza = 0;
         for (int i = 0; i < note.length; i++) {
@@ -79,8 +79,8 @@ public class Materie implements Parcelable {
         return rezultat;
     }
 
-    public String getMedieAsString(double medie){
-        if(medie == 0 ){
+    public String getMedieAsString(double medie) {
+        if (medie == 0) {
             return "-";
         }
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -89,7 +89,7 @@ public class Materie implements Parcelable {
 
     public String getMedieAsString() {
         double medie = getMedie();
-        if(medie == 0 ){
+        if (medie == 0) {
             return "-";
         }
         DecimalFormat decimalFormat = new DecimalFormat("#.##");

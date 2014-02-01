@@ -4,7 +4,6 @@ import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
 import com.stoicavlad.carnet.ui.main.MainActivity;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
-import com.stoicavlad.carnet.ui.note.ComplexNoteAdapter;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 
 import dagger.Module;

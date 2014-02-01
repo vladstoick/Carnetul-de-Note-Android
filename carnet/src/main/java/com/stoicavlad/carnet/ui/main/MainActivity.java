@@ -23,8 +23,8 @@ import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
-import com.stoicavlad.carnet.ui.note.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
+import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import java.util.Calendar;
@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity
     @Override
     public void showNotaDetailFragment(Materie materie) {
         Intent intent = new Intent(this, NoteDetailActivity.class);
-        intent.putExtra(NoteDetailActivity.TAG_MATERIE,materie);
+        intent.putExtra(NoteDetailActivity.TAG_MATERIE, materie);
         startActivity(intent);
     }
 }

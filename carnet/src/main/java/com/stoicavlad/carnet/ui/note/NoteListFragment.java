@@ -21,14 +21,14 @@ import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import javax.inject.Inject;
 
 public class NoteListFragment extends Fragment implements AbsListView.OnItemClickListener,
-        ComplexNoteAdapter.ComplexNoteAdapterInteractionListener{
+        ComplexNoteAdapter.ComplexNoteAdapterInteractionListener {
 
     @Inject
     MateriiDatabase materiiDatabase;
 
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
-    private ListAdapter mAdapter;
+    private ComplexNoteAdapter mAdapter;
 
     public NoteListFragment() {
     }
@@ -37,7 +37,6 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CarnetApp.get(getActivity()).inject(this);
-        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
         BusProvider.getInstance().register(this);
     }
 
@@ -48,8 +47,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         setHasOptionsMenu(true);
         // Set the adapter
         mListView = (AbsListView) view.findViewById(R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
+        setAdapter();
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
@@ -83,21 +81,25 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        public void showNotaDetailFragment(Materie materie);
-    }
-
     @Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
         if (event.tag == DataSetChangedEvent.TAG_MATERIE) {
-            mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
-            ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+            Materie[] matrii = materiiDatabase.getMaterii();
+            if (matrii != null) {
+
+            }
         }
+    }
+
+    private void setAdapter() {
+        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
+        mAdapter.setmListener(this);
+        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
     }
 
     @Override
     public void onDeleteMaterie(Materie materie) {
-        if(materiiDatabase.deleteMaterie(materie)){
+        if (materiiDatabase.deleteMaterie(materie)) {
             BusProvider.getInstance()
                     .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
         }
@@ -106,5 +108,9 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     @Override
     public void onRenameMaterie(Materie materie) {
 
+    }
+
+    public interface OnFragmentInteractionListener {
+        public void showNotaDetailFragment(Materie materie);
     }
 }

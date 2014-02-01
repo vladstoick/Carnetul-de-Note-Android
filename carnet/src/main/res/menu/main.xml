@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.stoicavlad.carnet.ui.note.NoteListFragment" >
-    <item android:id="@+id/add"
+    tools:context="com.stoicavlad.carnet.ui.note.NoteListFragment">
+    <item
+        android:id="@+id/add"
         android:icon="@drawable/ic_action_new"
         android:title="@string/add_nota"
         android:showAsAction="withText|ifRoom" />

@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
 
     </style>
+
     <style name="AppTheme.CircleButton">
         <item name="android:layout_width">@dimen/add_nota_dialog_fragment_button_size</item>
         <item name="android:layout_height">@dimen/add_nota_dialog_fragment_button_size</item>
