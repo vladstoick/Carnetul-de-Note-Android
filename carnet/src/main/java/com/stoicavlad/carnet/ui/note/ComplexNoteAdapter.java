@@ -63,7 +63,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         //MEDIE
         double medie = materie.getMedie();
         holder.mValueTextView.setText(materie.getMedieAsString(medie));
-        if (medie < 5) {
+        if (medie < 4.5) {
             holder.mValueTextView
                     .setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
         } else {

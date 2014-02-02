@@ -16,6 +16,8 @@ import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.VariantaMedie;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -60,9 +62,21 @@ EditText.OnEditorActionListener{
         View view = inflater.inflate(R.layout.fragment_note_detail_medie, container, false);
         ButterKnife.inject(this, view);
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
+        //checkbox
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
+        //edittext
         mEditText = (EditText) header.findViewById(R.id.editText);
         mEditText.setOnEditorActionListener(this);
+        //media curenta
+        TextView mMediaCurenta = (TextView) header.findViewById(R.id.media_curenta);
+        double medie = materie.getMedie();
+        mMediaCurenta.setText(getString(R.string.medie_curenta) + " : " + medie);
+        if(medie<4.50){
+            mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+        } else {
+            mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+        }
+        //listview
         mListView.addHeaderView(header);
         mListView.setDrawingListUnderStickyHeader(false);
         setAdapter(1);
