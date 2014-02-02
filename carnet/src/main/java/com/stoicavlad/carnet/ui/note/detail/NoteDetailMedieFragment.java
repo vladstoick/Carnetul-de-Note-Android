@@ -9,14 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.VariantaMedie;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -26,7 +23,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
 public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClickListener,
-EditText.OnEditorActionListener{
+        EditText.OnEditorActionListener {
 
     private static final String ARG_MATERIE = "materie";
     @InjectView(R.id.list)
@@ -64,6 +61,9 @@ EditText.OnEditorActionListener{
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
         //checkbox
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
+        if (materie.getTeza() != null) {
+            mCheckbox.setVisibility(View.GONE);
+        }
         //edittext
         mEditText = (EditText) header.findViewById(R.id.editText);
         mEditText.setOnEditorActionListener(this);
@@ -71,7 +71,7 @@ EditText.OnEditorActionListener{
         TextView mMediaCurenta = (TextView) header.findViewById(R.id.media_curenta);
         double medie = materie.getMedie();
         mMediaCurenta.setText(getString(R.string.medie_curenta) + " : " + medie);
-        if(medie<4.50){
+        if (medie < 4.50) {
             mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         } else {
             mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
@@ -83,12 +83,22 @@ EditText.OnEditorActionListener{
         return view;
     }
 
+    public VariantaMedie getVariantaMedie(int medie, int nrNote) {
+        if (materie.getTeza() != null) {
+            return new VariantaMedie(medie, materie, nrNote, materie.getTeza().nota);
+        } else if (mCheckbox.isChecked()) {
+            return null;
+        } else {
+            return new VariantaMedie(medie, materie, nrNote);
+        }
+    }
+
     public void setAdapter(int nrNote) {
         ArrayList<VariantaMedie> varianteMedie = new ArrayList<VariantaMedie>();
         int medie = (int) Math.ceil(materie.getMedie());
         for (int i = medie; i <= 10; i++) {
-            VariantaMedie variantaMedie = new VariantaMedie(i,materie,nrNote);
-            if(variantaMedie.posibil){
+            VariantaMedie variantaMedie = getVariantaMedie(i,nrNote);
+            if (variantaMedie.posibil) {
                 varianteMedie.add(variantaMedie);
             }
         }

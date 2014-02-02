@@ -20,21 +20,44 @@ public class VariantaMedie {
      */
     public VariantaMedie(int medie, Materie materie, int nrNote){
         this.medie = medie;
-
+        //media necesara esti media -0.5
         double nevDeMedie = medie - 0.5;
-        ArrayList<VariantaMedie> varianteMedii = new ArrayList<VariantaMedie>();
-        int sumaCurenta = calculeazaSumaCurenta(materie);
-        int lungimeCurenta = materie.getNoteFaraTeza().length;
-        long notaVeche = 0;
-        int lungNoua = lungimeCurenta + nrNote;
-        double sumaNecesara = nevDeMedie * lungNoua;
-        double sumaNecesaraDinNoteleNoi = sumaNecesara - sumaCurenta;
-        double notaNecesaraDouble = sumaNecesaraDinNoteleNoi/nrNote;
-        long notaNecesara = (long) (Math.ceil(notaNecesaraDouble) );
-        if(notaNecesara>10 || notaNecesara == notaVeche){
+        //sa vedem ce suma au notele de pana acum
+        int sumaCurenta = calculeazaSumaCurenta(materie.getNoteFaraTeza());
+        //cate note vor fi acum
+        int lungNoua = materie.getNoteFaraTeza().length + nrNote;
+        //ce suma trebuie sa aiba notele noi
+        double sumaNecesaraDinNoteleNoi = nevDeMedie * lungNoua - sumaCurenta;
+        //ce nota minima necesara trebuie sa iei
+        long notaNecesara = (long) (Math.ceil(sumaNecesaraDinNoteleNoi/nrNote) );
+        if(notaNecesara>10){
             posibil = false;
         } else {
-            notaVeche = notaNecesara;
+            ArrayList<Nota> note = new ArrayList<Nota>();
+            for(int j=1;j<=nrNote;j++){
+                Nota nota = new Nota();
+                nota.nota = (int) notaNecesara;
+                note.add(nota);
+            }
+            this.note = note.toArray(new Nota[note.size()]);
+        }
+    }
+
+    public VariantaMedie(int medie, Materie materie, int nrNote,int teza){
+        this.medie = medie;
+        int lungimeNoua = materie.getNoteFaraTeza().length + nrNote;
+        //media necesara este media -0.5
+        double mediaNecesara = medie - 0.5;
+        //sa vedem ce medie tb sa fie in oral
+        double medieNecesaraOral = ( mediaNecesara * 4 - teza ) / 3;
+        //sa vedem ce suma au notele de pana acum
+        int sumaCurenta = calculeazaSumaCurenta(materie.getNoteFaraTeza());
+        //sa vedem ce suma trebuie sa aiba notele pe care trebuie sa le adunam
+        double sumaNecesaraDinNoteleNoi = medieNecesaraOral * lungimeNoua - sumaCurenta;
+        long notaNecesara = (long) (Math.ceil(sumaNecesaraDinNoteleNoi/nrNote) );
+        if(notaNecesara>10){
+            posibil = false;
+        } else {
             ArrayList<Nota> note = new ArrayList<Nota>();
             for(int j=1;j<=nrNote;j++){
                 Nota nota = new Nota();
@@ -58,8 +81,7 @@ public class VariantaMedie {
         return stringBuilder.toString();
     }
 
-    public static int calculeazaSumaCurenta(Materie materie){
-        Nota[] note = materie.getNoteFaraTeza();
+    public static int calculeazaSumaCurenta(Nota[] note){
         int suma = 0;
         for(Nota nota:note){
             suma += nota.nota;

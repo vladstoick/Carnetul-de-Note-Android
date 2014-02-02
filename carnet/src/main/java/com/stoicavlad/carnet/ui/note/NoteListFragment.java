@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet.ui.note;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,6 +31,8 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     private AbsListView mListView;
     private ComplexNoteAdapter mAdapter;
 
+    private Context context;
+
     public NoteListFragment() {
     }
 
@@ -58,6 +61,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        this.context = getActivity();
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -93,7 +97,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     }
 
     private void setAdapter(Materie[] materii) {
-        mAdapter = new ComplexNoteAdapter(getActivity(), materii);
+        mAdapter = new ComplexNoteAdapter(context, materii);
         mAdapter.setmListener(this);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
     }

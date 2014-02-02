@@ -83,6 +83,8 @@ public class MateriiDatabase {
         if (sqLiteDatabase != null) {
             sqLiteDatabase.delete(SqlHelper.MATERII_TABLE,
                     SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
+            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
+                    SqlHelper.COLUMN_MATERIE_FATHER + "=\"" + materie.getName() + "\"", null);
             return true;
         }
         return false;

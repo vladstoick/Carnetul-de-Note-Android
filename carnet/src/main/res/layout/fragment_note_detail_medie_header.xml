@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:fontFamily="sans-serif-light"
         android:text="@string/lorem_short"
         android:layout_centerHorizontal="true"
         android:id="@+id/media_curenta"
@@ -13,6 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
         android:layout_below="@id/media_curenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +23,7 @@
         android:text="@string/calculeaza_media"
         android:id="@+id/title" />
     <CheckBox
+        android:fontFamily="sans-serif-light"
         android:layout_below="@id/title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
@@ -33,12 +37,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:fontFamily="sans-serif-light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/numar_note"
             android:id="@+id/textView" />
         <EditText
+            android:fontFamily="sans-serif-light"
             android:text="@string/one"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
