@@ -19,10 +19,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  */
 public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-    private Nota[] note;
-    Context context;
-    private LayoutInflater inflater;
     public Nota teza;
+    Context context;
+    private Nota[] note;
+    private LayoutInflater inflater;
 
 
     public NoteDetailAdapter(Context context, Nota[] note, Nota teza) {
@@ -85,13 +85,10 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
             holder = (HeaderViewHolder) convertView.getTag();
         }
         Nota nota = getItem(position);
-        if (nota != null) {
-            final int tipNota = Nota.TIP_NOTA_SIMPLA;
-            String teza = context.getString(R.string.teza);
-            String note = context.getString(R.string.note);
-            String headerText = nota.tip == tipNota ? note : teza;
-            holder.text.setText(headerText);
-        }
+        String teza = context.getString(R.string.teza);
+        String note = context.getString(R.string.note);
+        String headerText = nota.tip == Nota.TIP_NOTA_SIMPLA ? note : teza;
+        holder.text.setText(headerText);
         return convertView;
     }
 

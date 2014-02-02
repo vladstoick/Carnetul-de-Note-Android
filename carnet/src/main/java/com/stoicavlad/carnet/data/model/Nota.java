@@ -15,11 +15,7 @@ public class Nota implements Parcelable {
     public static final int TIP_NOTA_SIMPLA = 1;
     public static final int TIP_NOTA_TEZA = 2;
 
-    public Nota(String materieFather, int date, int nota) {
-        this.materieFather = materieFather;
-        this.date = date;
-        this.nota = nota;
-    }
+    public Nota(){};
 
     public Nota(Cursor cursor) {
         this.materieFather = cursor.getString(0);

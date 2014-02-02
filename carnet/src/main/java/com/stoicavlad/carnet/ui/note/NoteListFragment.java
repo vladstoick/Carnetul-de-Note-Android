@@ -47,7 +47,8 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         setHasOptionsMenu(true);
         // Set the adapter
         mListView = (AbsListView) view.findViewById(R.id.list);
-        setAdapter();
+        Materie[] materii = materiiDatabase.getMaterii();
+        setAdapter(materii);
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
@@ -84,15 +85,15 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     @Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
         if (event.tag == DataSetChangedEvent.TAG_MATERIE) {
-            Materie[] matrii = materiiDatabase.getMaterii();
-            if (matrii != null) {
-
+            Materie[] materii = materiiDatabase.getMaterii();
+            if (materii != null) {
+                setAdapter(materii);
             }
         }
     }
 
-    private void setAdapter() {
-        mAdapter = new ComplexNoteAdapter(getActivity(), materiiDatabase.getMaterii());
+    private void setAdapter(Materie[] materii) {
+        mAdapter = new ComplexNoteAdapter(getActivity(), materii);
         mAdapter.setmListener(this);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
     }

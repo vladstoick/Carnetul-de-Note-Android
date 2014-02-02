@@ -15,7 +15,10 @@
         <item>Materie</item>
     </string-array>
     <!-- Note -->
-    <string name="with_teza">Cu teză</string>
+    <string name="numar_note">Număr note</string>
+    <string name="pentru_media">Pentru media</string>
+    <string name="trebuie_sa_iei">Trebuie să mai iei cel puțin</string>
+    <string name="cu_teza">Cu teză</string>
     <string name="note">Note</string>
     <string name="medie">Medie</string>
     <string name="teza">Teza</string>
