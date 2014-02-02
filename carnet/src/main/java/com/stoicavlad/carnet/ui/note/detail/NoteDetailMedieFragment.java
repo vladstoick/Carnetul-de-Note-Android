@@ -62,6 +62,7 @@ EditText.OnEditorActionListener{
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
         mEditText = (EditText) header.findViewById(R.id.editText);
+        mEditText.setOnEditorActionListener(this);
         mListView.addHeaderView(header);
         mListView.setDrawingListUnderStickyHeader(false);
         setAdapter(1);
