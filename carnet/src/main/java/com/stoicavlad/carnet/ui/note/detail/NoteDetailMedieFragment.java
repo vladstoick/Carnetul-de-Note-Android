@@ -83,26 +83,34 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         return view;
     }
 
-    public VariantaMedie getVariantaMedie(int medie, int nrNote) {
+    public VariantaMedie[] getVariantaMedie(int medie, int nrNote) {
         if (materie.getTeza() != null) {
-            return new VariantaMedie(medie, materie, nrNote, materie.getTeza().nota);
+
+            VariantaMedie rez = new VariantaMedie(medie, materie, nrNote, materie.getTeza().nota);
+            VariantaMedie[] rezArray = {rez};
+            return rezArray;
+
         } else if (mCheckbox.isChecked()) {
             return null;
         } else {
-            return new VariantaMedie(medie, materie, nrNote);
+            VariantaMedie rez = new VariantaMedie(medie, materie, nrNote);
+            VariantaMedie[] rezArray = {rez};
+            return rezArray;
         }
     }
 
     public void setAdapter(int nrNote) {
         ArrayList<VariantaMedie> varianteMedie = new ArrayList<VariantaMedie>();
         int medie = (int) Math.ceil(materie.getMedie());
-        if(medie<5){
+        if (medie < 5) {
             medie = 5;
         }
         for (int i = medie; i <= 10; i++) {
-            VariantaMedie variantaMedie = getVariantaMedie(i,nrNote);
-            if (variantaMedie.posibil) {
-                varianteMedie.add(variantaMedie);
+            VariantaMedie[] varArrray = getVariantaMedie(i, nrNote);
+            for (VariantaMedie variantaMedie : varArrray){
+                if (variantaMedie.posibil) {
+                    varianteMedie.add(variantaMedie);
+                }
             }
         }
         VariantaMedie[] variantaMediiArray =
