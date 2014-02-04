@@ -96,6 +96,9 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
     public void setAdapter(int nrNote) {
         ArrayList<VariantaMedie> varianteMedie = new ArrayList<VariantaMedie>();
         int medie = (int) Math.ceil(materie.getMedie());
+        if(medie<5){
+            medie = 5;
+        }
         for (int i = medie; i <= 10; i++) {
             VariantaMedie variantaMedie = getVariantaMedie(i,nrNote);
             if (variantaMedie.posibil) {
