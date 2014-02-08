@@ -12,8 +12,10 @@ public class Nota implements Parcelable {
     public int date;
     public int nota;
     public int tip;
+    public int id;
     public static final int TIP_NOTA_SIMPLA = 1;
     public static final int TIP_NOTA_TEZA = 2;
+
 
     public Nota(){};
 
@@ -22,6 +24,7 @@ public class Nota implements Parcelable {
         this.nota = cursor.getInt(1);
         this.date = cursor.getInt(2);
         this.tip = cursor.getInt(3);
+        this.id = cursor.getInt(4);
     }
 
     //PARCELABLE
@@ -37,6 +40,7 @@ public class Nota implements Parcelable {
         dest.writeInt(nota);
         dest.writeInt(date);
         dest.writeInt(tip);
+        dest.writeInt(id);
     }
 
     public Nota(Parcel parcel) {
@@ -44,6 +48,7 @@ public class Nota implements Parcelable {
         this.nota = parcel.readInt();
         this.date = parcel.readInt();
         this.tip = parcel.readInt();
+        this.id = parcel.readInt();
     }
 
     public static final Creator<Nota> CREATOR = new Creator<Nota>() {

@@ -64,6 +64,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         if (materie.getTeza() != null) {
             mCheckbox.setVisibility(View.GONE);
         }
+        mCheckbox.setOnClickListener(this);
         //edittext
         mEditText = (EditText) header.findViewById(R.id.editText);
         mEditText.setOnEditorActionListener(this);
@@ -85,17 +86,13 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 
     public VariantaMedie[] getVariantaMedie(int medie, int nrNote) {
         if (materie.getTeza() != null) {
-
             VariantaMedie rez = new VariantaMedie(medie, materie, nrNote, materie.getTeza().nota);
-            VariantaMedie[] rezArray = {rez};
-            return rezArray;
-
+            return new VariantaMedie[]{rez};
         } else if (mCheckbox.isChecked()) {
-            return null;
+            return VariantaMedie.getVarianteTeza(medie,materie,nrNote);
         } else {
             VariantaMedie rez = new VariantaMedie(medie, materie, nrNote);
-            VariantaMedie[] rezArray = {rez};
-            return rezArray;
+            return new VariantaMedie[]{rez};
         }
     }
 
@@ -121,7 +118,9 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 
     @Override
     public void onClick(View v) {
-
+        if(v.getId()==R.id.checkBox){
+            setAdapter(Integer.parseInt(mEditText.getText().toString()));
+        }
     }
 
     @Override

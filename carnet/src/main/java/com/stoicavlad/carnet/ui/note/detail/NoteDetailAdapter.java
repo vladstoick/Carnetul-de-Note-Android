@@ -2,12 +2,17 @@ package com.stoicavlad.carnet.ui.note.detail;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 
 import butterknife.ButterKnife;
@@ -24,6 +29,7 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
     private Nota[] note;
     private LayoutInflater inflater;
 
+    private NoteDetailAdapterInteractionListener mListener;
 
     public NoteDetailAdapter(Context context, Nota[] note, Nota teza) {
         this(context, note);
@@ -34,6 +40,10 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.note = note;
+    }
+
+    public void setOnDeleteListener(NoteDetailAdapterInteractionListener mListener) {
+        this.mListener = mListener;
     }
 
     @Override
@@ -68,11 +78,31 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Nota nota = getItem(position);
+        final Nota nota = getItem(position);
         holder.text.setText(nota.nota + " ");
-
+        holder.mOverflow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(v,nota);
+            }
+        });
         return convertView;
     }
+
+    public void showPopup(View v, final Nota nota) {
+        PopupMenu popupMenu = new PopupMenu(context, v);
+        MenuInflater inflater = popupMenu.getMenuInflater();
+        inflater.inflate(R.menu.popupmenu_nota, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                mListener.onDeleteNota(nota);
+                return true;
+            }
+        });
+        popupMenu.show();
+    }
+
 
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
@@ -89,12 +119,17 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
         String note = context.getString(R.string.note);
         String headerText = nota.tip == Nota.TIP_NOTA_SIMPLA ? note : teza;
         holder.text.setText(headerText);
+
         return convertView;
     }
 
     @Override
     public long getHeaderId(int position) {
         return getItem(position).tip == Nota.TIP_NOTA_SIMPLA ? 1 : 2;
+    }
+
+    public interface NoteDetailAdapterInteractionListener {
+        public void onDeleteNota(Nota nota);
     }
 
     class HeaderViewHolder {
@@ -109,6 +144,8 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
     class ViewHolder {
         @InjectView(R.id.value)
         TextView text;
+        @InjectView(R.id.overflow)
+        ImageButton mOverflow;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);

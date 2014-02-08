@@ -21,11 +21,11 @@ android {
 }
 
 dependencies {
-    instrumentTestCompile('com.jakewharton.espresso:espresso:1.1-r1') {
-        exclude group: 'com.squareup.dagger'
-    }
-    instrumentTestCompile 'com.jakewharton.espresso:espresso:1.1-r1'
-    instrumentTestCompile 'com.jakewharton.espresso:espresso-support-v4:1.1-r1'
+//    instrumentTestCompile('com.jakewharton.espresso:espresso:1.1-r1') {
+//        exclude group: 'com.squareup.dagger'
+//    }
+//    instrumentTestCompile 'com.jakewharton.espresso:espresso:1.1-r1'
+//    instrumentTestCompile 'com.jakewharton.espresso:espresso-support-v4:1.1-r1'
     compile 'se.emilsjolander:stickylistheaders:2.1.4'
     compile 'com.doomonafireball.betterpickers:library:1.5.2'
     compile 'com.android.support:support-v4:19.0.1'

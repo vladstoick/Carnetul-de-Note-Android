@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stoicavlad.carnet">
-
+    <uses-sdk android:minSdkVersion="14"/>
     <application
         android:name="com.stoicavlad.carnet.CarnetApp"
         android:allowBackup="true"

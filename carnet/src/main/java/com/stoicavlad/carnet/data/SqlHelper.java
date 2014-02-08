@@ -43,7 +43,7 @@ public class SqlHelper extends SQLiteOpenHelper {
             COLUMN_TITLE + " text primary key )";
     public static String[] MATERII_COLUMNS = {COLUMN_TITLE};
     public static String[] NOTE_COLUMNS = {COLUMN_MATERIE_FATHER, COLUMN_NOTA,
-            COLUMN_DATE, COLUMN_TYPE};
+            COLUMN_DATE, COLUMN_TYPE, COLUMN_ID};
     public static String[] ABSENTE_COLUMNS = {COLUMN_DATE};
 
     public SqlHelper(Application application) {

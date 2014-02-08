@@ -15,6 +15,7 @@
         <item>Materie</item>
     </string-array>
     <!-- Note -->
+    <string name="daca_teza">Dacă iei în teză</string>
     <string name="medie_curenta">Media curentă</string>
     <string name="calculeaza_media">Calculează de ce note ai nevoie</string>
     <string name="numar_note">Număr note</string>

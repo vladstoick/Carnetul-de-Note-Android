@@ -11,7 +11,7 @@ public class VariantaMedie {
     public int medie;
     public boolean posibil = true;
     public Nota[] note;
-
+    public Nota teza;
     /**
      * Constructor for varianta medie
      * @param medie
@@ -43,6 +43,13 @@ public class VariantaMedie {
         }
     }
 
+    /**
+     * Constructor for varianta medie
+     * @param medie
+     * @param materie
+     * @param nrNote
+     * @param teza
+     */
     public VariantaMedie(int medie, Materie materie, int nrNote,int teza){
         this.medie = medie;
         int lungimeNoua = materie.getNoteFaraTeza().length + nrNote;
@@ -66,6 +73,21 @@ public class VariantaMedie {
             }
             this.note = note.toArray(new Nota[note.size()]);
         }
+    }
+
+    public static VariantaMedie[] getVarianteTeza(int medie, Materie materie,int nrNote){
+        ArrayList<VariantaMedie> varianteMedii = new ArrayList<VariantaMedie>();
+        for(int i=1;i<=10;i++){
+            VariantaMedie variantaMedie = new VariantaMedie(medie,materie,nrNote,i);
+            if(variantaMedie.posibil == true){
+                varianteMedii.add(variantaMedie);
+                Nota nota = new Nota();
+                nota.tip = Nota.TIP_NOTA_TEZA;
+                nota.nota = i;
+                variantaMedie.teza = nota;
+            }
+        }
+        return varianteMedii.toArray(new VariantaMedie[varianteMedii.size()]);
     }
 
     public String getNoteAsString(Context context){

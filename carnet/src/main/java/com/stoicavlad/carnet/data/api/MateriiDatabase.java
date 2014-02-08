@@ -34,7 +34,6 @@ public class MateriiDatabase {
         Cursor cursor = db.query(SqlHelper.MATERII_TABLE, SqlHelper.MATERII_COLUMNS,
                 null, null, null, null, null, null);
         cursor.moveToFirst();
-
         while (!cursor.isAfterLast()) {
             Materie materie = new Materie(cursor);
             materie.setNote(getNoteForMaterie(materie, db));
@@ -47,6 +46,20 @@ public class MateriiDatabase {
 
     //MATERII
 
+    public Materie getMaterie(String name){
+        SQLiteDatabase db = sqlHelper.getReadableDatabase();
+        Materie materie;
+        if(db == null){
+            return null;
+        }
+        Cursor cursor = db.query(SqlHelper.MATERII_TABLE, SqlHelper.MATERII_COLUMNS,
+                SqlHelper.COLUMN_TITLE + " = \"" + name + "\"", null, null, null, null, null);
+        cursor.moveToFirst();
+        materie = new Materie(cursor);
+        materie.setNote(getNoteForMaterie(materie,db));
+        return materie;
+
+    }
 
     public Materie[] getMateriiFaraTeza() {
         Materie[] materii = getMaterii();
@@ -133,5 +146,14 @@ public class MateriiDatabase {
         return false;
     }
 
+    public boolean deleteNota(Nota nota){
+        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
+        if (sqLiteDatabase != null) {
+            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
+                    SqlHelper.COLUMN_ID + " = " + nota.id , null);
+            return true;
+        }
+        return false;
+    }
 
 }
