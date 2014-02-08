@@ -94,8 +94,7 @@ public class AbsentaFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onClick(View v) {
         //calculeaza optim;
-        Toast.makeText(getActivity(), absenteDatabase.calculeazaScutiriOptim() + "",
-                Toast.LENGTH_LONG).show();
+
     }
 
     @Subscribe

@@ -18,6 +18,8 @@ import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
 import javax.inject.Inject;
 
@@ -52,6 +54,7 @@ public class NoteDetailFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BusProvider.getInstance().register(this);
         CarnetApp.get(getActivity()).inject(this);
         if (getArguments() != null) {
             materieName = getArguments().getString(ARG_MATERIE);
@@ -85,6 +88,7 @@ public class NoteDetailFragment extends Fragment
     public void onDeleteNota(Nota nota) {
         if(materiiDatabase.deleteNota(nota)){
             setAdapter();
+            BusProvider.getInstance().post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
         }
     }
 }

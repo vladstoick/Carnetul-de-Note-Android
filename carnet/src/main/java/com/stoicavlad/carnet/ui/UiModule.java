@@ -6,6 +6,7 @@ import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailFragment;
+import com.stoicavlad.carnet.ui.note.detail.NoteDetailMedieFragment;
 
 import dagger.Module;
 
@@ -19,6 +20,7 @@ import dagger.Module;
                 AddNotaDialogFragment.class,
                 NoteListFragment.class,
                 NoteDetailFragment.class,
+                NoteDetailMedieFragment.class,
                 //MATERIE
                 AddMaterieDialogFragment.class,
 

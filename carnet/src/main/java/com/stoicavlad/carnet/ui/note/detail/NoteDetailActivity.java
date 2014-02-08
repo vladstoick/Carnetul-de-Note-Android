@@ -78,7 +78,7 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
             if (position == 0) {
                 return NoteDetailFragment.newInstance(materie.getName());
             }
-            return NoteDetailMedieFragment.newInstance(materie);
+            return NoteDetailMedieFragment.newInstance(materie.getName());
         }
 
         @Override

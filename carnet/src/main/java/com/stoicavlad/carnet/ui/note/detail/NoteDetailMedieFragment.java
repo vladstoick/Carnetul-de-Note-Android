@@ -11,11 +11,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.VariantaMedie;
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,20 +32,26 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         EditText.OnEditorActionListener {
 
     private static final String ARG_MATERIE = "materie";
+    @Inject
+    MateriiDatabase materiiDatabase;
+    Materie materie;
+    String materieName;
+
     @InjectView(R.id.list)
     StickyListHeadersListView mListView;
     CheckBox mCheckbox;
     EditText mEditText;
+    TextView mMediaCurenta;
     NoteDetailMedieAdapter mAdapter;
-    private Materie materie;
+
 
     public NoteDetailMedieFragment() {
     }
 
-    public static NoteDetailMedieFragment newInstance(Materie materie) {
+    public static NoteDetailMedieFragment newInstance(String materieName) {
         NoteDetailMedieFragment fragment = new NoteDetailMedieFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARG_MATERIE, materie);
+        args.putString(ARG_MATERIE, materieName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,8 +59,25 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CarnetApp.get(getActivity()).inject(this);
+        BusProvider.getInstance().register(this);
         if (getArguments() != null) {
-            materie = getArguments().getParcelable(ARG_MATERIE);
+            this.materieName = getArguments().getString(ARG_MATERIE);
+            materie = materiiDatabase.getMaterie(materieName);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @com.squareup.otto.Subscribe
+    public void onDataSetChanged(DataSetChangedEvent event) {
+        if (event.tag == DataSetChangedEvent.TAG_MATERIE && materieName!=null) {
+            materie = materiiDatabase.getMaterie(materieName);
+            setUI();
         }
     }
 
@@ -59,29 +88,37 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         View view = inflater.inflate(R.layout.fragment_note_detail_medie, container, false);
         ButterKnife.inject(this, view);
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
-        //checkbox
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
-        if (materie.getTeza() != null) {
-            mCheckbox.setVisibility(View.GONE);
-        }
         mCheckbox.setOnClickListener(this);
-        //edittext
         mEditText = (EditText) header.findViewById(R.id.editText);
         mEditText.setOnEditorActionListener(this);
-        //media curenta
-        TextView mMediaCurenta = (TextView) header.findViewById(R.id.media_curenta);
-        double medie = materie.getMedie();
-        mMediaCurenta.setText(getString(R.string.medie_curenta) + " : " + medie);
-        if (medie < 4.50) {
-            mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-        } else {
-            mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-        }
-        //listview
+        mMediaCurenta = (TextView) header.findViewById(R.id.media_curenta);
         mListView.addHeaderView(header);
         mListView.setDrawingListUnderStickyHeader(false);
-        setAdapter(1);
+        setUI();
         return view;
+    }
+
+    private void setUI() {
+        try {
+            //checkbox
+            if (materie.getTeza() != null) {
+                mCheckbox.setVisibility(View.GONE);
+            } else {
+                mCheckbox.setVisibility(View.VISIBLE);
+            }
+            //media curenta
+            double medie = materie.getMedie();
+            mMediaCurenta.setText(getString(R.string.medie_curenta) + " : " + medie);
+            if (medie < 4.50) {
+                mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            } else {
+                mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+            }
+            setAdapter(1);
+        } catch (IllegalStateException e) {
+            //do nothin yet;
+        }
     }
 
     public VariantaMedie[] getVariantaMedie(int medie, int nrNote) {
@@ -89,7 +126,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
             VariantaMedie rez = new VariantaMedie(medie, materie, nrNote, materie.getTeza().nota);
             return new VariantaMedie[]{rez};
         } else if (mCheckbox.isChecked()) {
-            return VariantaMedie.getVarianteTeza(medie,materie,nrNote);
+            return VariantaMedie.getVarianteTeza(medie, materie, nrNote);
         } else {
             VariantaMedie rez = new VariantaMedie(medie, materie, nrNote);
             return new VariantaMedie[]{rez};
@@ -104,7 +141,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         }
         for (int i = medie; i <= 10; i++) {
             VariantaMedie[] varArrray = getVariantaMedie(i, nrNote);
-            for (VariantaMedie variantaMedie : varArrray){
+            for (VariantaMedie variantaMedie : varArrray) {
                 if (variantaMedie.posibil) {
                     varianteMedie.add(variantaMedie);
                 }
@@ -118,7 +155,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.checkBox){
+        if (v.getId() == R.id.checkBox) {
             setAdapter(Integer.parseInt(mEditText.getText().toString()));
         }
     }

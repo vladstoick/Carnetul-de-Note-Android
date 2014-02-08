@@ -53,7 +53,7 @@ public class AbsenteDatabase {
         return false;
     }
 
-    public int calculeazaScutiriOptim() {
+    public Calendar[] calculeazaScutiriOptim() {
         Absenta[] absente = getAbsente();
         ArrayList<Calendar> absenteCauate = new ArrayList<Calendar>();
         ArrayList<Integer> absenteCount = new ArrayList<Integer>();
@@ -89,9 +89,15 @@ public class AbsenteDatabase {
                 }
             }
         }
-        int absenteMotivate = 0, i = 0;
+        int absenteNemotivate = absenteCount.size() , i = 0;
+        ArrayList<Calendar> zileNecesare = new ArrayList<Calendar>();
         //GREEDY TIME
-        return absenteCount.size();
+        while (absenteNemotivate>=10){
+            zileNecesare.add(absenteCauate.get(i));
+            absenteNemotivate -= absenteCount.get(i);
+            i++;
+        }
+        return zileNecesare.toArray(new Calendar[zileNecesare.size()]);
     }
 
     private boolean isSameDay(Calendar a, Calendar b) {
