@@ -4,12 +4,15 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.stoicavlad.carnet.data.OrmliteSqlHelper;
 import com.stoicavlad.carnet.data.SqlHelper;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,48 +20,33 @@ import javax.inject.Singleton;
 
 @Singleton
 public class MateriiDatabase {
-    SqlHelper sqlHelper;
+    OrmliteSqlHelper ormliteSqlHelper;
 
     @Inject
-    public MateriiDatabase(SqlHelper sqlHelper) {
-        this.sqlHelper = sqlHelper;
+    public MateriiDatabase(OrmliteSqlHelper ormliteSqlHelper) {
+        this.ormliteSqlHelper = ormliteSqlHelper;
         BusProvider.getInstance().register(this);
     }
 
     public Materie[] getMaterii() {
-        SQLiteDatabase db = sqlHelper.getReadableDatabase();
-        if (db == null) {
-            return new Materie[]{};
+        try {
+            List<Materie> materii = ormliteSqlHelper.getMateriiDao().queryForAll();
+            return materii.toArray(new Materie[materii.size()]);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new Materie[0];
         }
-        ArrayList<Materie> materii = new ArrayList<Materie>();
-        Cursor cursor = db.query(SqlHelper.MATERII_TABLE, SqlHelper.MATERII_COLUMNS,
-                null, null, null, null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Materie materie = new Materie(cursor);
-            materie.setNote(getNoteForMaterie(materie, db));
-            materii.add(materie);
-            cursor.moveToNext();
-        }
-
-        return materii.toArray(new Materie[materii.size()]);
     }
 
     //MATERII
 
-    public Materie getMaterie(String name){
-        SQLiteDatabase db = sqlHelper.getReadableDatabase();
-        Materie materie;
-        if(db == null){
+    public Materie getMaterie(String name) {
+        try {
+            return ormliteSqlHelper.getMateriiDao().queryForId(name);
+        } catch (SQLException e) {
+            e.printStackTrace();
             return null;
         }
-        Cursor cursor = db.query(SqlHelper.MATERII_TABLE, SqlHelper.MATERII_COLUMNS,
-                SqlHelper.COLUMN_TITLE + " = \"" + name + "\"", null, null, null, null, null);
-        cursor.moveToFirst();
-        materie = new Materie(cursor);
-        materie.setNote(getNoteForMaterie(materie,db));
-        return materie;
-
     }
 
     public Materie[] getMateriiFaraTeza() {
@@ -80,79 +68,63 @@ public class MateriiDatabase {
     }
 
     public boolean addMaterie(String title) {
-        ContentValues values = new ContentValues();
-        values.put(SqlHelper.COLUMN_TITLE, title);
-        SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
-        if (sqlLiteDatabase != null) {
-            sqlLiteDatabase.insertWithOnConflict(SqlHelper.MATERII_TABLE, null,
-                    values, SQLiteDatabase.CONFLICT_FAIL);
+        try {
+            Materie materie = new Materie(title);
+            ormliteSqlHelper.getMateriiDao().create(materie);
             return true;
+        } catch (SQLException e) {
+            return false;
         }
-        return false;
+
     }
 
     public boolean deleteMaterie(Materie materie) {
-        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-        if (sqLiteDatabase != null) {
-            sqLiteDatabase.delete(SqlHelper.MATERII_TABLE,
-                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
-            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
-                    SqlHelper.COLUMN_MATERIE_FATHER + "=\"" + materie.getName() + "\"", null);
-            return true;
-        }
+//        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
+//        if (sqLiteDatabase != null) {
+//            sqLiteDatabase.delete(SqlHelper.MATERII_TABLE,
+//                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
+//            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
+//                    SqlHelper.COLUMN_MATERIE_FATHER + "=\"" + materie.getName() + "\"", null);
+//            return true;
+//        }
         return false;
     }
 
     public boolean renameMaterie(Materie materie, String title) {
-        ContentValues values = new ContentValues();
-        values.put(SqlHelper.COLUMN_TITLE, title);
-        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-        if (sqLiteDatabase != null) {
-            sqLiteDatabase.update(SqlHelper.MATERII_TABLE, values,
-                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
-            return true;
-        }
+//        ContentValues values = new ContentValues();
+//        values.put(SqlHelper.COLUMN_TITLE, title);
+//        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
+//        if (sqLiteDatabase != null) {
+//            sqLiteDatabase.update(SqlHelper.MATERII_TABLE, values,
+//                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
+//            return true;
+//        }
         return false;
     }
 
-    //NOTA
-
-    private Nota[] getNoteForMaterie(Materie materie, SQLiteDatabase db) {
-        ArrayList<Nota> note = new ArrayList<Nota>();
-        Cursor cursor = db.query(SqlHelper.NOTE_TABLE, SqlHelper.NOTE_COLUMNS,
-                SqlHelper.COLUMN_MATERIE_FATHER + " = \"" + materie.getName() + "\"",
-                null, null, null, null, null);
-        cursor.moveToFirst();
-        while ((!cursor.isAfterLast())) {
-            note.add(new Nota(cursor));
-            cursor.moveToNext();
-        }
-        return (Nota[]) note.toArray(new Nota[note.size()]);
-
-    }
 
 
     public boolean addNota(int nota, String materie, int type) {
-        ContentValues values = new ContentValues();
-        values.put(SqlHelper.COLUMN_MATERIE_FATHER, materie);
-        values.put(SqlHelper.COLUMN_NOTA, nota);
-        values.put(SqlHelper.COLUMN_TYPE, type);
-        SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
-        if (sqlLiteDatabase != null) {
-            sqlLiteDatabase.insertWithOnConflict(SqlHelper.NOTE_TABLE, null,
-                    values, SQLiteDatabase.CONFLICT_FAIL);
-            return true;
-        }
+//        ContentValues values = new ContentValues();
+//        values.put(SqlHelper.COLUMN_MATERIE_FATHER, materie);
+//        values.put(SqlHelper.COLUMN_NOTA, nota);
+//        values.put(SqlHelper.COLUMN_TYPE, type);
+//        SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
+//        if (sqlLiteDatabase != null) {
+//            sqlLiteDatabase.insertWithOnConflict(SqlHelper.NOTE_TABLE, null,
+//                    values, SQLiteDatabase.CONFLICT_FAIL);
+//            return true;
+//        }
         return false;
     }
 
-    public boolean deleteNota(Nota nota){
-        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-        if (sqLiteDatabase != null) {
-            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
-                    SqlHelper.COLUMN_ID + " = " + nota.id , null);
-            return true;
-        }
+    public boolean deleteNota(Nota nota) {
+//        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
+//        if (sqLiteDatabase != null) {
+//            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
+//                    SqlHelper.COLUMN_ID + " = " + nota.id, null);
+//            return true;
+//        }
         return false;
     }
 

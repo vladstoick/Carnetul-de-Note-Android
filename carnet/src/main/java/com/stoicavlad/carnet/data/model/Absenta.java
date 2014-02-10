@@ -2,15 +2,24 @@ package com.stoicavlad.carnet.data.model;
 
 import android.database.Cursor;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.Calendar;
 
 /**
  * Created by Vlad on 1/27/14.
  */
+@DatabaseTable(tableName = "absente")
 public class Absenta {
+    @DatabaseField(canBeNull = false)
     private long date;
+    @DatabaseField(generatedId = true)
+    private int id;
 
-    public Absenta(int date) {
+    public Absenta(){}
+
+    public Absenta(long date) {
         this.date = date;
     }
 

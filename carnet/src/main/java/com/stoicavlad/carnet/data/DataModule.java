@@ -21,19 +21,24 @@ import dagger.Provides;
 public class DataModule {
     @Provides
     @Singleton
+    OrmliteSqlHelper ormliteSqlHelper(Application application){
+        return new OrmliteSqlHelper(application);
+    }
+    @Provides
+    @Singleton
     SqlHelper sqlHelper(Application application) {
         return new SqlHelper(application);
     }
 
     @Provides
     @Singleton
-    MateriiDatabase providesNoteDatabase(SqlHelper sqlHelper) {
+    MateriiDatabase providesNoteDatabase(OrmliteSqlHelper sqlHelper) {
         return new MateriiDatabase(sqlHelper);
     }
 
     @Provides
     @Singleton
-    AbsenteDatabase providedAbsenteDatabse(SqlHelper sqlHelper) {
+    AbsenteDatabase providedAbsenteDatabse(OrmliteSqlHelper sqlHelper) {
         return new AbsenteDatabase(sqlHelper);
     }
 }
