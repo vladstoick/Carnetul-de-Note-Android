@@ -26,7 +26,7 @@ public class DataModule {
     }
     @Provides
     @Singleton
-    MateriiDatabase providesNoteDatabase(OrmliteSqlHelper sqlHelper) {
+    MateriiDatabase providesNoteDatabase(OrmliteSqlHelper sqlHelper, Application application) {
         return new MateriiDatabase(sqlHelper);
     }
 

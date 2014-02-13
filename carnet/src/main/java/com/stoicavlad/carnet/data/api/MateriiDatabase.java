@@ -1,5 +1,8 @@
 package com.stoicavlad.carnet.data.api;
 
+import android.app.Application;
+
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
@@ -16,11 +19,16 @@ import javax.inject.Singleton;
 @Singleton
 public class MateriiDatabase {
     OrmliteSqlHelper ormliteSqlHelper;
-
+    CarnetApp application;
     @Inject
-    public MateriiDatabase(OrmliteSqlHelper ormliteSqlHelper) {
+    public MateriiDatabase(OrmliteSqlHelper ormliteSqlHelper, Application application) {
         this.ormliteSqlHelper = ormliteSqlHelper;
+        this.application = (CarnetApp) application;
         BusProvider.getInstance().register(this);
+    }
+
+    public MateriiDatabase(OrmliteSqlHelper ormliteSqlHelper){
+        this.ormliteSqlHelper = ormliteSqlHelper;
     }
 
     public Materie[] getMaterii() {
@@ -31,6 +39,20 @@ public class MateriiDatabase {
             e.printStackTrace();
             return new Materie[0];
         }
+    }
+
+    public double getMedieGenerala(){
+        Materie[] materii = getMaterii();
+        if(materii.length == 0){
+            return 0;
+        }
+        double rezultat = 0;
+        for(Materie materie:materii){
+            double medie = materie.getMedie();
+            medie = Math.ceil(medie);
+            rezultat += medie;
+        }
+        return rezultat/materii.length;
     }
 
     //MATERII
@@ -66,6 +88,7 @@ public class MateriiDatabase {
         try {
             Materie materie = new Materie(title);
             ormliteSqlHelper.getMateriiDao().create(materie);
+            if(application!=null) application.updateWidget();
             return true;
         } catch (SQLException e) {
             return false;
@@ -76,6 +99,7 @@ public class MateriiDatabase {
     public boolean deleteMaterie(Materie materie) {
         try {
             ormliteSqlHelper.getMateriiDao().delete(materie);
+            if(application!=null) application.updateWidget();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,6 +127,7 @@ public class MateriiDatabase {
         try {
             materie.note.add(nota);
             ormliteSqlHelper.getMateriiDao().update(materie);
+            if(application!=null) application.updateWidget();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,6 +138,7 @@ public class MateriiDatabase {
     public boolean deleteNota(Nota nota) {
         try {
             ormliteSqlHelper.getNoteDao().delete(nota);
+            if(application!=null) application.updateWidget();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
