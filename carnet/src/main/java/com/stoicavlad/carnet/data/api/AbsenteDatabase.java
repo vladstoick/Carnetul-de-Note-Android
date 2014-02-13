@@ -54,6 +54,22 @@ public class AbsenteDatabase {
 
     }
 
+    public boolean addScutire(Calendar c){
+        try{
+            List<Absenta> absente = ormliteSqlHelper.getAbsenteDao().queryForAll();
+            for(Absenta absenta:absente){
+                Calendar calAbsenta = absenta.getCalendar();
+                if(isSameDay(calAbsenta,c)){
+                    ormliteSqlHelper.getAbsenteDao().delete(absenta);
+                }
+            }
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public Calendar[] calculeazaScutiriOptim() {
         Absenta[] absente = getAbsente();
         ArrayList<Calendar> absenteCauate = new ArrayList<Calendar>();

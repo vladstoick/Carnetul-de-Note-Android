@@ -35,6 +35,7 @@ public class MainActivity extends FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         NoteListFragment.OnFragmentInteractionListener,
         DatePickerDialogFragment.DatePickerDialogHandler {
+    boolean adaugaAbsenta = false;
     @Inject
     MateriiDatabase materiiDatabase;
     @Inject
@@ -149,7 +150,7 @@ public class MainActivity extends FragmentActivity
                         showAddAbsentaDialogFragment();
                         break;
                     case 3:
-                        showAddTemaDialogFragment();
+                        showAddScutireDialogFragment();
                         break;
                     case 4:
                         showAddMaterieDialogFragment();
@@ -179,6 +180,7 @@ public class MainActivity extends FragmentActivity
     }
 
     private void showAddAbsentaDialogFragment() {
+        adaugaAbsenta = true;
         Calendar calendar = Calendar.getInstance();
         DatePickerBuilder dpb = new DatePickerBuilder()
                 .setFragmentManager(getSupportFragmentManager())
@@ -189,19 +191,34 @@ public class MainActivity extends FragmentActivity
         dpb.show();
     }
 
+    private void showAddScutireDialogFragment(){
+        adaugaAbsenta = false;
+        Calendar calendar = Calendar.getInstance();
+        DatePickerBuilder dpb = new DatePickerBuilder()
+                .setFragmentManager(getSupportFragmentManager())
+                .setStyleResId(R.style.BetterPickersDialogFragment)
+                .setYear(calendar.get(calendar.YEAR));
+        dpb.show();
+    }
+
     @Override
     public void onDialogDateSet(int i, int i2, int i3, int i4) {
+
         Calendar c = Calendar.getInstance();
         c.set(i2, i3, i4);
-        if (absenteDatabase.addAbsenta(c)) {
-            BusProvider.getInstance()
-                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
+        if (adaugaAbsenta) {
+            if (absenteDatabase.addAbsenta(c)) {
+                BusProvider.getInstance()
+                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
+            }
+        } else {
+            if(absenteDatabase.addScutire(c)){
+                BusProvider.getInstance()
+                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
+            }
         }
     }
 
-    private void showAddTemaDialogFragment() {
-
-    }
 
     private void showAddMaterieDialogFragment() {
         AddMaterieDialogFragment dialogFragment = new AddMaterieDialogFragment();
