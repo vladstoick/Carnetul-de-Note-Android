@@ -1,7 +1,12 @@
 package com.stoicavlad.carnet;
 
 import android.app.Application;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+
+import com.stoicavlad.carnet.ui.widget.GeneralWidget;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,5 +43,17 @@ public class CarnetApp extends Application {
 
     public static CarnetApp get(Context context) {
         return (CarnetApp) context.getApplicationContext();
+    }
+
+    public void updateWidget(){
+        Intent intent = new Intent(this,GeneralWidget.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+    // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+    // since it seems the onUpdate() is only fired on that:
+        int ids[] = AppWidgetManager.getInstance(this).
+                getAppWidgetIds(new ComponentName(this, GeneralWidget.class));
+
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
     }
 }

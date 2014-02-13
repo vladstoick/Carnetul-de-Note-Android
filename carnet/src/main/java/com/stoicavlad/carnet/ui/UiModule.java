@@ -8,6 +8,7 @@ import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailMedieFragment;
+import com.stoicavlad.carnet.ui.widget.GeneralWidget;
 
 import dagger.Module;
 
@@ -25,9 +26,10 @@ import dagger.Module;
                 NoteDetailMedieFragment.class,
                 //MATERIE
                 AddMaterieDialogFragment.class,
-
                 //ABSENTE
-                AbsentaFragment.class
+                AbsentaFragment.class,
+                //WIDGET
+                GeneralWidget.class
         },
         complete = false,
         library = true

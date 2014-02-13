@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity
     @Override
     public void showNotaDetailFragment(Materie materie) {
         Intent intent = new Intent(this, NoteDetailActivity.class);
-//        intent.putExtra(NoteDetailActivity.TAG_MATERIE, materie);
+        intent.putExtra(NoteDetailActivity.TAG_MATERIE, materie.id);
         startActivity(intent);
     }
 }

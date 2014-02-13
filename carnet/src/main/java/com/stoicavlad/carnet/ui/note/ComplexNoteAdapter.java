@@ -105,11 +105,11 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
                             return true;
                         }
                     }
-                    case R.id.rename: {
-                        if (mListener != null) {
-                            mListener.onRenameMaterie(materie);
-                        }
-                    }
+//                    case R.id.rename: {
+//                        if (mListener != null) {
+//                            mListener.onRenameMaterie(materie);
+//                        }
+//                    }
                 }
                 return false;
             }

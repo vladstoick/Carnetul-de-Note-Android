@@ -9,6 +9,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
@@ -30,6 +31,7 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CarnetApp.get(getApplicationContext()).inject(this);
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE)) {
                 materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);

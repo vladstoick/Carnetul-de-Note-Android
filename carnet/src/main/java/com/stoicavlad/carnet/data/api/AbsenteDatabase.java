@@ -1,5 +1,8 @@
 package com.stoicavlad.carnet.data.api;
 
+import android.app.Application;
+
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
 import com.stoicavlad.carnet.data.model.Absenta;
 
@@ -15,8 +18,13 @@ import javax.inject.Inject;
  */
 public class AbsenteDatabase {
     OrmliteSqlHelper ormliteSqlHelper;
-
+    CarnetApp application;
     @Inject
+    public AbsenteDatabase(OrmliteSqlHelper ormliteSqlHelper, Application application) {
+        this.application = (CarnetApp) application;
+        this.ormliteSqlHelper = ormliteSqlHelper;
+    }
+
     public AbsenteDatabase(OrmliteSqlHelper ormliteSqlHelper) {
         this.ormliteSqlHelper = ormliteSqlHelper;
     }
@@ -35,11 +43,15 @@ public class AbsenteDatabase {
         try {
             Absenta absenta = new Absenta(c.getTimeInMillis());
             ormliteSqlHelper.getAbsenteDao().create(absenta);
+            if(application!=null){
+                application.updateWidget();
+            }
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+
     }
 
     public Calendar[] calculeazaScutiriOptim() {
@@ -95,4 +107,7 @@ public class AbsenteDatabase {
                 && a.get(Calendar.MONTH) == b.get(Calendar.MONTH)
                 && a.get(Calendar.DAY_OF_MONTH) == b.get(Calendar.DAY_OF_MONTH);
     }
+
+
+
 }

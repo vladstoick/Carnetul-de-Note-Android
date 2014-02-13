@@ -62,5 +62,7 @@
     <string name="title_activity_note_detail">NoteDetailActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_note_detail_activitya">NoteDetailActivitya</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

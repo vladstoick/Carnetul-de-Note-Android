@@ -32,7 +32,7 @@ public class DataModule {
 
     @Provides
     @Singleton
-    AbsenteDatabase providedAbsenteDatabse(OrmliteSqlHelper sqlHelper) {
-        return new AbsenteDatabase(sqlHelper);
+    AbsenteDatabase providedAbsenteDatabse(OrmliteSqlHelper sqlHelper, Application application) {
+        return new AbsenteDatabase(sqlHelper,application);
     }
 }
