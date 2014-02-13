@@ -14,7 +14,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Nota{
     @DatabaseField(generatedId = true)
     public int id;
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     public Materie materie;
     @DatabaseField
     public int date;

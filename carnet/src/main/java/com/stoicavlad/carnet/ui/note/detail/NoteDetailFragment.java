@@ -32,7 +32,7 @@ public class NoteDetailFragment extends Fragment
     @Inject
     MateriiDatabase materiiDatabase;
     private static final String ARG_MATERIE = "materie";
-    String materieName;
+    int materieId;
     @InjectView(R.id.list)
     StickyListHeadersListView mListView;
     NoteDetailAdapter mAdapter;
@@ -42,11 +42,11 @@ public class NoteDetailFragment extends Fragment
         // Required empty public constructor
     }
 
-    public static NoteDetailFragment newInstance(String materie) {
+    public static NoteDetailFragment newInstance(int materieId) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
 
-        args.putString(ARG_MATERIE, materie);
+        args.putInt(ARG_MATERIE, materieId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +57,7 @@ public class NoteDetailFragment extends Fragment
         BusProvider.getInstance().register(this);
         CarnetApp.get(getActivity()).inject(this);
         if (getArguments() != null) {
-            materieName = getArguments().getString(ARG_MATERIE);
+            materieId = getArguments().getInt(ARG_MATERIE);
 
         }
     }
@@ -72,7 +72,7 @@ public class NoteDetailFragment extends Fragment
     }
 
     public void setAdapter(){
-        materie = materiiDatabase.getMaterie(materieName);
+        materie = materiiDatabase.getMaterie(materieId);
         mListView.setDrawingListUnderStickyHeader(false);
         if (materie.getTeza() != null) {
             mAdapter = new NoteDetailAdapter(getActivity(), materie.getNoteFaraTeza(),

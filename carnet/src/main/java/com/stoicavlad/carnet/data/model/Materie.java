@@ -19,10 +19,12 @@ import java.util.Arrays;
  */
 @DatabaseTable(tableName = "materii")
 public class Materie {
-    @DatabaseField(id = true)
-    private String name;
+    @DatabaseField( generatedId = true)
+    public int id;
+    @DatabaseField
+    public String name;
     @ForeignCollectionField(eager = false)
-    private ForeignCollection<Nota> note;
+    public ForeignCollection<Nota> note;
 
 
     public Materie(){}
@@ -62,33 +64,25 @@ public class Materie {
     }
 
 
-    public void setNote(Nota[] note) {
-//        this.note = note;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public double getMedie() {
         double rezultat = 0;
-//        int teza = 0;
-//        for (int i = 0; i < note.length; i++) {
-//            if (note[i].tip == Nota.TIP_NOTA_TEZA) {
-//                teza = note[i].nota;
-//            } else {
-//                rezultat = rezultat + note[i].nota;
-//            }
-//        }
-//        if (note.length == 0 || (note.length == 1 && teza != 0)) {
-//            return 0;
-//        }
-//        if (teza != 0) {
-//            double medieOral = rezultat / (note.length - 1);
-//            rezultat = (teza + medieOral * 3) / 4;
-//        } else {
-//            rezultat = rezultat / note.length;
-//        }
+        int teza = 0;
+        for (Nota nota:note) {
+            if (nota.tip == Nota.TIP_NOTA_TEZA) {
+                teza = nota.nota;
+            } else {
+                rezultat = rezultat + nota.nota;
+            }
+        }
+        if (note.size() == 0 || (note.size() == 1 && teza != 0)) {
+            return 0;
+        }
+        if (teza != 0) {
+            double medieOral = rezultat / (note.size() - 1);
+            rezultat = (teza + medieOral * 3) / 4;
+        } else {
+            rezultat = rezultat / note.size();
+        }
         return rezultat;
     }
 
@@ -111,16 +105,16 @@ public class Materie {
 
     public String getNoteAsString(String intro) {
         StringBuilder stringBuilder = new StringBuilder();
-//        int noteAdaugate = 0;
-//        for (int i = 0; i < note.length; i++) {
-//            if (note[i].tip == Nota.TIP_NOTA_SIMPLA) {
-//                if (noteAdaugate > 0) {
-//                    stringBuilder.append(", ");
-//                }
-//                stringBuilder.append(note[i].nota);
-//                noteAdaugate++;
-//            }
-//        }
+        int noteAdaugate = 0;
+        for (Nota nota:note) {
+            if (nota.tip == Nota.TIP_NOTA_SIMPLA) {
+                if (noteAdaugate > 0) {
+                    stringBuilder.append(", ");
+                }
+                stringBuilder.append(nota.nota);
+                noteAdaugate++;
+            }
+        }
         return intro + " : " + stringBuilder.toString();
     }
 

@@ -1,11 +1,6 @@
 package com.stoicavlad.carnet.data.api;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
-import com.stoicavlad.carnet.data.SqlHelper;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
@@ -40,9 +35,9 @@ public class MateriiDatabase {
 
     //MATERII
 
-    public Materie getMaterie(String name) {
+    public Materie getMaterie(int id) {
         try {
-            return ormliteSqlHelper.getMateriiDao().queryForId(name);
+            return ormliteSqlHelper.getMateriiDao().queryForId(id);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -79,53 +74,51 @@ public class MateriiDatabase {
     }
 
     public boolean deleteMaterie(Materie materie) {
-//        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-//        if (sqLiteDatabase != null) {
-//            sqLiteDatabase.delete(SqlHelper.MATERII_TABLE,
-//                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
-//            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
-//                    SqlHelper.COLUMN_MATERIE_FATHER + "=\"" + materie.getName() + "\"", null);
-//            return true;
-//        }
-        return false;
+        try {
+            ormliteSqlHelper.getMateriiDao().delete(materie);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean renameMaterie(Materie materie, String title) {
-//        ContentValues values = new ContentValues();
-//        values.put(SqlHelper.COLUMN_TITLE, title);
-//        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-//        if (sqLiteDatabase != null) {
-//            sqLiteDatabase.update(SqlHelper.MATERII_TABLE, values,
-//                    SqlHelper.COLUMN_TITLE + " = \"" + materie.getName() + "\"", null);
-//            return true;
-//        }
-        return false;
+        try {
+            materie.name = title;
+            ormliteSqlHelper.getMateriiDao().update(materie);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
-
-    public boolean addNota(int nota, String materie, int type) {
-//        ContentValues values = new ContentValues();
-//        values.put(SqlHelper.COLUMN_MATERIE_FATHER, materie);
-//        values.put(SqlHelper.COLUMN_NOTA, nota);
-//        values.put(SqlHelper.COLUMN_TYPE, type);
-//        SQLiteDatabase sqlLiteDatabase = sqlHelper.getWritableDatabase();
-//        if (sqlLiteDatabase != null) {
-//            sqlLiteDatabase.insertWithOnConflict(SqlHelper.NOTE_TABLE, null,
-//                    values, SQLiteDatabase.CONFLICT_FAIL);
-//            return true;
-//        }
-        return false;
+    public boolean addNota(int notaValue, Materie materie, int type) {
+        Nota nota = new Nota();
+        nota.nota = notaValue;
+        nota.materie = materie;
+        nota.tip = type;
+        try {
+            materie.note.add(nota);
+            ormliteSqlHelper.getMateriiDao().update(materie);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean deleteNota(Nota nota) {
-//        SQLiteDatabase sqLiteDatabase = sqlHelper.getWritableDatabase();
-//        if (sqLiteDatabase != null) {
-//            sqLiteDatabase.delete(SqlHelper.NOTE_TABLE,
-//                    SqlHelper.COLUMN_ID + " = " + nota.id, null);
-//            return true;
-//        }
-        return false;
+        try {
+            ormliteSqlHelper.getNoteDao().delete(nota);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 }

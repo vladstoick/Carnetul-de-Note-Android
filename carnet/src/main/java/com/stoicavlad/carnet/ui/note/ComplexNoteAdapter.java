@@ -59,7 +59,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         ButterKnife.inject(this, rowView);
         final Materie materie = materii[position];
         //TITLE
-        holder.mTitleTextView.setText(materie.getName());
+        holder.mTitleTextView.setText(materie.name);
         //MEDIE
         double medie = materie.getMedie();
         holder.mValueTextView.setText(materie.getMedieAsString(medie));

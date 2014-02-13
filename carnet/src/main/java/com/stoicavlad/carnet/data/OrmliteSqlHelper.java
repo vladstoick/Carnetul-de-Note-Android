@@ -15,6 +15,8 @@ import com.stoicavlad.carnet.data.model.Nota;
 
 import java.sql.SQLException;
 
+import butterknife.InjectView;
+
 /**
  * Created by Vlad on 2/10/14.
  */
@@ -22,7 +24,8 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "database.db";
     private static final int DATABASE_VERSION = 1;
     private Dao<Absenta, Integer> absenteDao = null;
-    private Dao<Materie, String> materiiDao = null;
+    private Dao<Materie, Integer> materiiDao = null;
+    private Dao<Nota, Integer> noteDao = null;
     public OrmliteSqlHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -58,11 +61,17 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
         return absenteDao;
     }
 
-    public Dao<Materie, String> getMateriiDao() throws SQLException{
+    public Dao<Materie, Integer> getMateriiDao() throws SQLException{
         if(materiiDao == null ){
             materiiDao = getDao(Materie.class);
         }
         return materiiDao;
     }
 
+    public Dao<Nota, Integer> getNoteDao() throws SQLException{
+        if(noteDao == null ){
+            noteDao = getDao(Nota.class);
+        }
+        return noteDao;
+    }
 }

@@ -8,29 +8,33 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 public class NoteDetailActivity extends FragmentActivity implements ActionBar.TabListener {
 
     public static final String TAG_MATERIE = "MATERIE";
-
-    private Materie materie;
-
+    @Inject
+    MateriiDatabase materiiDatabase;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
+    private int materie_id;
+    private Materie materie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE)) {
-                materie = (Materie) getIntent().getParcelableExtra(TAG_MATERIE);
-                setTitle(materie.getName());
+                materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);
+                materie = materiiDatabase.getMaterie(materie_id);
+                setTitle(materie.name);
             }
         }
         setContentView(R.layout.activity_note_detail);
@@ -76,9 +80,9 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return NoteDetailFragment.newInstance(materie.getName());
+                return NoteDetailFragment.newInstance(materie.id);
             }
-            return NoteDetailMedieFragment.newInstance(materie.getName());
+            return NoteDetailMedieFragment.newInstance(materie.id);
         }
 
         @Override

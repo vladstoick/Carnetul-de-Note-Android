@@ -93,7 +93,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         Button selectedButton = (Button) mRootView.findViewById(lastClicked);
         Materie materie = materii[mMaterieSpinner.getSelectedItemPosition()];
         int nota = Integer.parseInt(selectedButton.getText().toString());
-        if (materiiDatabase.addNota(nota, materie.getName(), type)) {
+        if (materiiDatabase.addNota(nota, materie, type)) {
             BusProvider.getInstance()
                     .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
         }

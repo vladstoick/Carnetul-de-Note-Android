@@ -35,7 +35,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
     @Inject
     MateriiDatabase materiiDatabase;
     Materie materie;
-    String materieName;
+    int materieId;
 
     @InjectView(R.id.list)
     StickyListHeadersListView mListView;
@@ -48,10 +48,10 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
     public NoteDetailMedieFragment() {
     }
 
-    public static NoteDetailMedieFragment newInstance(String materieName) {
+    public static NoteDetailMedieFragment newInstance(int materieId) {
         NoteDetailMedieFragment fragment = new NoteDetailMedieFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_MATERIE, materieName);
+        args.putInt(ARG_MATERIE, materieId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,8 +62,8 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         CarnetApp.get(getActivity()).inject(this);
         BusProvider.getInstance().register(this);
         if (getArguments() != null) {
-            this.materieName = getArguments().getString(ARG_MATERIE);
-            materie = materiiDatabase.getMaterie(materieName);
+            this.materieId = getArguments().getInt(ARG_MATERIE,-1);
+            materie = materiiDatabase.getMaterie(materieId);
         }
     }
 
@@ -75,8 +75,8 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 
     @com.squareup.otto.Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
-        if (event.tag == DataSetChangedEvent.TAG_MATERIE && materieName!=null) {
-            materie = materiiDatabase.getMaterie(materieName);
+        if (event.tag == DataSetChangedEvent.TAG_MATERIE && materieId!=-1) {
+            materie = materiiDatabase.getMaterie(materieId);
             setUI();
         }
     }
