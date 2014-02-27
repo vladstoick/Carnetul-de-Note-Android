@@ -61,10 +61,10 @@ public class MainActivity extends FragmentActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment;
         switch (position) {
-            case 1:
+            case 0:
                 fragment = new NoteListFragment();
                 break;
-            case 2:
+            case 1:
                 fragment = new AbsentaFragment();
                 break;
             default:

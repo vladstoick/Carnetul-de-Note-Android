@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stoicavlad.carnet" >
 
-    <uses-sdk android:minSdkVersion="14" />
-
     <application
         android:name="com.stoicavlad.carnet.CarnetApp"
         android:allowBackup="true"
@@ -13,11 +11,6 @@
         <activity
             android:name="com.stoicavlad.carnet.ui.main.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity"
@@ -32,6 +25,18 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/general_widget_info" />
         </receiver>
+
+        <activity
+            android:name=".ui.setup.SetupActivity"
+            android:label="@string/setup_title" >
+            <intent-filter
+                android:label="@string/app_name"
+                >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

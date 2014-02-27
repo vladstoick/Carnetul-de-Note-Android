@@ -1,10 +1,32 @@
 <resources>
-
+    <color name="dark_orange">#FA6900</color>
+    <color name="light_orange">#F38630</color>
+    <color name="light_blue">#69D2E7</color>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-
+        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="android:actionBarTabBarStyle">@style/AppTheme.ActionBar.TabBar</item>
     </style>
+
+    <!--ACTION BAR-->
+
+    <style name="AppTheme.ActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.Text</item>
+        <item name="android:background">@color/dark_orange</item>
+    </style>
+
+    <style name="AppTheme.ActionBar.Text" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <!--TAB BAR-->
+
+    <style name="AppTheme.ActionBar.TabBar" parent="android:Widget.Holo.Light.ActionBar.TabView.Inverse">
+        <item name="android:background">@color/light_blue</item>
+    </style>
+
+    <!--CIRCLE BUTTON-->
 
     <style name="AppTheme.CircleButton">
         <item name="android:layout_width">@dimen/add_nota_dialog_fragment_button_size</item>

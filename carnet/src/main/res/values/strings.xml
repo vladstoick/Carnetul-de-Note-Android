@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--MATERII DEFAULT-->
+    <string name="setup_title">Setări inițiale</string>
+    <string name="action_next">Înainte</string>
+    <string name="materii_setup">Alege-ți materiile din lista următoare. Dacă materia ta nu există în listă, o vei putea adăuga mai târziu</string>
+    <string-array name="materii_default">
+        <item>Română</item>
+        <item>Franceză</item>
+        <item>Engleză</item>
+        <item>Germană</item>
+        <item>Matematică</item>
+        <item>Fizică</item>
+        <item>Biologie</item>
+        <item>Chimie</item>
+        <item>Informatică</item>
+        <item>TIC</item>
+        <item>Istorie</item>
+        <item>Geografie</item>
+        <item>Logică</item>
+        <item>Psihologie</item>
+        <item>Filozofie</item>
+        <item>Muzică</item>
+        <item>Desen</item>
+        <item>Sport</item>
+        <item>Purtare</item>
+        <item>Religie</item>
+        <item>Economie</item>
+        <item>Educație Antreprenorială</item>
+
+    </string-array>
     <!-- EDIT -->
     <string name="rename">Redenumește</string>
     <string name="delete">Șterge</string>
@@ -50,19 +79,15 @@
     <string name="general_section">General</string>
     <string name="note_section">Note</string>
     <string name="absente_section">Absente</string>
-    <string name="app_name">Carnetul de note</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <!-- GENERAL -->
+    <string name="app_name">Carnetul de note</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_note_detail">NoteDetailActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_note_detail_activitya">NoteDetailActivitya</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="title_activity_setup">SetupActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
