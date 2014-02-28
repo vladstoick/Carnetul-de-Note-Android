@@ -75,7 +75,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 
     @com.squareup.otto.Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
-        if (event.tag == DataSetChangedEvent.TAG_MATERIE && materieId!=-1) {
+        if (event.tag.equals(DataSetChangedEvent.TAG_MATERIE) && materieId!=-1) {
             materie = materiiDatabase.getMaterie(materieId);
             setUI();
         }

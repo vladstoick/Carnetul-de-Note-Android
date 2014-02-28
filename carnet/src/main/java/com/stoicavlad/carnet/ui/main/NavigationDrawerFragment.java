@@ -103,6 +103,7 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 new String[]{
+                        getString(R.string.general_section),
                         getString(R.string.note_section),
                         getString(R.string.absente_section)
                 }));
@@ -267,7 +268,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private ActionBar getActionBar() {
-        return ((Activity) getActivity()).getActionBar();
+        return getActivity().getActionBar();
     }
 
     /**

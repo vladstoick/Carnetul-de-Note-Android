@@ -21,6 +21,7 @@ import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
+import com.stoicavlad.carnet.ui.general.GeneralFragment;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
@@ -62,13 +63,14 @@ public class MainActivity extends FragmentActivity
         Fragment fragment;
         switch (position) {
             case 0:
-                fragment = new NoteListFragment();
+                fragment = new GeneralFragment();
                 break;
             case 1:
-                fragment = new AbsentaFragment();
+                fragment = new NoteListFragment();
+
                 break;
             default:
-                fragment = new NoteListFragment();
+                fragment = new AbsentaFragment();
                 break;
         }
         fragmentManager.beginTransaction()
@@ -79,7 +81,7 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mNavigationDrawerFragment.isDrawerOpen() == false) {
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
             getMenuInflater().inflate(R.menu.main, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -185,9 +187,9 @@ public class MainActivity extends FragmentActivity
         DatePickerBuilder dpb = new DatePickerBuilder()
                 .setFragmentManager(getSupportFragmentManager())
                 .setStyleResId(R.style.BetterPickersDialogFragment)
-                .setYear(calendar.get(calendar.YEAR))
-                .setDayOfMonth(calendar.get(calendar.DAY_OF_MONTH))
-                .setMonthOfYear(calendar.get(calendar.MONTH));
+                .setYear(calendar.get(Calendar.YEAR))
+                .setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH))
+                .setMonthOfYear(calendar.get(Calendar.MONTH));
         dpb.show();
     }
 
@@ -197,7 +199,7 @@ public class MainActivity extends FragmentActivity
         DatePickerBuilder dpb = new DatePickerBuilder()
                 .setFragmentManager(getSupportFragmentManager())
                 .setStyleResId(R.style.BetterPickersDialogFragment)
-                .setYear(calendar.get(calendar.YEAR));
+                .setYear(calendar.get(Calendar.YEAR));
         dpb.show();
     }
 

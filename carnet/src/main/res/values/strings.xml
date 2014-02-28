@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--MATERII DEFAULT-->
+    <!--SETUP-->
     <string name="setup_title">Setări inițiale</string>
     <string name="action_next">Înainte</string>
-    <string name="materii_setup">Alege-ți materiile din lista următoare. Dacă materia ta nu există în listă, o vei putea adăuga mai târziu</string>
+    <string name="materii_setup">Alege materiile tale din lista următoare. Dacă materia ta nu există în listă, o vei putea adăuga mai târziu</string>
     <string-array name="materii_default">
         <item>Română</item>
         <item>Franceză</item>
@@ -24,26 +24,14 @@
         <item>Muzică</item>
         <item>Desen</item>
         <item>Sport</item>
-        <item>Purtare</item>
         <item>Religie</item>
         <item>Economie</item>
         <item>Educație Antreprenorială</item>
-
     </string-array>
-    <!-- EDIT -->
-    <string name="rename">Redenumește</string>
-    <string name="delete">Șterge</string>
-    <!-- ADD -->
-    <string name="add_title">Ce vrei să adaugi?</string>
-
-    <string-array name="add_options">
-        <item>Notă</item>
-        <item>Teză</item>
-        <item>Absență</item>
-        <item>Scutire</item>
-        <item>Materie</item>
-    </string-array>
-    <!-- Note -->
+    <!--GENERAL FRAGMENT-->
+    <string name="medie_generala">Media generală</string>
+    <string name="purtare">Purtare</string>
+    <!-- NOTE FRAGMENTS -->
     <string name="daca_teza">Dacă iei în teză</string>
     <string name="medie_curenta">Media curentă</string>
     <string name="calculeaza_media">Calculează de ce note ai nevoie</string>
@@ -72,6 +60,18 @@
     <string name="add_materie_edit_text_hint">Numele materiei</string>
     <!-- ABSENTE -->
     <string name="calculeaza_absente">Ce scutiri trebuie sa aduci</string>
+    <!-- EDIT -->
+    <string name="rename">Redenumește</string>
+    <string name="delete">Șterge</string>
+    <!-- ADD -->
+    <string name="add_title">Ce vrei să adaugi?</string>
+    <string-array name="add_options">
+        <item>Notă</item>
+        <item>Teză</item>
+        <item>Absență</item>
+        <item>Scutire</item>
+        <item>Materie</item>
+    </string-array>
     <!-- LOREM -->
     <string name="lorem_short">Lorem ipsum dolor</string>
     <string name="lorem_nota">10.00</string>
@@ -81,6 +81,8 @@
     <string name="absente_section">Absente</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
     <!-- GENERAL -->
     <string name="app_name">Carnetul de note</string>
     <string name="action_settings">Settings</string>

@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.stoicavlad.carnet.data.model.Absenta;
@@ -14,8 +13,6 @@ import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 
 import java.sql.SQLException;
-
-import butterknife.InjectView;
 
 /**
  * Created by Vlad on 2/10/14.

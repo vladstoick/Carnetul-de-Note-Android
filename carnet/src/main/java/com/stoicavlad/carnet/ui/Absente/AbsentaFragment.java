@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -30,7 +29,6 @@ public class AbsentaFragment extends Fragment implements Button.OnClickListener 
     @InjectView(R.id.list)
     ListView mListView;
     private ListAdapter mAdapter;
-    private Button mCalculate;
 
     public AbsentaFragment() {
     }
@@ -50,11 +48,11 @@ public class AbsentaFragment extends Fragment implements Button.OnClickListener 
         BusProvider.getInstance().register(this);
         View view = inflater.inflate(R.layout.fragment_absenta, container, false);
         ButterKnife.inject(this, view);
-        mCalculate = new Button(getActivity());
+        Button mCalculate = new Button(getActivity());
         mCalculate.setText(R.string.calculeaza_absente);
         mCalculate.setOnClickListener(this);
         mListView.addHeaderView(mCalculate);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
         return view;
     }
 
@@ -67,7 +65,7 @@ public class AbsentaFragment extends Fragment implements Button.OnClickListener 
 
     @Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
-        if (event.tag == DataSetChangedEvent.TAG_ABSENTA) {
+        if (event.tag.equals(DataSetChangedEvent.TAG_ABSENTA)) {
             mAdapter = new AbsenteAdapter(getActivity(), absenteDatabase.getAbsente());
             mListView.setAdapter(mAdapter);
         }

@@ -17,8 +17,8 @@ import javax.inject.Inject;
  * Created by Vlad on 1/27/14.
  */
 public class AbsenteDatabase {
-    OrmliteSqlHelper ormliteSqlHelper;
-    CarnetApp application;
+    private OrmliteSqlHelper ormliteSqlHelper;
+    private CarnetApp application;
     @Inject
     public AbsenteDatabase(OrmliteSqlHelper ormliteSqlHelper, Application application) {
         this.application = (CarnetApp) application;
@@ -74,8 +74,8 @@ public class AbsenteDatabase {
         Absenta[] absente = getAbsente();
         ArrayList<Calendar> absenteCauate = new ArrayList<Calendar>();
         ArrayList<Integer> absenteCount = new ArrayList<Integer>();
-        for (int i = 0; i < absente.length; i++) {
-            Calendar dateToBeAdded = absente[i].getCalendar();
+        for (Absenta anAbsente : absente) {
+            Calendar dateToBeAdded = anAbsente.getCalendar();
             boolean adauagat = false;
             for (int j = 0; j < absenteCauate.size(); j++) {
                 Calendar dateToBeCompared = absenteCauate.get(j);

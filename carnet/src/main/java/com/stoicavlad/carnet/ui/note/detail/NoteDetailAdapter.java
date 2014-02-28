@@ -12,7 +12,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 
 import butterknife.ButterKnife;

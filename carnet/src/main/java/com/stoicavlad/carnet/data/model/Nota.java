@@ -1,9 +1,5 @@
 package com.stoicavlad.carnet.data.model;
 
-import android.database.Cursor;
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -26,7 +22,7 @@ public class Nota{
     public static final int TIP_NOTA_SIMPLA = 1;
     public static final int TIP_NOTA_TEZA = 2;
 
-    public Nota(){};
+    public Nota(){}
 
 
 }

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.Editable;
 import android.widget.EditText;
 
 import com.stoicavlad.carnet.CarnetApp;
@@ -36,9 +37,12 @@ public class AddMaterieDialogFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (materiiDatabase.addMaterie(mEditText.getText().toString())) {
-                            BusProvider.getInstance()
-                                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
+                        Editable mEditTextEditable = mEditText.getText();
+                        if (mEditTextEditable != null){
+                            if (materiiDatabase.addMaterie(mEditTextEditable.toString())) {
+                                BusProvider.getInstance()
+                                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
+                            }
                         }
                     }
                 })
@@ -49,9 +53,7 @@ public class AddMaterieDialogFragment extends DialogFragment {
                     }
                 });
         mEditText.requestFocus();
-        Dialog dialog = builder.create();
-
-        return dialog;
+        return builder.create();
     }
 
     @Override

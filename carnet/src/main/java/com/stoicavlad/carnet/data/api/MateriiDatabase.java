@@ -1,6 +1,8 @@
 package com.stoicavlad.carnet.data.api;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
@@ -41,18 +43,41 @@ public class MateriiDatabase {
         }
     }
 
+    public int getPurtare(){
+        try{
+        SharedPreferences sp = application
+                .getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+            return sp.getInt("PURTARE", 10);
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            return 10;
+        }
+
+    }
+
+    public void setPurtare(int purtare){
+        SharedPreferences sp = application
+                .getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
+        sp.edit().putInt("PURTARE",purtare).commit();
+    }
+
     public double getMedieGenerala(){
+
         Materie[] materii = getMaterii();
         if(materii.length == 0){
-            return 0;
+            return 10;
         }
-        double rezultat = 0;
+        int rezultat = 0;
         for(Materie materie:materii){
             double medie = materie.getMedie();
-            medie = Math.ceil(medie);
+            if(medie == 0){
+                medie = 10;
+            }
+            medie = Math.round(medie);
             rezultat += medie;
         }
-        return rezultat/materii.length;
+        rezultat += getPurtare();
+        return (double)rezultat/(materii.length+1);
     }
 
     //MATERII

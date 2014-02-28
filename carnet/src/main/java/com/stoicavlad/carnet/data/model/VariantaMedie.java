@@ -14,9 +14,9 @@ public class VariantaMedie {
     public Nota teza;
     /**
      * Constructor for varianta medie
-     * @param medie
-     * @param materie
-     * @param nrNote
+     * @param medie Media dorită
+     * @param materie Materia respectivă
+     * @param nrNote Numărul de note dorit
      */
     public VariantaMedie(int medie, Materie materie, int nrNote){
         this.medie = medie;
@@ -45,10 +45,10 @@ public class VariantaMedie {
 
     /**
      * Constructor for varianta medie
-     * @param medie
-     * @param materie
-     * @param nrNote
-     * @param teza
+     * @param medie Media dorită
+     * @param materie Materia respectivă
+     * @param nrNote Numărul de note dorit
+     * @param teza Nota din teză
      */
     public VariantaMedie(int medie, Materie materie, int nrNote,int teza){
         this.medie = medie;
@@ -79,7 +79,7 @@ public class VariantaMedie {
         ArrayList<VariantaMedie> varianteMedii = new ArrayList<VariantaMedie>();
         for(int i=1;i<=10;i++){
             VariantaMedie variantaMedie = new VariantaMedie(medie,materie,nrNote,i);
-            if(variantaMedie.posibil == true){
+            if(variantaMedie.posibil){
                 varianteMedii.add(variantaMedie);
                 Nota nota = new Nota();
                 nota.tip = Nota.TIP_NOTA_TEZA;

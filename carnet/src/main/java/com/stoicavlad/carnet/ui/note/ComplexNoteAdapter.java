@@ -26,7 +26,7 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/26/14.
  */
-public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
+class ComplexNoteAdapter extends ArrayAdapter<Materie> {
 
     private final Context context;
     private final Materie[] materii;
@@ -91,7 +91,7 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
         return rowView;
     }
 
-    public void showPopup(View v, final Materie materie) {
+    void showPopup(View v, final Materie materie) {
         PopupMenu popupMenu = new PopupMenu(context, v);
         MenuInflater inflater = popupMenu.getMenuInflater();
         inflater.inflate(R.menu.popupmenu_materie, popupMenu.getMenu());
@@ -119,8 +119,6 @@ public class ComplexNoteAdapter extends ArrayAdapter<Materie> {
 
     public interface ComplexNoteAdapterInteractionListener {
         public void onDeleteMaterie(Materie materie);
-
-        public void onRenameMaterie(Materie materie);
     }
 
     static class RowHolder {

@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
-import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
 
@@ -45,6 +43,7 @@ public class SetupAdapter extends ArrayAdapter<String> {
         if (rowView == null) {
             rowView = inflater.inflate(R.layout.list_row_setup, parent, false);
             holder = new RowHolder(rowView);
+            assert rowView != null;
             rowView.setTag(holder);
         } else {
             holder = (RowHolder) rowView.getTag();

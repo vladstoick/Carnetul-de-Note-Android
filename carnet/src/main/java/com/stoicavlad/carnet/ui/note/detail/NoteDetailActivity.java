@@ -25,7 +25,6 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
     MateriiDatabase materiiDatabase;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
-    private int materie_id;
     private Materie materie;
 
     @Override
@@ -34,7 +33,7 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
         CarnetApp.get(getApplicationContext()).inject(this);
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE)) {
-                materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);
+                int materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);
                 materie = materiiDatabase.getMaterie(materie_id);
                 setTitle(materie.name);
             }

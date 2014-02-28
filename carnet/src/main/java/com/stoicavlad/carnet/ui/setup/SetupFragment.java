@@ -11,11 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.stoicavlad.carnet.R;
 
@@ -41,8 +38,11 @@ public class SetupFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         materii = getResources().getStringArray(R.array.materii_default);
-        mAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_row_setup,
-                android.R.id.text1,materii);
+        Activity activity = getActivity();
+        if(activity != null){
+            mAdapter = new ArrayAdapter<String>(activity,R.layout.list_row_setup,
+                    android.R.id.text1,materii);
+        }
         setHasOptionsMenu(true);
     }
 
@@ -51,7 +51,7 @@ public class SetupFragment extends Fragment{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setup, container, false);
         ButterKnife.inject(this, view);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         return view;
     }
@@ -69,8 +69,8 @@ public class SetupFragment extends Fragment{
             case R.id.action_next:{
                 SparseBooleanArray positions = mListView.getCheckedItemPositions();
                 ArrayList<String> rezultat = new ArrayList<String>();
-                for(int position = 0 ; position < positions.size(); position++){
-                    if(positions.get(position) == true){
+                for(int position = 0 ; position < (positions != null ? positions.size() : 0); position++){
+                    if(positions.get(position)){
                         rezultat.add(materii[position]);
 
                     }

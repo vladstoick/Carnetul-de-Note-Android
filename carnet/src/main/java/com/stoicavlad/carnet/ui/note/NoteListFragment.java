@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 
 import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
@@ -29,7 +28,6 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
 
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
-    private ComplexNoteAdapter mAdapter;
 
     private Context context;
 
@@ -49,7 +47,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         View view = inflater.inflate(R.layout.fragment_notefragment, container, false);
         setHasOptionsMenu(true);
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(R.id.list);
+        mListView = (AbsListView) (view != null ? view.findViewById(R.id.list) : null);
         Materie[] materii = materiiDatabase.getMaterii();
         setAdapter(materii);
         // Set OnItemClickListener so we can be notified on item clicks
@@ -88,7 +86,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
 
     @Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
-        if (event.tag == DataSetChangedEvent.TAG_MATERIE) {
+        if (event.tag.equals(DataSetChangedEvent.TAG_MATERIE)) {
             Materie[] materii = materiiDatabase.getMaterii();
             if (materii != null) {
                 setAdapter(materii);
@@ -97,9 +95,9 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
     }
 
     private void setAdapter(Materie[] materii) {
-        mAdapter = new ComplexNoteAdapter(context, materii);
+        ComplexNoteAdapter mAdapter = new ComplexNoteAdapter(context, materii);
         mAdapter.setmListener(this);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
     }
 
     @Override
@@ -108,11 +106,6 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
             BusProvider.getInstance()
                     .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
         }
-    }
-
-    @Override
-    public void onRenameMaterie(Materie materie) {
-
     }
 
     public interface OnFragmentInteractionListener {

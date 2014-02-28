@@ -46,7 +46,9 @@ public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
         if (rowView == null) {
             rowView = inflater.inflate(R.layout.list_row_simple_note, parent, false);
             holder = new RowHolder(rowView);
-            rowView.setTag(holder);
+            if(rowView != null){
+                rowView.setTag(holder);
+            }
         } else {
             holder = (RowHolder) rowView.getTag();
         }

@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.MainActivity">
+
+    <TextView
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:text="@string/medie_generala"
+        android:id="@+id/title" />
+
+    <TextView
+        android:id="@+id/medieGenerala"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textSize="60sp"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_nota" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/purtare"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:fontFamily="sans-serif-light"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_short"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:padding="8dp"
+            android:layout_marginRight="@dimen/small_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_action_edit"
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:text="@string/absente_section"
+        android:id="@+id/title" />
+    <TextView
+        android:id="@+id/absente"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_nota" />
+
+</LinearLayout>

@@ -4,15 +4,12 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Absenta;
-import com.stoicavlad.carnet.data.model.Materie;
-import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
 
 /**
  * Implementation of App Widget functionality.
@@ -21,10 +18,8 @@ public class GeneralWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        final int N = appWidgetIds.length;
-        for (int i=0; i<N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 

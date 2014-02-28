@@ -1,18 +1,14 @@
 package com.stoicavlad.carnet.data.model;
 
 import android.database.Cursor;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.stmt.query.Not;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Vlad on 1/26/14.
@@ -55,9 +51,9 @@ public class Materie {
 
     public Nota getTeza() {
         Nota note[]=getNote();
-        for (int i = 0; i < note.length; i++) {
-            if (note[i].tip == Nota.TIP_NOTA_TEZA) {
-                return note[i];
+        for (Nota aNote : note) {
+            if (aNote.tip == Nota.TIP_NOTA_TEZA) {
+                return aNote;
             }
         }
         return null;

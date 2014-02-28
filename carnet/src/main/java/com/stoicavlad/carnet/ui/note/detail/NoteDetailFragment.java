@@ -3,15 +3,9 @@ package com.stoicavlad.carnet.ui.note.detail;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ListView;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
@@ -36,7 +30,6 @@ public class NoteDetailFragment extends Fragment
     @InjectView(R.id.list)
     StickyListHeadersListView mListView;
     NoteDetailAdapter mAdapter;
-    private Materie materie;
 
     public NoteDetailFragment() {
         // Required empty public constructor
@@ -72,7 +65,7 @@ public class NoteDetailFragment extends Fragment
     }
 
     public void setAdapter(){
-        materie = materiiDatabase.getMaterie(materieId);
+        Materie materie = materiiDatabase.getMaterie(materieId);
         mListView.setDrawingListUnderStickyHeader(false);
         if (materie.getTeza() != null) {
             mAdapter = new NoteDetailAdapter(getActivity(), materie.getNoteFaraTeza(),

@@ -16,7 +16,7 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/29/14.
  */
-public class AbsenteAdapter extends ArrayAdapter<Absenta> {
+class AbsenteAdapter extends ArrayAdapter<Absenta> {
     private final Context context;
     private final Absenta[] absente;
 
@@ -44,7 +44,9 @@ public class AbsenteAdapter extends ArrayAdapter<Absenta> {
         if (rowView == null) {
             rowView = inflater.inflate(R.layout.list_row_absente, parent, false);
             holder = new RowHolder(rowView);
-            rowView.setTag(holder);
+            if(rowView != null){
+                rowView.setTag(holder);
+            }
         } else {
             holder = (RowHolder) rowView.getTag();
         }
