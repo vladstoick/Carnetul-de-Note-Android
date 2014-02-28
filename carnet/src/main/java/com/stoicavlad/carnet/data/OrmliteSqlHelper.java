@@ -11,6 +11,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.stoicavlad.carnet.data.model.Absenta;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
+import com.stoicavlad.carnet.data.model.Purtare;
 
 import java.sql.SQLException;
 
@@ -19,9 +20,10 @@ import java.sql.SQLException;
  */
 public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "database.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private Dao<Absenta, Integer> absenteDao = null;
     private Dao<Materie, Integer> materiiDao = null;
+    private Dao<Purtare, Integer> purtareDao = null;
     private Dao<Nota, Integer> noteDao = null;
     public OrmliteSqlHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,6 +35,7 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Absenta.class);
             TableUtils.createTable(connectionSource, Materie.class);
             TableUtils.createTable(connectionSource, Nota.class);
+            TableUtils.createTable(connectionSource, Purtare.class);
         } catch (SQLException e) {
             Log.e(OrmliteSqlHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -40,16 +43,25 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
     }    @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource,
                           int oldVersion, int newVersion) {
-        try {
-            Log.i(OrmliteSqlHelper.class.getName(), "onUpgrade");
-            TableUtils.dropTable(connectionSource, Absenta.class, true);
-            TableUtils.dropTable(connectionSource, Materie.class, true);
-            TableUtils.dropTable(connectionSource, Nota.class, true);
-            onCreate(db, connectionSource);
-        } catch (SQLException e) {
-            Log.e(OrmliteSqlHelper.class.getName(), "Can't drop databases", e);
-            throw new RuntimeException(e);
+        if(oldVersion == 1){
+            try{
+                TableUtils.createTable(connectionSource, Purtare.class);
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
         }
+//        try {
+//            Log.i(OrmliteSqlHelper.class.getName(), "onUpgrade");
+//            TableUtils.dropTable(connectionSource, Absenta.class, true);
+//            TableUtils.dropTable(connectionSource, Materie.class, true);
+//            TableUtils.dropTable(connectionSource, Nota.class, true);
+//            TableUtils.dropTable(connectionSource, Purtare.class, true);
+//            onCreate(db, connectionSource);
+//        } catch (SQLException e) {
+//            Log.e(OrmliteSqlHelper.class.getName(), "Can't drop databases", e);
+//            throw new RuntimeException(e);
+//        }
+
     }
     public Dao<Absenta, Integer> getAbsenteDao() throws SQLException {
         if (absenteDao == null) {
@@ -71,4 +83,11 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
         }
         return noteDao;
     }
+    public Dao<Purtare, Integer> getPurtareDao() throws SQLException{
+        if(purtareDao == null ){
+            purtareDao = getDao(Purtare.class);
+        }
+        return purtareDao;
+    }
+
 }

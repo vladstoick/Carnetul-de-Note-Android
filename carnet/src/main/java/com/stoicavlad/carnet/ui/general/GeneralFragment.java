@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
-
+import com.stoicavlad.carnet.data.otto.BusProvider;
+import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import java.text.DecimalFormat;
 
 import javax.inject.Inject;
@@ -42,6 +44,7 @@ public class GeneralFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CarnetApp.get(getActivity()).inject(this);
+        BusProvider.getInstance().register(this);
     }
 
     @Override
@@ -51,9 +54,9 @@ public class GeneralFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_general, container, false);
         ButterKnife.inject(this, rootView);
         mMedieGenerala.setText(materiiDatabase.getMedieGenerala() + " ");
-        SharedPreferences sp = getActivity()
-                .getSharedPreferences("your_prefs", Activity.MODE_PRIVATE);
-        int purtare = sp.getInt("PURTARE", 10);
+        materiiDatabase.setPurtare(7);
+        int purtare = materiiDatabase.getPurtare();
+
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
         double medie = materiiDatabase.getMedieGenerala();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -66,7 +69,7 @@ public class GeneralFragment extends Fragment {
         }
         int absente = absenteDatabase.getAbsente().length;
         mAbsente.setText(absente + "");
-        if(medie>10){
+        if(absente>10){
             mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         } else {
             mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
@@ -74,5 +77,17 @@ public class GeneralFragment extends Fragment {
         return rootView;
     }
 
+    @Subscribe
+    public void onDataSetChanged(DataSetChangedEvent event) {
+        if (event.tag.equals(DataSetChangedEvent.TAG_ABSENTA)) {
+            int absente = absenteDatabase.getAbsente().length;
+            mAbsente.setText(absente + "");
+            if(absente>10){
+                mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            } else {
+                mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+            }
+        }
+    }
 
 }
