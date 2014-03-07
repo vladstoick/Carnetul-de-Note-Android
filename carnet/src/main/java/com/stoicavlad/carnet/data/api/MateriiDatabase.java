@@ -206,4 +206,17 @@ public class MateriiDatabase {
         }
     }
 
+    public boolean deleteAllMaterii() {
+        try{
+            Materie[] materii = getMaterii();
+            for(Materie materie:materii){
+                ormliteSqlHelper.getMateriiDao().delete(materie);
+            }
+            if (application != null) application.updateWidget();
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
