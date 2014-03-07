@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_action_new"
         android:title="@string/add_nota"
         android:showAsAction="withText|ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/setari"
+        />
 </menu>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
@@ -24,6 +25,8 @@ public class SetupActivity extends FragmentActivity implements SetupFragment.OnF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
+
         CarnetApp.get(getApplicationContext()).inject(this);
         SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
         if(settings.contains("SETUP_DONE")){

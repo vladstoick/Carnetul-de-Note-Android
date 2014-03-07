@@ -1,0 +1,20 @@
+<resources>
+    <string name="title_activity_settings">Setări</string>
+    <string name="setari">Setări</string>
+    <!--ABSENTE-->
+    <string name="pref_header_absente">Absențe</string>
+    <string name="pref_numar_maxim_absente">Numărul maxim absențe</string>
+    <string-array name="pref_absente_count">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+    <!--RESETEAZA-->
+    <string name="pref_confirm">Ești sigur?</string>
+    <string name="pref_header_reseteaza">Resetează</string>
+    <string name="pref_reseteaza_full">Resetează aplicația</string>
+    <string name="pref_reseteaza_note">Șterge notele curente</string>
+    <string name="pref_reseteaza_absente">Șterge absențele curente</string>
+</resources>

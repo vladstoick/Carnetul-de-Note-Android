@@ -186,7 +186,24 @@ public class MateriiDatabase {
             e.printStackTrace();
             return false;
         }
+    }
 
+    //RESET NOTE
+
+    public boolean deleteAllNote(){
+        try{
+            Materie[] materii = getMaterii();
+            for(Materie materie:materii){
+                for(Nota nota:materie.getNote()){
+                    ormliteSqlHelper.getNoteDao().delete(nota);
+                }
+            }
+            if (application != null) application.updateWidget();
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

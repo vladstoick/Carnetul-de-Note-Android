@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet.ui.main;
 
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
@@ -26,9 +28,10 @@ import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
+import com.stoicavlad.carnet.ui.settings.SettingsActivity;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
-
 import java.util.Calendar;
+
 
 import javax.inject.Inject;
 
@@ -47,6 +50,7 @@ public class MainActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EasyTracker.getInstance(this).activityStart(this);
         BusProvider.getInstance().register(this);
         setContentView(R.layout.activity_main);
         CarnetApp.get(getApplicationContext()).inject(this);
@@ -55,6 +59,12 @@ public class MainActivity extends FragmentActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
     }
 
     @Override
@@ -99,8 +109,11 @@ public class MainActivity extends FragmentActivity
                 break;
             case android.R.id.home: {
                 popFragment();
-                return true;
-
+                break;
+            }
+            case R.id.action_settings:{
+                Intent intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
             }
         }
         return super.onOptionsItemSelected(item);

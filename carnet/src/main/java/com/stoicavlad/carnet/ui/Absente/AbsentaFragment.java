@@ -18,6 +18,8 @@ import com.stoicavlad.carnet.data.model.Absenta;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -59,8 +61,9 @@ public class AbsentaFragment extends Fragment implements Button.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        //calculeaza optim;
-
+        Calendar[] dates = absenteDatabase.calculeazaScutiriOptim();
+        AbsenteDialogFragment dialogFragment = new AbsenteDialogFragment(dates);
+        dialogFragment.show(getActivity().getFragmentManager() , " " );
     }
 
     @Subscribe

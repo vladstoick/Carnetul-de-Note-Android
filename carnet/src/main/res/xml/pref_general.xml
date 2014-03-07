@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/pref_header_absente">
+        <ListPreference
+            android:key="pref_maxim_absente"
+            android:title="@string/pref_numar_maxim_absente"
+            android:entries="@array/pref_absente_count"
+            android:entryValues="@array/pref_absente_count"
+            android:defaultValue="10"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_header_reseteaza">
+        <com.stoicavlad.carnet.ui.settings.ConfirmPreference
+            android:title="@string/pref_reseteaza_note"
+            android:key="pref_reseteaza_note"/>
+        <com.stoicavlad.carnet.ui.settings.ConfirmPreference
+            android:title="@string/pref_reseteaza_absente"
+            android:key="pref_reseteaza_absente"/>
+        <com.stoicavlad.carnet.ui.settings.ConfirmPreference
+            android:title="@string/pref_reseteaza_full"
+            android:key="pref_reseteaza_full"/>
+    </PreferenceCategory>
+</PreferenceScreen>

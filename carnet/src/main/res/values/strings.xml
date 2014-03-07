@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!--SETUP-->
     <string name="setup_title">Setări inițiale</string>
     <string name="action_next">Înainte</string>
@@ -59,6 +58,7 @@
     <string name="add_materie">Adaugă o materie</string>
     <string name="add_materie_edit_text_hint">Numele materiei</string>
     <!-- ABSENTE -->
+    <string name="scutiri_necesare">Scutiri necesare</string>
     <string name="calculeaza_absente">Ce scutiri trebuie sa aduci</string>
     <!-- EDIT -->
     <string name="rename">Redenumește</string>

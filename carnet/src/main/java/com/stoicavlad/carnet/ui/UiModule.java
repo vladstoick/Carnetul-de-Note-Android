@@ -9,6 +9,7 @@ import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailMedieFragment;
+import com.stoicavlad.carnet.ui.settings.SettingsActivity;
 import com.stoicavlad.carnet.ui.setup.SetupActivity;
 import com.stoicavlad.carnet.ui.widget.GeneralWidget;
 
@@ -21,6 +22,7 @@ import dagger.Module;
         injects = {
                 MainActivity.class,
                 SetupActivity.class,
+                SettingsActivity.class,
                 //General
                 GeneralFragment.class,
                 //NOTE

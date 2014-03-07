@@ -1,15 +1,16 @@
 package com.stoicavlad.carnet.ui.general;
 
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.doomonafireball.betterpickers.numberpicker.NumberPickerBuilder;
+import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment;
 import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
@@ -17,6 +18,7 @@ import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+
 import java.text.DecimalFormat;
 
 import javax.inject.Inject;
@@ -25,7 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class GeneralFragment extends Fragment {
+public class GeneralFragment extends Fragment
+        implements NumberPickerDialogFragment.NumberPickerDialogHandler {
     @Inject
     MateriiDatabase materiiDatabase;
     @Inject
@@ -36,6 +39,9 @@ public class GeneralFragment extends Fragment {
     TextView mPurtare;
     @InjectView(R.id.absente)
     TextView mAbsente;
+    @InjectView(R.id.editButton)
+    ImageButton mEditButton;
+
     public GeneralFragment() {
         // Required empty public constructor
     }
@@ -53,40 +59,63 @@ public class GeneralFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_general, container, false);
         ButterKnife.inject(this, rootView);
-        mMedieGenerala.setText(materiiDatabase.getMedieGenerala() + " ");
-        materiiDatabase.setPurtare(7);
-        int purtare = materiiDatabase.getPurtare();
+        setMedieUI();
+        setAbsenteUI();
+        mEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NumberPickerBuilder npb = new NumberPickerBuilder()
+                        .setFragmentManager(getChildFragmentManager())
+                        .setStyleResId(R.style.BetterPickersDialogFragment)
+                        .setMinNumber(1)
+                        .setMaxNumber(10)
+                        .setDecimalVisibility(View.INVISIBLE)
+                        .setPlusMinusVisibility(View.INVISIBLE)
+                        .setTargetFragment(GeneralFragment.this);
+                npb.show();
+            }
+        });
+        return rootView;
+    }
 
+    public void setMedieUI() {
+        mMedieGenerala.setText(materiiDatabase.getMedieGenerala() + " ");
+        int purtare = materiiDatabase.getPurtare();
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
         double medie = materiiDatabase.getMedieGenerala();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         String medieString = decimalFormat.format(medie);
-        mMedieGenerala.setText( medieString );
-        if(medie<4.5){
+        mMedieGenerala.setText(medieString);
+        if (medie < 4.5) {
             mMedieGenerala.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         } else {
             mMedieGenerala.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
         }
-        int absente = absenteDatabase.getAbsente().length;
-        mAbsente.setText(absente + "");
-        if(absente>10){
-            mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-        } else {
-            mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+    }
+
+    private void setAbsenteUI() {
+        if (this.isAdded() == true) {
+            int absente = absenteDatabase.getAbsente().length;
+            mAbsente.setText(absente + "");
+            if (absente > 10) {
+                mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            } else {
+                mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+
+            }
         }
-        return rootView;
+    }
+
+    @Override
+    public void onDialogNumberSet(int i, int i2, double v, boolean b, double v2) {
+        materiiDatabase.setPurtare(i2);
+        setMedieUI();
     }
 
     @Subscribe
     public void onDataSetChanged(DataSetChangedEvent event) {
         if (event.tag.equals(DataSetChangedEvent.TAG_ABSENTA)) {
-            int absente = absenteDatabase.getAbsente().length;
-            mAbsente.setText(absente + "");
-            if(absente>10){
-                mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-            } else {
-                mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-            }
+            setAbsenteUI();
         }
     }
 

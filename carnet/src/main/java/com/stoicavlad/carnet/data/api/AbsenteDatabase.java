@@ -106,10 +106,10 @@ public class AbsenteDatabase {
                 }
             }
         }
-        int absenteNemotivate = absenteCount.size(), i = 0;
+        int absenteNemotivate = absente.length, i = 0;
         ArrayList<Calendar> zileNecesare = new ArrayList<Calendar>();
         //GREEDY TIME
-        while (absenteNemotivate >= 10) {
+        while (absenteNemotivate >= 0 && i<absenteCauate.size()) {
             zileNecesare.add(absenteCauate.get(i));
             absenteNemotivate -= absenteCount.get(i);
             i++;
@@ -124,6 +124,16 @@ public class AbsenteDatabase {
                 && a.get(Calendar.DAY_OF_MONTH) == b.get(Calendar.DAY_OF_MONTH);
     }
 
-
+    public boolean resetAbsente(){
+        Absenta[] absente = getAbsente();
+        for(Absenta absenta:absente){
+            try{
+                ormliteSqlHelper.getAbsenteDao().delete(absenta);
+            } catch (SQLException e){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }
