@@ -69,11 +69,8 @@ public class SetupFragment extends Fragment{
             case R.id.action_next:{
                 SparseBooleanArray positions = mListView.getCheckedItemPositions();
                 ArrayList<String> rezultat = new ArrayList<String>();
-                for(int position = 0 ; position < (positions != null ? positions.size() : 0); position++){
-                    if(positions.get(position)){
-                        rezultat.add(materii[position]);
-
-                    }
+                for(int i = 0 ; i < (positions != null ? positions.size() : 0); i++){
+                    rezultat.add(materii[positions.keyAt(i)]);
                 }
                 mListener.onNextSelected(rezultat);
                 break;
