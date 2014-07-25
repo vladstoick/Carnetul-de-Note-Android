@@ -39,7 +39,8 @@ public class SetupActivity extends FragmentActivity implements SetupFragment.OnF
                     .add(R.id.container, setupFragment)
                     .commit();
         }
-        SimpleDialogFragment simpleDialogFragment = new SimpleDialogFragment(getString(R.string.materii_setup));
+        SimpleDialogFragment simpleDialogFragment = SimpleDialogFragment
+                .newInstance(getString(R.string.materii_setup));
         simpleDialogFragment.show(getSupportFragmentManager(),"TAG");
     }
 

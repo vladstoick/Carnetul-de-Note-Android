@@ -11,13 +11,20 @@ import android.support.v4.app.DialogFragment;
  */
 public class SimpleDialogFragment extends DialogFragment {
     public String message;
+    public SimpleDialogFragment(){}
 
-    public SimpleDialogFragment(String message) {
-        this.message = message;
+    public static SimpleDialogFragment newInstance(String message){
+        SimpleDialogFragment simpleDialogFragment = new SimpleDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("MESSAGE",message);
+        simpleDialogFragment.setArguments(bundle);
+        return simpleDialogFragment;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.message = getArguments().getString("MESSAGE");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(message);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

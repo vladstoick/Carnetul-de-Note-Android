@@ -38,7 +38,6 @@ public class NoteDetailFragment extends Fragment
     public static NoteDetailFragment newInstance(int materieId) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
-
         args.putInt(ARG_MATERIE, materieId);
         fragment.setArguments(args);
         return fragment;

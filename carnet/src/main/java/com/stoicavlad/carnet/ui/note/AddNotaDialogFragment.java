@@ -39,12 +39,20 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
     private int lastClicked = -1;
     private View mRootView;
 
-    public AddNotaDialogFragment(int type) {
-        this.type = type;
+    public AddNotaDialogFragment(){}
+
+    public static AddNotaDialogFragment newInstance(int type){
+        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment();
+        Bundle arguments = new Bundle();
+        arguments.putInt("TYPE",type);
+        dialogFragment.setArguments(arguments);
+        return dialogFragment;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        this.type = getArguments().getInt("TYPE");
+
         //Register for Dagger and Otto
         BusProvider.getInstance().register(this);
         CarnetApp.get(getActivity()).inject(this);

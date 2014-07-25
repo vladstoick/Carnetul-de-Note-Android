@@ -18,11 +18,14 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
+import icepick.Icepick;
+import icepick.Icicle;
+
 public class NoteDetailActivity extends FragmentActivity implements ActionBar.TabListener {
 
     public static final String TAG_MATERIE = "MATERIE";
-    @Inject
-    MateriiDatabase materiiDatabase;
+    @Icicle int materie_id;
+    @Inject MateriiDatabase materiiDatabase;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     private Materie materie;
@@ -33,11 +36,14 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
         CarnetApp.get(getApplicationContext()).inject(this);
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE)) {
-                int materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);
-                materie = materiiDatabase.getMaterie(materie_id);
-                setTitle(materie.name);
+                materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);
+
             }
+        } else {
+            Icepick.restoreInstanceState(this,savedInstanceState);
         }
+        materie = materiiDatabase.getMaterie(materie_id);
+        setTitle(materie.name);
         setContentView(R.layout.activity_note_detail);
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -58,6 +64,10 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
         }
     }
 
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {

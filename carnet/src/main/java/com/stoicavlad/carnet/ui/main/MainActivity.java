@@ -13,7 +13,6 @@ import android.view.MenuItem;
 
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
-import com.google.analytics.tracking.android.EasyTracker;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
@@ -44,13 +43,14 @@ public class MainActivity extends FragmentActivity
     MateriiDatabase materiiDatabase;
     @Inject
     AbsenteDatabase absenteDatabase;
-    private int mStackLevel = 0;
+    private int mPosition = 0;
+    private static String POSITION_NAVIGATION = "POSITION";
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EasyTracker.getInstance(this).activityStart(this);
+
         BusProvider.getInstance().register(this);
         setContentView(R.layout.activity_main);
         CarnetApp.get(getApplicationContext()).inject(this);
@@ -59,12 +59,16 @@ public class MainActivity extends FragmentActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        if(savedInstanceState != null){
+            mPosition = savedInstanceState.getInt(POSITION_NAVIGATION);
+        }
+        onNavigationDrawerItemSelected(mPosition);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(POSITION_NAVIGATION,mPosition);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -86,7 +90,6 @@ public class MainActivity extends FragmentActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
-        mStackLevel = 0;
     }
 
     @Override
@@ -107,10 +110,6 @@ public class MainActivity extends FragmentActivity
             case R.id.add:
                 showAddDialogFragment();
                 break;
-            case android.R.id.home: {
-                popFragment();
-                break;
-            }
             case R.id.action_settings:{
                 Intent intent = new Intent(this,SettingsActivity.class);
                 startActivity(intent);
@@ -119,35 +118,7 @@ public class MainActivity extends FragmentActivity
         return super.onOptionsItemSelected(item);
     }
 
-    //FRAGMENT MANAGMENT
-
-    public void addFragment(Fragment fragment, boolean addToBack) {
-        if (addToBack) {
-            modifyStackLevelBy(1);
-        }
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container, fragment);
-        fragmentTransaction.commit();
-    }
-
-    public void popFragment() {
-        modifyStackLevelBy(-1);
-        getSupportFragmentManager().popBackStack();
-    }
-
-    public void modifyStackLevelBy(int x) {
-        mStackLevel = mStackLevel + x >= 0 ? mStackLevel - x : 0;
-        mNavigationDrawerFragment.mDrawerToggle.setDrawerIndicatorEnabled(mStackLevel == 0);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        modifyStackLevelBy(-1);
-    }
-
-//DIALOG FRAGMENTS
+    //DIALOG FRAGMENTS
 
     private void showAddDialogFragment() {
         AddDialogFragment dialogFragment = new AddDialogFragment();
@@ -178,17 +149,19 @@ public class MainActivity extends FragmentActivity
     }
 
     private void showAddNotaDialogFragment() {
-        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_SIMPLA);
+        AddNotaDialogFragment dialogFragment = AddNotaDialogFragment
+                .newInstance(Nota.TIP_NOTA_SIMPLA);
         dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
     }
 
     private void showAddTezaDialogFragment() {
         if (materiiDatabase.getMateriiFaraTeza().length > 0) {
-            AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment(Nota.TIP_NOTA_TEZA);
+            AddNotaDialogFragment dialogFragment = AddNotaDialogFragment
+                    .newInstance(Nota.TIP_NOTA_TEZA);
             dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
         } else {
             SimpleDialogFragment dialogFragment =
-                    new SimpleDialogFragment(getString(R.string.add_teza_full));
+                    SimpleDialogFragment.newInstance(getString(R.string.add_teza_full));
             dialogFragment.show(getSupportFragmentManager(), "WARNING");
         }
 

@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:attr/listSeparatorTextViewStyle"
-        android:text="@string/medie_generala"
-        android:id="@+id/title" />
+        android:text="@string/medie_generala"/>
 
     <TextView
         android:id="@+id/medieGenerala"
@@ -55,8 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:attr/listSeparatorTextViewStyle"
-        android:text="@string/absente_section"
-        android:id="@+id/title" />
+        android:text="@string/absente_section"/>
     <TextView
         android:id="@+id/absente"
         android:padding="@dimen/activity_horizontal_margin"

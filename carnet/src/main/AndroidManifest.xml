@@ -12,13 +12,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:launchMode="singleTop"
             android:name="com.stoicavlad.carnet.ui.main.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity"
-            android:parentActivityName="com.stoicavlad.carnet.ui.main.MainActivity" />
 
+            android:parentActivityName="com.stoicavlad.carnet.ui.main.MainActivity" />
+             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.stoicavlad.carnet.ui.main.MainActivity" />
         <receiver android:name="com.stoicavlad.carnet.ui.widget.GeneralWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -31,10 +33,9 @@
 
         <activity
             android:name="com.stoicavlad.carnet.ui.setup.SetupActivity"
-            android:label="@string/setup_title" >
+            android:label="@string/app_name" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
