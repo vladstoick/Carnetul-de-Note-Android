@@ -10,33 +10,26 @@ import java.util.Calendar;
 /**
  * Created by Vlad on 1/27/14.
  */
-@DatabaseTable(tableName = "absente")
-public class Absenta {
-    @DatabaseField(canBeNull = false)
-    private long date;
-    @DatabaseField(generatedId = true)
-    private int id;
 
-    public Absenta(){}
+public class AbsentaUtility {
 
-    public Absenta(long date) {
-        this.date = date;
-    }
-
-    public Absenta(Cursor cursor) {
-        this.date = cursor.getLong(0);
-    }
-
-    public String getDate() {
+    public static String getDateFromLong(long date){
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(date);
         return c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "."
                 + c.get(Calendar.YEAR);
     }
 
+    public String getDate() {
+        Calendar c = Calendar.getInstance();
+
+        return c.get(Calendar.DAY_OF_MONTH) + "." + (c.get(Calendar.MONTH) + 1) + "."
+                + c.get(Calendar.YEAR);
+    }
+
     public Calendar getCalendar() {
         Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(date);
+
         return c;
     }
 }

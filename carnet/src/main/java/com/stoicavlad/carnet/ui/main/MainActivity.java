@@ -2,7 +2,9 @@ package com.stoicavlad.carnet.ui.main;
 
 import android.app.ActionBar;
 import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
@@ -18,6 +21,7 @@ import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
@@ -45,6 +49,7 @@ public class MainActivity extends GeneralTabActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
+        CarnetApp.get(getApplicationContext()).inject(this);
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -168,10 +173,11 @@ public class MainActivity extends GeneralTabActivity
         Calendar c = Calendar.getInstance();
         c.set(i2, i3, i4);
         if (adaugaAbsenta) {
-            if (absenteDatabase.addAbsenta(c)) {
-                BusProvider.getInstance()
-                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
-            }
+            ContentValues locationValues = new ContentValues();
+            locationValues.put(CarnetContract.AbsentaEntry.COLUMN_DATE, c.getTimeInMillis());
+            getApplicationContext().getContentResolver()
+                    .insert(CarnetContract.AbsentaEntry.CONTENT_URI, locationValues);
+
         } else {
             if(absenteDatabase.addScutire(c)){
                 BusProvider.getInstance()

@@ -57,6 +57,12 @@
                 android:value="MainActivity" />
         </activity>
 
+        <provider
+            android:name=".data.provider.CarnetDeNoteProvider"
+            android:authorities="com.stoicavlad.carnet.data.contentprovider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>

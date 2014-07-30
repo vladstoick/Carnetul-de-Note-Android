@@ -8,7 +8,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.stoicavlad.carnet.data.model.Absenta;
+import com.stoicavlad.carnet.data.model.AbsentaUtility;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.model.Purtare;
@@ -21,7 +21,7 @@ import java.sql.SQLException;
 public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "database.db";
     private static final int DATABASE_VERSION = 2;
-    private Dao<Absenta, Integer> absenteDao = null;
+    private Dao<AbsentaUtility, Integer> absenteDao = null;
     private Dao<Materie, Integer> materiiDao = null;
     private Dao<Purtare, Integer> purtareDao = null;
     private Dao<Nota, Integer> noteDao = null;
@@ -32,7 +32,6 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             Log.i(OrmliteSqlHelper.class.getName(), "onCreate");
-            TableUtils.createTable(connectionSource, Absenta.class);
             TableUtils.createTable(connectionSource, Materie.class);
             TableUtils.createTable(connectionSource, Nota.class);
             TableUtils.createTable(connectionSource, Purtare.class);
@@ -63,10 +62,8 @@ public class OrmliteSqlHelper extends OrmLiteSqliteOpenHelper {
 //        }
 
     }
-    public Dao<Absenta, Integer> getAbsenteDao() throws SQLException {
-        if (absenteDao == null) {
-            absenteDao = getDao(Absenta.class);
-        }
+    public Dao<AbsentaUtility, Integer> getAbsenteDao() throws SQLException {
+
         return absenteDao;
     }
 
