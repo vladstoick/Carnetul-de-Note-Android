@@ -10,8 +10,8 @@ import android.support.v4.app.DialogFragment;
  * Created by Vlad on 1/27/14.
  */
 public class SimpleDialogFragment extends DialogFragment {
-    public String message;
-    public SimpleDialogFragment(){}
+    private String message;
+    private SimpleDialogFragment(){}
 
     public static SimpleDialogFragment newInstance(String message){
         SimpleDialogFragment simpleDialogFragment = new SimpleDialogFragment();

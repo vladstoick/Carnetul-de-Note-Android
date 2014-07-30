@@ -17,9 +17,9 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 /**
  * Created by Vlad on 2/2/14.
  */
-public class NoteDetailMedieAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+class NoteDetailMedieAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-    Context context;
+    private Context context;
     private VariantaMedie[] variante;
     private LayoutInflater inflater;
 

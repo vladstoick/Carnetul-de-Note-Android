@@ -17,8 +17,9 @@ import java.util.Date;
 /**
  * Created by Vlad on 3/5/14.
  */
-public class AbsenteDialogFragment extends DialogFragment {
-    public Calendar[] dates;
+class AbsenteDialogFragment extends DialogFragment {
+    private Calendar[] dates;
+
 
     public AbsenteDialogFragment(Calendar[] dates) {
         this.dates = dates;

@@ -29,7 +29,7 @@ public class CarnetApp extends Application {
      * A list of modules to use for the application graph. Subclasses can override this method to
      * provide additional modules provided they call {@code super.getModules()}.
      */
-    protected List<Object> getModules() {
+    List<Object> getModules() {
         return Arrays.<Object>asList(new AndroidModule(this));
     }
 

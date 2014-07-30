@@ -24,10 +24,12 @@ import icepick.Icicle;
 public class NoteDetailActivity extends FragmentActivity implements ActionBar.TabListener {
 
     public static final String TAG_MATERIE = "MATERIE";
-    @Icicle int materie_id;
-    @Inject MateriiDatabase materiiDatabase;
-    SectionsPagerAdapter mSectionsPagerAdapter;
-    ViewPager mViewPager;
+    @Icicle
+    public int materie_id;
+    @Inject
+    public MateriiDatabase materiiDatabase;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
     private Materie materie;
 
     @Override

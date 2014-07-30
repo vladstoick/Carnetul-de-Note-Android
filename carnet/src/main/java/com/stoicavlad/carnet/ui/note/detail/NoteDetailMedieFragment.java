@@ -33,16 +33,18 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 
     private static final String ARG_MATERIE = "materie";
     @Inject
+    public
     MateriiDatabase materiiDatabase;
-    Materie materie;
-    int materieId;
+    private Materie materie;
+    private int materieId;
 
     @InjectView(R.id.list)
+    public
     StickyListHeadersListView mListView;
-    CheckBox mCheckbox;
-    EditText mEditText;
-    TextView mMediaCurenta;
-    NoteDetailMedieAdapter mAdapter;
+    private CheckBox mCheckbox;
+    private EditText mEditText;
+    private TextView mMediaCurenta;
+    private NoteDetailMedieAdapter mAdapter;
 
 
     public NoteDetailMedieFragment() {
@@ -121,7 +123,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         }
     }
 
-    public VariantaMedie[] getVariantaMedie(int medie, int nrNote) {
+    VariantaMedie[] getVariantaMedie(int medie, int nrNote) {
         if (materie.getTeza() != null) {
             VariantaMedie rez = new VariantaMedie(medie, materie, nrNote, materie.getTeza().nota);
             return new VariantaMedie[]{rez};
@@ -133,7 +135,7 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         }
     }
 
-    public void setAdapter(int nrNote) {
+    void setAdapter(int nrNote) {
         ArrayList<VariantaMedie> varianteMedie = new ArrayList<VariantaMedie>();
         int medie = (int) Math.ceil(materie.getMedie());
         if (medie < 5) {

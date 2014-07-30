@@ -30,16 +30,22 @@ import butterknife.InjectView;
 public class GeneralFragment extends Fragment
         implements NumberPickerDialogFragment.NumberPickerDialogHandler {
     @Inject
+    public
     MateriiDatabase materiiDatabase;
     @Inject
+    public
     AbsenteDatabase absenteDatabase;
     @InjectView(R.id.medieGenerala)
+    public
     TextView mMedieGenerala;
     @InjectView(R.id.purtare)
+    public
     TextView mPurtare;
     @InjectView(R.id.absente)
+    public
     TextView mAbsente;
     @InjectView(R.id.editButton)
+    public
     ImageButton mEditButton;
 
     public GeneralFragment() {
@@ -78,7 +84,7 @@ public class GeneralFragment extends Fragment
         return rootView;
     }
 
-    public void setMedieUI() {
+    void setMedieUI() {
         mMedieGenerala.setText(materiiDatabase.getMedieGenerala() + " ");
         int purtare = materiiDatabase.getPurtare();
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
@@ -94,7 +100,7 @@ public class GeneralFragment extends Fragment
     }
 
     private void setAbsenteUI() {
-        if (this.isAdded() == true) {
+        if (this.isAdded()) {
             int absente = absenteDatabase.getAbsente().length;
             mAbsente.setText(absente + "");
             if (absente > 10) {

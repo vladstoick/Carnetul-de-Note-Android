@@ -11,17 +11,17 @@ import java.util.Map;
  * <p/>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+class DummyContent {
 
     /**
      * An array of sample (dummy) items.
      */
-    public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+    private static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
+    private static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
 
     static {
         // Add 3 sample items.

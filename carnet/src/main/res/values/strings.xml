@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--SETUP-->
+
+    <!-- SETUP -->
     <string name="setup_title">Setări inițiale</string>
     <string name="action_next">Înainte</string>
     <string name="materii_setup">Alege materiile tale din lista următoare. Dacă materia ta nu există în listă, o vei putea adăuga mai târziu</string>
+
     <string-array name="materii_default">
         <item>Română</item>
         <item>Franceză</item>
@@ -27,7 +29,7 @@
         <item>Economie</item>
         <item>Educație Antreprenorială</item>
     </string-array>
-    <!--GENERAL FRAGMENT-->
+    <!-- GENERAL FRAGMENT -->
     <string name="medie_generala">Media generală</string>
     <string name="purtare">Purtare</string>
     <!-- NOTE FRAGMENTS -->
@@ -65,6 +67,7 @@
     <string name="delete">Șterge</string>
     <!-- ADD -->
     <string name="add_title">Ce vrei să adaugi?</string>
+
     <string-array name="add_options">
         <item>Notă</item>
         <item>Teză</item>
@@ -75,14 +78,16 @@
     <!-- LOREM -->
     <string name="lorem_short">Lorem ipsum dolor</string>
     <string name="lorem_nota">10.00</string>
-    <!-- NAVIGATION DRAWER -->
+    <!-- TAB NAMES -->
+    <string-array name="tab_names">
+        <item>General</item>
+        <item>Note</item>
+        <item>Absente</item>
+
+    </string-array>
     <string name="general_section">General</string>
     <string name="note_section">Note</string>
     <string name="absente_section">Absente</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-
     <!-- GENERAL -->
     <string name="app_name">Carnetul de note</string>
     <string name="action_settings">Settings</string>
@@ -91,5 +96,9 @@
     <string name="title_activity_setup">SetupActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>

@@ -5,13 +5,14 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 
 import com.stoicavlad.carnet.R;
 
 /**
  * Created by Vlad on 1/27/14.
  */
-public class AddDialogFragment extends DialogFragment {
+class AddDialogFragment extends DialogFragment {
     public interface AddDialogFragmentListener {
         public void onItemSelected(int position);
     }

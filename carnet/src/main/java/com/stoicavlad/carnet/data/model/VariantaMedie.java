@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class VariantaMedie {
     public int medie;
     public boolean posibil = true;
-    public Nota[] note;
+    private Nota[] note;
     public Nota teza;
     /**
      * Constructor for varianta medie
@@ -103,7 +103,7 @@ public class VariantaMedie {
         return stringBuilder.toString();
     }
 
-    public static int calculeazaSumaCurenta(Nota[] note){
+    private static int calculeazaSumaCurenta(Nota[] note){
         int suma = 0;
         for(Nota nota:note){
             suma += nota.nota;

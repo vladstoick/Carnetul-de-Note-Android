@@ -34,8 +34,8 @@ public class GeneralWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-            int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
         OrmliteSqlHelper ormliteSqlHelper = new OrmliteSqlHelper(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_general);
         //absente

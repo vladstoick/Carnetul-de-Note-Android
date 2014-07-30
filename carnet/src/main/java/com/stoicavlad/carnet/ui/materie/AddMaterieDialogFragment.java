@@ -21,9 +21,10 @@ import javax.inject.Inject;
  */
 public class AddMaterieDialogFragment extends DialogFragment {
     @Inject
+    public
     MateriiDatabase materiiDatabase;
 
-    EditText mEditText;
+    private EditText mEditText;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

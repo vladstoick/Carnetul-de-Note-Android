@@ -15,7 +15,7 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/29/14.
  */
-public class SetupAdapter extends ArrayAdapter<String> {
+class SetupAdapter extends ArrayAdapter<String> {
     private final Context context;
     private final String[] materii;
 

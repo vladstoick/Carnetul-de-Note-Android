@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Created by Vlad on 1/27/14.
  */
-public class KeyboardUtils {
+class KeyboardUtils {
     public static void showKeyboard(Context context, View view) {
         if (context != null && view != null) {
             InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);

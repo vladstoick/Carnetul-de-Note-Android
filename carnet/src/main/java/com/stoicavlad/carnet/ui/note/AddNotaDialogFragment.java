@@ -30,8 +30,10 @@ import butterknife.InjectView;
  */
 public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener {
     @Inject
+    public
     MateriiDatabase materiiDatabase;
     @InjectView(R.id.materie_spinner)
+    public
     Spinner mMaterieSpinner;
     private Materie[] materii;
     private Button mOKButton;

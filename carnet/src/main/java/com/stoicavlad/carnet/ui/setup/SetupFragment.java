@@ -24,6 +24,7 @@ import butterknife.InjectView;
 
 public class SetupFragment extends Fragment{
     @InjectView(R.id.list)
+    public
     ListView mListView;
     private ArrayAdapter<String> mAdapter;
     private String[] materii;

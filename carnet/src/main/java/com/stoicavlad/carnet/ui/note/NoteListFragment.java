@@ -24,6 +24,7 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         ComplexNoteAdapter.ComplexNoteAdapterInteractionListener {
 
     @Inject
+    public
     MateriiDatabase materiiDatabase;
 
     private OnFragmentInteractionListener mListener;

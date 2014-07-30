@@ -24,8 +24,10 @@ import javax.inject.Inject;
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     @Inject
+    public
     MateriiDatabase materiiDatabase;
     @Inject
+    public
     AbsenteDatabase absenteDatabase;
     private void bindPreferenceSummaryToValue(Preference preference) {
         preference.setOnPreferenceChangeListener(this);

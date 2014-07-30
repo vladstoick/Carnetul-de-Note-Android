@@ -1,14 +1,19 @@
 package com.stoicavlad.carnet.ui.main;
 
-import android.app.ActionBar;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
+import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
@@ -16,21 +21,23 @@ import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
+import com.stoicavlad.carnet.ui.general.GeneralFragment;
 import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.settings.SettingsActivity;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
-
 import java.util.Calendar;
+
 
 import javax.inject.Inject;
 
-public class MainActivity extends GeneralTabActivity
-        implements NoteListFragment.OnFragmentInteractionListener,
-        DatePickerDialogFragment.DatePickerDialogHandler{
-
+public class OldMainActivity extends FragmentActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        NoteListFragment.OnFragmentInteractionListener,
+        DatePickerDialogFragment.DatePickerDialogHandler {
     private boolean adaugaAbsenta = false;
     @Inject
     public
@@ -38,68 +45,82 @@ public class MainActivity extends GeneralTabActivity
     @Inject
     public
     AbsenteDatabase absenteDatabase;
+    private int mPosition = 0;
+    private static String POSITION_NAVIGATION = "POSITION";
+    private NavigationDrawerFragment mNavigationDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab);
 
-        // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        String[] tabNames = getResources().getStringArray(R.array.tab_names);
-        mSectionsPagerAdapter = new MainActivitySectionsPagerAdapter(getSupportFragmentManager(),
-                tabNames);
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        // When swiping between different sections, select the corresponding
-        // tab. We can also use ActionBar.Tab#select() to do this if we have
-        // a reference to the Tab.
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter. Also specify this Activity object, which implements
-            // the TabListener interface, as the callback (listener) for when
-            // this tab is selected.
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
+        BusProvider.getInstance().register(this);
+        setContentView(R.layout.activity_main);
+        CarnetApp.get(getApplicationContext()).inject(this);
+        mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+        if(savedInstanceState != null){
+            mPosition = savedInstanceState.getInt(POSITION_NAVIGATION);
         }
+        onNavigationDrawerItemSelected(mPosition);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(POSITION_NAVIGATION,mPosition);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment;
+        switch (position) {
+            case 0:
+                fragment = new GeneralFragment();
+                break;
+            case 1:
+                fragment = new NoteListFragment();
+
+                break;
+            default:
+                fragment = new AbsentaFragment();
+                break;
+        }
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this,SettingsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.add){
-            showAddDialogFragment();
+        if (mNavigationDrawerFragment.mDrawerToggle.isDrawerIndicatorEnabled() &&
+                mNavigationDrawerFragment.mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        switch (item.getItemId()) {
+            case R.id.add:
+                showAddDialogFragment();
+                break;
+            case R.id.action_settings:{
+                Intent intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //DIALOG FRAGMENTS
 
     private void showAddDialogFragment() {
         AddDialogFragment dialogFragment = new AddDialogFragment();
@@ -107,18 +128,27 @@ public class MainActivity extends GeneralTabActivity
             @Override
             public void onItemSelected(int position) {
                 switch (position) {
-                    case 0: showAddNotaDialogFragment(); break;
-                    case 1: showAddTezaDialogFragment(); break;
-                    case 2: showAddAbsentaDialogFragment(); break;
-                    case 3: showAddScutireDialogFragment(); break;
-                    case 4: showAddMaterieDialogFragment(); break;
+                    case 0:
+                        showAddNotaDialogFragment();
+                        break;
+                    case 1:
+                        showAddTezaDialogFragment();
+                        break;
+                    case 2:
+                        showAddAbsentaDialogFragment();
+                        break;
+                    case 3:
+                        showAddScutireDialogFragment();
+                        break;
+                    case 4:
+                        showAddMaterieDialogFragment();
+                        break;
                     default:
                 }
             }
         });
         dialogFragment.show(getSupportFragmentManager(), "ADD");
     }
-
 
     private void showAddNotaDialogFragment() {
         AddNotaDialogFragment dialogFragment = AddNotaDialogFragment

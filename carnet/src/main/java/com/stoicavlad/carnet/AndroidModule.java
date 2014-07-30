@@ -22,7 +22,7 @@ import dagger.Provides;
                 CarnetApp.class
         }
 )
-public class AndroidModule {
+class AndroidModule {
     private final CarnetApp application;
 
     public AndroidModule(CarnetApp application) {

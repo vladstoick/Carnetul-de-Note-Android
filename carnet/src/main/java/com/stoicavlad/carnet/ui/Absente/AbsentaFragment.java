@@ -27,8 +27,10 @@ import butterknife.InjectView;
 
 public class AbsentaFragment extends Fragment implements Button.OnClickListener {
     @Inject
+    public
     AbsenteDatabase absenteDatabase;
     @InjectView(R.id.list)
+    public
     ListView mListView;
     private ListAdapter mAdapter;
 

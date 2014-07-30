@@ -24,12 +24,14 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class NoteDetailFragment extends Fragment
         implements NoteDetailAdapter.NoteDetailAdapterInteractionListener {
     @Inject
+    public
     MateriiDatabase materiiDatabase;
     private static final String ARG_MATERIE = "materie";
-    int materieId;
+    private int materieId;
     @InjectView(R.id.list)
+    public
     StickyListHeadersListView mListView;
-    NoteDetailAdapter mAdapter;
+    private NoteDetailAdapter mAdapter;
 
     public NoteDetailFragment() {
         // Required empty public constructor
@@ -63,7 +65,7 @@ public class NoteDetailFragment extends Fragment
         return view;
     }
 
-    public void setAdapter(){
+    void setAdapter(){
         Materie materie = materiiDatabase.getMaterie(materieId);
         mListView.setDrawingListUnderStickyHeader(false);
         if (materie.getTeza() != null) {

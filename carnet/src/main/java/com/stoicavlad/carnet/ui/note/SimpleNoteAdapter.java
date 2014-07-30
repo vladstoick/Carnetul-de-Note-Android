@@ -16,7 +16,7 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/26/14.
  */
-public class SimpleNoteAdapter extends ArrayAdapter<Materie> {
+class SimpleNoteAdapter extends ArrayAdapter<Materie> {
     private final Context context;
     private final Materie[] materii;
 

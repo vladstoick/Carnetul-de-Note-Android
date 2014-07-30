@@ -20,6 +20,7 @@ import javax.inject.Inject;
 public class SetupActivity extends FragmentActivity implements SetupFragment.OnFragmentInteractionListener {
 
     @Inject
+    public
     MateriiDatabase materiiDatabase;
 
     @Override
@@ -56,7 +57,7 @@ public class SetupActivity extends FragmentActivity implements SetupFragment.OnF
 
     }
 
-    public void gotoMainActivity(){
+    void gotoMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

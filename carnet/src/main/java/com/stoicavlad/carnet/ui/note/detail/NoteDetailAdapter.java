@@ -21,10 +21,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 /**
  * Created by Vlad on 2/1/14.
  */
-public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-    public Nota teza;
-    Context context;
+    private Nota teza;
+    private Context context;
     private Nota[] note;
     private LayoutInflater inflater;
 
@@ -88,7 +88,7 @@ public class NoteDetailAdapter extends BaseAdapter implements StickyListHeadersA
         return convertView;
     }
 
-    public void showPopup(View v, final Nota nota) {
+    void showPopup(View v, final Nota nota) {
         PopupMenu popupMenu = new PopupMenu(context, v);
         MenuInflater inflater = popupMenu.getMenuInflater();
         inflater.inflate(R.menu.popupmenu_nota, popupMenu.getMenu());

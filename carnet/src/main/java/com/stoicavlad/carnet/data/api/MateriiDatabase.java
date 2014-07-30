@@ -19,8 +19,8 @@ import javax.inject.Singleton;
 
 @Singleton
 public class MateriiDatabase {
-    OrmliteSqlHelper ormliteSqlHelper;
-    CarnetApp application;
+    private OrmliteSqlHelper ormliteSqlHelper;
+    private CarnetApp application;
 
     @Inject
     public MateriiDatabase(OrmliteSqlHelper ormliteSqlHelper, Application application) {
