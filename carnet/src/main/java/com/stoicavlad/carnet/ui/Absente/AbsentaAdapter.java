@@ -9,7 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.AbsentaUtility;
+import com.stoicavlad.carnet.data.Utility;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
@@ -45,7 +45,7 @@ public class AbsentaAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         long date = cursor.getLong(CarnetContract.AbsentaEntry.COL_DATE);
-        String formatedDate = AbsentaUtility.getDateFromLong(date);
+        String formatedDate = Utility.getDateFromLong(date);
         viewHolder.mValue.setText(formatedDate);
     }
 }

@@ -7,9 +7,7 @@ import android.widget.RemoteViews;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
-import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.model.AbsentaUtility;
 
 /**
  * Implementation of App Widget functionality.
@@ -39,10 +37,11 @@ public class GeneralWidget extends AppWidgetProvider {
         OrmliteSqlHelper ormliteSqlHelper = new OrmliteSqlHelper(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_general);
         //absente
-        AbsenteDatabase absenteDatabase = new AbsenteDatabase(ormliteSqlHelper);
-        AbsentaUtility[] absente = absenteDatabase.getAbsente();
-        String absente_text = context.getString(R.string.absente_section) + " : " + absente.length;
-        views.setTextViewText(R.id.absente,  absente_text);
+       //TODO
+//        AbsenteDatabase absenteDatabase = new AbsenteDatabase(ormliteSqlHelper);
+//        AbsentaUtility[] absente = absenteDatabase.getAbsente();
+//        String absente_text = context.getString(R.string.absente_section) + " : " + absente.length;
+//        views.setTextViewText(R.id.absente,  absente_text);
         //medii
         MateriiDatabase materiiDatabase = new MateriiDatabase(ormliteSqlHelper);
         double medie = materiiDatabase.getMedieGenerala();

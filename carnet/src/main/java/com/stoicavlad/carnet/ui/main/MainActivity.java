@@ -15,7 +15,6 @@ import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
@@ -41,9 +40,7 @@ public class MainActivity extends GeneralTabActivity
     @Inject
     public
     MateriiDatabase materiiDatabase;
-    @Inject
-    public
-    AbsenteDatabase absenteDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,10 +176,10 @@ public class MainActivity extends GeneralTabActivity
                     .insert(CarnetContract.AbsentaEntry.CONTENT_URI, locationValues);
 
         } else {
-            if(absenteDatabase.addScutire(c)){
-                BusProvider.getInstance()
-                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
-            }
+//            if(absenteDatabase.addScutire(c)){
+//                BusProvider.getInstance()
+//                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
+//            }
         }
         adaugaAbsenta = false;
     }

@@ -1,8 +1,13 @@
 package com.stoicavlad.carnet.ui.general;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +19,10 @@ import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment
 import com.squareup.otto.Subscribe;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import java.text.DecimalFormat;
 
@@ -28,28 +33,20 @@ import butterknife.InjectView;
 
 
 public class GeneralFragment extends Fragment
-        implements NumberPickerDialogFragment.NumberPickerDialogHandler {
-    @Inject
-    public
-    MateriiDatabase materiiDatabase;
-    @Inject
-    public
-    AbsenteDatabase absenteDatabase;
-    @InjectView(R.id.medieGenerala)
-    public
-    TextView mMedieGenerala;
-    @InjectView(R.id.purtare)
-    public
-    TextView mPurtare;
-    @InjectView(R.id.absente)
-    public
-    TextView mAbsente;
-    @InjectView(R.id.editButton)
-    public
-    ImageButton mEditButton;
+        implements NumberPickerDialogFragment.NumberPickerDialogHandler,
+        LoaderManager.LoaderCallbacks<Cursor>{
+    @Inject public MateriiDatabase materiiDatabase;
+    @InjectView(R.id.medieGenerala) public TextView mMedieGenerala;
+    @InjectView(R.id.purtare) public TextView mPurtare;
+    @InjectView(R.id.absente) public TextView mAbsente;
+    @InjectView(R.id.editButton) public ImageButton mEditButton;
 
-    public GeneralFragment() {
-        // Required empty public constructor
+    private final static int ABSENTE_LOADER = 0;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(ABSENTE_LOADER, null, this);
     }
 
     @Override
@@ -66,7 +63,6 @@ public class GeneralFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_general, container, false);
         ButterKnife.inject(this, rootView);
         setMedieUI();
-        setAbsenteUI();
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,9 +95,8 @@ public class GeneralFragment extends Fragment
         }
     }
 
-    private void setAbsenteUI() {
+    private void setAbsenteUI(int absente) {
         if (this.isAdded()) {
-            int absente = absenteDatabase.getAbsente().length;
             mAbsente.setText(absente + "");
             if (absente > 10) {
                 mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
@@ -118,11 +113,33 @@ public class GeneralFragment extends Fragment
         setMedieUI();
     }
 
-    @Subscribe
-    public void onDataSetChanged(DataSetChangedEvent event) {
-        if (event.tag.equals(DataSetChangedEvent.TAG_ABSENTA)) {
-            setAbsenteUI();
+    //LOADER
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        if(i==ABSENTE_LOADER){
+            return new CursorLoader(
+                    getActivity(),
+                    CarnetContract.AbsentaEntry.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        if(cursorLoader.getId() == ABSENTE_LOADER){
+            setAbsenteUI(cursor.getCount());
         }
     }
 
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+
+    }
 }

@@ -2,7 +2,6 @@ package com.stoicavlad.carnet.data;
 
 import android.app.Application;
 
-import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 
 import javax.inject.Singleton;
@@ -30,9 +29,4 @@ public class DataModule {
         return new MateriiDatabase(sqlHelper);
     }
 
-    @Provides
-    @Singleton
-    AbsenteDatabase providedAbsenteDatabse(OrmliteSqlHelper sqlHelper, Application application) {
-        return new AbsenteDatabase(sqlHelper,application);
-    }
 }

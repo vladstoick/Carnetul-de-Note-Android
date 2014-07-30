@@ -13,7 +13,6 @@ import android.view.MenuItem;
 
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.AbsenteDatabase;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
@@ -26,9 +25,6 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Inject
     public
     MateriiDatabase materiiDatabase;
-    @Inject
-    public
-    AbsenteDatabase absenteDatabase;
     private void bindPreferenceSummaryToValue(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
         if (preference instanceof ListPreference) {
@@ -67,12 +63,14 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
                             .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
                 }
             } else if("pref_reseteaza_absente".equals(preference.getKey())){
-                if (absenteDatabase.resetAbsente()) {
-                    BusProvider.getInstance()
-                            .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
-                }
+                //TODO
+//                if (absenteDatabase.resetAbsente()) {
+//                    BusProvider.getInstance()
+//                            .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
+//                }
             } else if("pref_reseteaza_full".equals(preference.getKey())){
-                absenteDatabase.resetAbsente();
+                //TODO
+//                absenteDatabase.resetAbsente();
                 materiiDatabase.deleteAllMaterii();
                 Intent intent = new Intent(this, SetupActivity.class);
                 SharedPreferences settings =

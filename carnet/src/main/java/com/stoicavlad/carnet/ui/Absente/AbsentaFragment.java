@@ -58,10 +58,9 @@ public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCal
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         // Sort order:  Ascending, by date.
         String sortOrder = AbsentaEntry.COLUMN_DATE + " ASC";
-        Uri uri = AbsentaEntry.CONTENT_URI;
         return new CursorLoader(
                 getActivity(),
-                uri,
+                AbsentaEntry.CONTENT_URI,
                 AbsentaEntry.COLUMNS,
                 null,
                 null,

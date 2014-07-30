@@ -8,10 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
-import com.stoicavlad.carnet.CarnetApp;
-import com.stoicavlad.carnet.data.OrmliteSqlHelper;
-import com.stoicavlad.carnet.data.api.AbsenteDatabase;
-
 public class CarnetDeNoteProvider extends ContentProvider {
 
     CarnetSqlHelper mCarnetSqlHelper;
