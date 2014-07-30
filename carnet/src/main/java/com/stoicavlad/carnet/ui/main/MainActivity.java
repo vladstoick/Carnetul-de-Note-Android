@@ -1,8 +1,10 @@
 package com.stoicavlad.carnet.ui.main;
 
 import android.app.ActionBar;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -152,7 +154,6 @@ public class MainActivity extends GeneralTabActivity
     }
 
     private void showAddScutireDialogFragment(){
-        adaugaAbsenta = false;
         Calendar calendar = Calendar.getInstance();
         DatePickerBuilder dpb = new DatePickerBuilder()
                 .setFragmentManager(getSupportFragmentManager())
@@ -177,6 +178,7 @@ public class MainActivity extends GeneralTabActivity
                         .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
             }
         }
+        adaugaAbsenta = false;
     }
 
 

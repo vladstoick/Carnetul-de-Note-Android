@@ -52,10 +52,10 @@ public class AbsentaFragment extends Fragment implements Button.OnClickListener 
         BusProvider.getInstance().register(this);
         View view = inflater.inflate(R.layout.fragment_absenta, container, false);
         ButterKnife.inject(this, view);
-        Button mCalculate = new Button(getActivity());
-        mCalculate.setText(R.string.calculeaza_absente);
+        View headerView = inflater.inflate(R.layout.header_absenta_button,null);
+        Button mCalculate = (Button) headerView.findViewById(R.id.button);
         mCalculate.setOnClickListener(this);
-        mListView.addHeaderView(mCalculate);
+        mListView.addHeaderView(headerView);
         mListView.setAdapter(mAdapter);
         return view;
     }
