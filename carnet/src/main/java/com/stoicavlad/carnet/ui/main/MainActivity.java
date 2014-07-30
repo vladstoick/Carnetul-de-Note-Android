@@ -176,6 +176,7 @@ public class MainActivity extends GeneralTabActivity
                     .insert(CarnetContract.AbsentaEntry.CONTENT_URI, locationValues);
 
         } else {
+            //TODO
 //            if(absenteDatabase.addScutire(c)){
 //                BusProvider.getInstance()
 //                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));

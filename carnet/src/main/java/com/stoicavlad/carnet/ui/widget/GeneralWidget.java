@@ -3,16 +3,21 @@ package com.stoicavlad.carnet.ui.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.widget.RemoteViews;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.OrmliteSqlHelper;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class GeneralWidget extends AppWidgetProvider {
+public class GeneralWidget extends AppWidgetProvider{
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -25,6 +30,7 @@ public class GeneralWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
+
     }
 
     @Override
@@ -37,11 +43,17 @@ public class GeneralWidget extends AppWidgetProvider {
         OrmliteSqlHelper ormliteSqlHelper = new OrmliteSqlHelper(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_general);
         //absente
-       //TODO
-//        AbsenteDatabase absenteDatabase = new AbsenteDatabase(ormliteSqlHelper);
-//        AbsentaUtility[] absente = absenteDatabase.getAbsente();
-//        String absente_text = context.getString(R.string.absente_section) + " : " + absente.length;
-//        views.setTextViewText(R.id.absente,  absente_text);
+        CursorLoader absenteCursor = new CursorLoader(
+                context,
+                CarnetContract.AbsentaEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
+        Cursor cursor = absenteCursor.loadInBackground();
+        String absente_text = context.getString(R.string.absente_section) + " : " + cursor.getCount();
+        views.setTextViewText(R.id.absente,  absente_text);
         //medii
         MateriiDatabase materiiDatabase = new MateriiDatabase(ormliteSqlHelper);
         double medie = materiiDatabase.getMedieGenerala();
@@ -55,6 +67,7 @@ public class GeneralWidget extends AppWidgetProvider {
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
+
 }
 
 

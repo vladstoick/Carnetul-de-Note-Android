@@ -16,6 +16,7 @@ import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.otto.BusProvider;
 import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.setup.SetupActivity;
 
 import javax.inject.Inject;
@@ -63,14 +64,11 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
                             .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
                 }
             } else if("pref_reseteaza_absente".equals(preference.getKey())){
-                //TODO
-//                if (absenteDatabase.resetAbsente()) {
-//                    BusProvider.getInstance()
-//                            .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
-//                }
+                getApplicationContext().getContentResolver()
+                        .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
             } else if("pref_reseteaza_full".equals(preference.getKey())){
-                //TODO
-//                absenteDatabase.resetAbsente();
+                getApplicationContext().getContentResolver()
+                        .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
                 materiiDatabase.deleteAllMaterii();
                 Intent intent = new Intent(this, SetupActivity.class);
                 SharedPreferences settings =

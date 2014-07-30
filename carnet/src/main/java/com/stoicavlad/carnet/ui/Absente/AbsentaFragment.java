@@ -36,12 +36,12 @@ public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCal
         ButterKnife.inject(this, view);
         View headerView = inflater.inflate(R.layout.header_absenta_button,null);
         Button mCalculate = (Button) headerView.findViewById(R.id.button);
-//        mCalculate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //TODO
-//            }
-
+        mCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
         mAdapter = new AbsentaAdapter(getActivity(), null, 0);
         mListView.addHeaderView(headerView);
         mListView.setAdapter(mAdapter);
