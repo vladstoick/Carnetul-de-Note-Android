@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import com.stoicavlad.carnet.data.provider.CarnetContract.MaterieEntry;
+import com.stoicavlad.carnet.data.provider.CarnetContract.AbsentaEntry;
+
 public class CarnetDeNoteProvider extends ContentProvider {
 
     CarnetSqlHelper mCarnetSqlHelper;
@@ -17,12 +20,18 @@ public class CarnetDeNoteProvider extends ContentProvider {
     private static final int  ABSENTE = 100;
     private static final int ABSENTE_ID = 101;
 
+    private static final int MATERIE = 200;
+    private static final int MATERIE_ID = 201;
+
     private static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = CarnetContract.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, CarnetContract.PATH_ABSENTE, ABSENTE);
-        matcher.addURI(authority, CarnetContract.PATH_ABSENTE + "/#", ABSENTE_ID);
+        matcher.addURI(authority, CarnetContract.PATH_ABSENTE, ABSENTE); //100
+        matcher.addURI(authority, CarnetContract.PATH_ABSENTE + "/#", ABSENTE_ID); //101
+
+        matcher.addURI(authority, CarnetContract.PATH_MATEIRE, MATERIE); //200
+        matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/#" , MATERIE_ID);
 
         return matcher;
     }
@@ -39,6 +48,8 @@ public class CarnetDeNoteProvider extends ContentProvider {
         switch (match) {
             case ABSENTE: return CarnetContract.AbsentaEntry.CONTENT_TYPE;
             case ABSENTE_ID: return CarnetContract.AbsentaEntry.CONTENT_ITEM_TYPE;
+            case MATERIE: return CarnetContract.MaterieEntry.CONTENT_TYPE;
+            case MATERIE_ID: return CarnetContract.MaterieEntry.CONTENT_ITEM_TYPE;
         }
         return null;
     }
@@ -50,7 +61,7 @@ public class CarnetDeNoteProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)){
             case ABSENTE:{
                 retCursor = mCarnetSqlHelper.getReadableDatabase().query(
-                        CarnetContract.AbsentaEntry.TABLE_NAME,
+                        AbsentaEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -62,9 +73,33 @@ public class CarnetDeNoteProvider extends ContentProvider {
             }
             case ABSENTE_ID:{
                 retCursor = mCarnetSqlHelper.getReadableDatabase().query(
-                        CarnetContract.AbsentaEntry.TABLE_NAME,
+                        AbsentaEntry.TABLE_NAME,
                         projection,
-                        CarnetContract.AbsentaEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        AbsentaEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        null,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case MATERIE:{
+                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
+                        MaterieEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case MATERIE_ID:{
+                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
+                        MaterieEntry.TABLE_NAME,
+                        projection,
+                        MaterieEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
                         null,
                         null,
                         null,
@@ -89,9 +124,17 @@ public class CarnetDeNoteProvider extends ContentProvider {
 
         switch (match) {
             case ABSENTE: {
-                long _id = db.insert(CarnetContract.AbsentaEntry.TABLE_NAME, null, values);
+                long _id = db.insert(AbsentaEntry.TABLE_NAME, null, values);
                 if ( _id > 0 )
-                    returnUri = CarnetContract.AbsentaEntry.buildAbsentaUri(_id);
+                    returnUri = AbsentaEntry.buildAbsentaUri(_id);
+                else
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                break;
+            }
+            case MATERIE:{
+                long _id = db.insert(MaterieEntry.TABLE_NAME, null, values);
+                if ( _id > 0 )
+                    returnUri = MaterieEntry.buildMaterieUri(_id);
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
@@ -103,7 +146,31 @@ public class CarnetDeNoteProvider extends ContentProvider {
         return returnUri;
     }
 
-
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+        final SQLiteDatabase db = mCarnetSqlHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case MATERIE:
+                db.beginTransaction();
+                int returnCount = 0;
+                try {
+                    for (ContentValues value : values) {
+                        long _id = db.insert(MaterieEntry.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            returnCount++;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+                getContext().getContentResolver().notifyChange(uri, null);
+                return returnCount;
+            default:
+                return super.bulkInsert(uri, values);
+        }
+    }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -112,8 +179,17 @@ public class CarnetDeNoteProvider extends ContentProvider {
         int rowsDeleted;
         switch (match) {
             case ABSENTE:
-                rowsDeleted = db.delete(
-                        CarnetContract.AbsentaEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = db.delete(AbsentaEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case MATERIE:
+                rowsDeleted = db.delete(MaterieEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case MATERIE_ID:
+                long id = ContentUris.parseId(uri);
+                String newSelection = CarnetContract.MaterieEntry._ID + " = ? ";
+                String newSelectionArgs = String.valueOf(id);
+                rowsDeleted = db.delete(MaterieEntry.TABLE_NAME, newSelection
+                        , new String[]{newSelectionArgs});
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

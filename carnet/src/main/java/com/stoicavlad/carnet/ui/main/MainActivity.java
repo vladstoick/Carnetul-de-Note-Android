@@ -1,12 +1,9 @@
 package com.stoicavlad.carnet.ui.main;
 
 import android.app.ActionBar;
-import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,10 +15,8 @@ import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.model.Nota;
-import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
-import com.stoicavlad.carnet.ui.materie.AddMaterieDialogFragment;
+import com.stoicavlad.carnet.ui.note.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
@@ -165,22 +160,24 @@ public class MainActivity extends GeneralTabActivity
     }
 
     @Override
-    public void onDialogDateSet(int i, int i2, int i3, int i4) {
+    public void onDialogDateSet(int i, int year, int month, int day) {
 
         Calendar c = Calendar.getInstance();
-        c.set(i2, i3, i4);
+        c.setTimeInMillis(0);
+        c.set(year, month, day);
+        long date = c.getTimeInMillis();
         if (adaugaAbsenta) {
-            ContentValues locationValues = new ContentValues();
-            locationValues.put(CarnetContract.AbsentaEntry.COLUMN_DATE, c.getTimeInMillis());
+            ContentValues absentaValues = new ContentValues();
+            absentaValues.put(CarnetContract.AbsentaEntry.COLUMN_DATE, c.getTimeInMillis());
             getApplicationContext().getContentResolver()
-                    .insert(CarnetContract.AbsentaEntry.CONTENT_URI, locationValues);
+                    .insert(CarnetContract.AbsentaEntry.CONTENT_URI, absentaValues);
 
         } else {
-            //TODO
-//            if(absenteDatabase.addScutire(c)){
-//                BusProvider.getInstance()
-//                        .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_ABSENTA));
-//            }
+            String dateInString = date + "";
+            getApplicationContext().getContentResolver()
+                    .delete(CarnetContract.AbsentaEntry.CONTENT_URI,
+                            CarnetContract.AbsentaEntry.COLUMN_DATE + " = ?",
+                            new String[]{ dateInString } );
         }
         adaugaAbsenta = false;
     }

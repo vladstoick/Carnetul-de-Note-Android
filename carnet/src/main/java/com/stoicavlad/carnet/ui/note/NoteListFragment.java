@@ -1,66 +1,70 @@
 package com.stoicavlad.carnet.ui.note;
 
 import android.app.Activity;
-import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.CursorAdapter;
+import android.widget.ListView;
 
-import com.squareup.otto.Subscribe;
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.model.Materie;
-import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
-import javax.inject.Inject;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
-public class NoteListFragment extends Fragment implements AbsListView.OnItemClickListener,
-        ComplexNoteAdapter.ComplexNoteAdapterInteractionListener {
+public class NoteListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    @Inject
-    public
-    MateriiDatabase materiiDatabase;
-
+    public interface OnFragmentInteractionListener {
+        public void showNotaDetailFragment(Materie materie);
+    }
     private OnFragmentInteractionListener mListener;
-    private AbsListView mListView;
 
-    private Context context;
+    @InjectView(R.id.list) ListView mListView;
+    CursorAdapter mCursorAdapter;
 
-    public NoteListFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        CarnetApp.get(getActivity()).inject(this);
-        BusProvider.getInstance().register(this);
-    }
+    private static final int MATERIE_LOADER = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notefragment, container, false);
-        setHasOptionsMenu(true);
+        ButterKnife.inject(this,view);
         // Set the adapter
-        mListView = (AbsListView) (view != null ? view.findViewById(R.id.list) : null);
-        Materie[] materii = materiiDatabase.getMaterii();
-        setAdapter(materii);
+        mCursorAdapter = new ComplexNoteAdapter(getActivity(),null,0);
+        mListView.setAdapter(mCursorAdapter);
         // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(mListener != null){
+                    //TODO
+                    //mListener.showNotaDetailFragment(materiiDatabase.getMaterii()[position]);
+                }
+            }
+        });
 
         return view;
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(MATERIE_LOADER, null, this);
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.context = getActivity();
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
@@ -75,41 +79,26 @@ public class NoteListFragment extends Fragment implements AbsListView.OnItemClic
         mListener = null;
     }
 
-
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.showNotaDetailFragment(materiiDatabase.getMaterii()[position]);
-        }
-    }
-
-    @Subscribe
-    public void onDataSetChanged(DataSetChangedEvent event) {
-        if (event.tag.equals(DataSetChangedEvent.TAG_MATERIE)) {
-            Materie[] materii = materiiDatabase.getMaterii();
-            if (materii != null) {
-                setAdapter(materii);
-            }
-        }
-    }
-
-    private void setAdapter(Materie[] materii) {
-        ComplexNoteAdapter mAdapter = new ComplexNoteAdapter(context, materii);
-        mAdapter.setmListener(this);
-        mListView.setAdapter(mAdapter);
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(
+                getActivity(),
+                CarnetContract.MaterieEntry.CONTENT_URI,
+                CarnetContract.MaterieEntry.COLUMNS,
+                null,
+                null,
+                null
+        );
     }
 
     @Override
-    public void onDeleteMaterie(Materie materie) {
-        if (materiiDatabase.deleteMaterie(materie)) {
-            BusProvider.getInstance()
-                    .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
-        }
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
     }
 
-    public interface OnFragmentInteractionListener {
-        public void showNotaDetailFragment(Materie materie);
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        mCursorAdapter.swapCursor(null);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.setup;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.api.MateriiDatabase;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.main.MainActivity;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
@@ -47,12 +49,19 @@ public class SetupActivity extends FragmentActivity implements SetupFragment.OnF
 
     @Override
     public void onNextSelected(ArrayList<String> materiiDeAdaugat) {
-        for(String materie:materiiDeAdaugat){
-            materiiDatabase.addMaterie(materie);
+        ArrayList<ContentValues> materieValuesList = new ArrayList<ContentValues>();
+        for(String name:materiiDeAdaugat){
+            ContentValues materieValue = new ContentValues();
+            materieValue.put(CarnetContract.MaterieEntry.COLUMN_NAME,name);
+            materieValue.put(CarnetContract.MaterieEntry.COLUMN_TEZA,0);
+            materieValuesList.add(materieValue);
         }
+        ContentValues[] materieValuesArray = materieValuesList
+                .toArray(new ContentValues[materieValuesList.size()]);
+        getApplicationContext().getContentResolver()
+                .bulkInsert(CarnetContract.MaterieEntry.CONTENT_URI, materieValuesArray);
         SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
-        settings.edit().putString("SETUP_DONE","true").commit();
-
+        settings.edit().putString("SETUP_DONE","true").apply();
         gotoMainActivity();
 
     }
