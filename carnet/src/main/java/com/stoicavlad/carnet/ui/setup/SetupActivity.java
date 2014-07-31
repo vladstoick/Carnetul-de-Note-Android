@@ -53,7 +53,6 @@ public class SetupActivity extends FragmentActivity implements SetupFragment.OnF
         for(String name:materiiDeAdaugat){
             ContentValues materieValue = new ContentValues();
             materieValue.put(CarnetContract.MaterieEntry.COLUMN_NAME,name);
-            materieValue.put(CarnetContract.MaterieEntry.COLUMN_TEZA,0);
             materieValuesList.add(materieValue);
         }
         ContentValues[] materieValuesArray = materieValuesList

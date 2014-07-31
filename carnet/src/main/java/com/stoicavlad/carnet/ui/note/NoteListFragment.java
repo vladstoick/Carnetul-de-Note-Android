@@ -22,7 +22,8 @@ import com.stoicavlad.carnet.data.provider.CarnetContract;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class NoteListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class NoteListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+    ComplexNoteAdapter.OnOverflowButtonInterface{
 
     public interface OnFragmentInteractionListener {
         public void showNotaDetailFragment(Materie materie);
@@ -30,7 +31,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     private OnFragmentInteractionListener mListener;
 
     @InjectView(R.id.list) ListView mListView;
-    CursorAdapter mCursorAdapter;
+    ComplexNoteAdapter mCursorAdapter;
 
     private static final int MATERIE_LOADER = 0;
 
@@ -41,6 +42,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         ButterKnife.inject(this,view);
         // Set the adapter
         mCursorAdapter = new ComplexNoteAdapter(getActivity(),null,0);
+        mCursorAdapter.setListener(this);
         mListView.setAdapter(mCursorAdapter);
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,4 +103,9 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         mCursorAdapter.swapCursor(null);
     }
 
+    @Override
+    public void showAddTezaDialogFragment(int id) {
+        AddTezaDialogFragment dialogFragment = AddTezaDialogFragment.newInstance(id);
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "ADD_NOTA");
+    }
 }

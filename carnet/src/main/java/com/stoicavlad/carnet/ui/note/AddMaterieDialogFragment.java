@@ -43,7 +43,6 @@ public class AddMaterieDialogFragment extends DialogFragment {
                             String name = mEditTextEditable.toString();
                             ContentValues materieValue = new ContentValues();
                             materieValue.put(CarnetContract.MaterieEntry.COLUMN_NAME, name);
-                            materieValue.put(CarnetContract.MaterieEntry.COLUMN_TEZA, 0);
                             builder.getContext().getContentResolver()
                                     .insert(CarnetContract.MaterieEntry.CONTENT_URI,materieValue);
                         }

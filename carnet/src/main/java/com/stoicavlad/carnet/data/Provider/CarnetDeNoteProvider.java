@@ -10,6 +10,7 @@ import android.net.Uri;
 
 import com.stoicavlad.carnet.data.provider.CarnetContract.MaterieEntry;
 import com.stoicavlad.carnet.data.provider.CarnetContract.AbsentaEntry;
+import com.stoicavlad.carnet.data.provider.CarnetContract.NoteEntry;
 
 public class CarnetDeNoteProvider extends ContentProvider {
 
@@ -22,6 +23,12 @@ public class CarnetDeNoteProvider extends ContentProvider {
 
     private static final int MATERIE = 200;
     private static final int MATERIE_ID = 201;
+    private static final int MATERIE_NOTE = 202;
+
+
+    private static final int NOTE = 300;
+    private static final int NOTE_ID = 301;
+
 
     private static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -31,8 +38,11 @@ public class CarnetDeNoteProvider extends ContentProvider {
         matcher.addURI(authority, CarnetContract.PATH_ABSENTE + "/#", ABSENTE_ID); //101
 
         matcher.addURI(authority, CarnetContract.PATH_MATEIRE, MATERIE); //200
-        matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/#" , MATERIE_ID);
+        matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/#" , MATERIE_ID); //201
+        matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/note/#" , MATERIE_NOTE); //202
 
+        matcher.addURI(authority, CarnetContract.PATH_NOTE, NOTE); //300
+        matcher.addURI(authority, CarnetContract.PATH_NOTE + "/#", NOTE_ID); //301
         return matcher;
     }
 
@@ -46,10 +56,13 @@ public class CarnetDeNoteProvider extends ContentProvider {
     public String getType(Uri uri) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
-            case ABSENTE: return CarnetContract.AbsentaEntry.CONTENT_TYPE;
-            case ABSENTE_ID: return CarnetContract.AbsentaEntry.CONTENT_ITEM_TYPE;
-            case MATERIE: return CarnetContract.MaterieEntry.CONTENT_TYPE;
-            case MATERIE_ID: return CarnetContract.MaterieEntry.CONTENT_ITEM_TYPE;
+            case ABSENTE: return AbsentaEntry.CONTENT_TYPE;
+            case ABSENTE_ID: return AbsentaEntry.CONTENT_ITEM_TYPE;
+            case MATERIE: return MaterieEntry.CONTENT_TYPE;
+            case MATERIE_ID: return MaterieEntry.CONTENT_ITEM_TYPE;
+            case MATERIE_NOTE: return MaterieEntry.CONTENT_TYPE;
+            case NOTE: return NoteEntry.CONTENT_TYPE;
+            case NOTE_ID: return NoteEntry.CONTENT_ITEM_TYPE;
         }
         return null;
     }
@@ -58,7 +71,8 @@ public class CarnetDeNoteProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
             String[] selectionArgs, String sortOrder) {
         Cursor retCursor;
-        switch (sUriMatcher.match(uri)){
+        int match =sUriMatcher.match(uri);
+        switch (match){
             case ABSENTE:{
                 retCursor = mCarnetSqlHelper.getReadableDatabase().query(
                         AbsentaEntry.TABLE_NAME,
@@ -107,6 +121,43 @@ public class CarnetDeNoteProvider extends ContentProvider {
                 );
                 break;
             }
+            case MATERIE_NOTE:{
+
+                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
+                        NoteEntry.TABLE_NAME,
+                        projection,
+                        NoteEntry.COLUMN_MATERIE_ID + " = '" + ContentUris.parseId(uri) + "'",
+                        null,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case NOTE:{
+                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
+                        NoteEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case NOTE_ID:{
+                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
+                        NoteEntry.TABLE_NAME,
+                        projection,
+                        MaterieEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        null,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -138,6 +189,16 @@ public class CarnetDeNoteProvider extends ContentProvider {
                 else
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
+            }
+            case NOTE:{
+                long _id = db.insert(NoteEntry.TABLE_NAME, null, values);
+                if ( _id > 0 )
+                    returnUri = MaterieEntry.buildMaterieUri(_id);
+                else
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                getContext().getContentResolver().notifyChange(MaterieEntry.CONTENT_URI,null,false);
+                break;
+
             }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -210,9 +271,20 @@ public class CarnetDeNoteProvider extends ContentProvider {
 
         switch (match) {
             case ABSENTE:
-                rowsUpdated = db.update(CarnetContract.AbsentaEntry.TABLE_NAME, values, selection,
-                        selectionArgs);
+                rowsUpdated = db.update(AbsentaEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
+            case MATERIE:
+                rowsUpdated = db.update(MaterieEntry.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case MATERIE_ID:{
+                long id = ContentUris.parseId(uri);
+                String newSelection = CarnetContract.MaterieEntry._ID + " = ? ";
+                String newSelectionArgs = String.valueOf(id);
+                rowsUpdated = db.update(MaterieEntry.TABLE_NAME, values,
+                        newSelection, new String[]{newSelectionArgs});
+                break;
+            }
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

@@ -107,10 +107,9 @@ public class MainActivity extends GeneralTabActivity
             public void onItemSelected(int position) {
                 switch (position) {
                     case 0: showAddNotaDialogFragment(); break;
-                    case 1: showAddTezaDialogFragment(); break;
-                    case 2: showAddAbsentaDialogFragment(); break;
-                    case 3: showAddScutireDialogFragment(); break;
-                    case 4: showAddMaterieDialogFragment(); break;
+                    case 1: showAddAbsentaDialogFragment(); break;
+                    case 2: showAddScutireDialogFragment(); break;
+                    case 3: showAddMaterieDialogFragment(); break;
                     default:
                 }
             }
@@ -120,23 +119,22 @@ public class MainActivity extends GeneralTabActivity
 
 
     private void showAddNotaDialogFragment() {
-        AddNotaDialogFragment dialogFragment = AddNotaDialogFragment
-                .newInstance(Nota.TIP_NOTA_SIMPLA);
+        AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
     }
 
-    private void showAddTezaDialogFragment() {
-        if (materiiDatabase.getMateriiFaraTeza().length > 0) {
-            AddNotaDialogFragment dialogFragment = AddNotaDialogFragment
-                    .newInstance(Nota.TIP_NOTA_TEZA);
-            dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
-        } else {
-            SimpleDialogFragment dialogFragment =
-                    SimpleDialogFragment.newInstance(getString(R.string.add_teza_full));
-            dialogFragment.show(getSupportFragmentManager(), "WARNING");
-        }
-
-    }
+//    private void showAddTezaDialogFragment() {
+//
+//        if (materiiDatabase.getMateriiFaraTeza().length > 0) {
+//            AddNotaDialogFragment dialogFragment = AddNotaDialogFragment
+//                    .newInstance(Nota.TIP_NOTA_TEZA);
+//            dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
+//        } else {
+//            SimpleDialogFragment dialogFragment =
+//                    SimpleDialogFragment.newInstance(getString(R.string.add_teza_full));
+//            dialogFragment.show(getSupportFragmentManager(), "WARNING");
+//        }
+//    }
 
     private void showAddAbsentaDialogFragment() {
         adaugaAbsenta = true;

@@ -1,14 +1,15 @@
 package com.stoicavlad.carnet.ui.note;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -16,50 +17,41 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/26/14.
  */
-class SimpleNoteAdapter extends ArrayAdapter<Materie> {
-    private final Context context;
-    private final Materie[] materii;
+class SimpleNoteAdapter extends CursorAdapter {
 
-    static class RowHolder {
-        @InjectView(R.id.title)
-        TextView mTitle;
-        @InjectView(R.id.value)
-        TextView mValue;
-
-        public RowHolder(View view) {
+    static class ViewHolder {
+        @InjectView(R.id.title) TextView mTitle;
+        @InjectView(R.id.value) TextView mValue;
+        public ViewHolder(View view) {
             ButterKnife.inject(this, view);
         }
     }
 
-    public SimpleNoteAdapter(Context context, Materie[] materii) {
-        super(context, R.layout.list_row_note_list_advanced, materii);
-        this.context = context;
-        this.materii = materii;
+    SimpleNoteAdapter(Context context, Cursor c, int flags) {
+        super(context, c, flags);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RowHolder holder;
-        View rowView = convertView;
-        if (rowView == null) {
-            rowView = inflater.inflate(R.layout.list_row_simple_note, parent, false);
-            holder = new RowHolder(rowView);
-            if(rowView != null){
-                rowView.setTag(holder);
-            }
+    public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_row_note_list_simple,
+                viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        view.setTag(viewHolder);
+        return view;
+    }
+
+    @Override
+    public void bindView(View view, Context context, Cursor cursor) {
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
+        String name = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
+        viewHolder.mTitle.setText(name);
+        double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+        if(medie > 0.5 ) {
+            viewHolder.mValue.setText(String.valueOf(medie));
         } else {
-            holder = (RowHolder) rowView.getTag();
+            viewHolder.mValue.setText("-");
         }
-        ButterKnife.inject(this, rowView);
-        holder.mTitle.setText(materii[position].name);
-        holder.mValue.setText(materii[position].getMedieAsString() + "");
-        return rowView;
+
     }
 
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position, convertView, parent);
-    }
 }

@@ -3,6 +3,7 @@ package com.stoicavlad.carnet.ui.note;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,7 +15,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.Utility;
+import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
@@ -26,6 +28,17 @@ import butterknife.InjectView;
 public class ComplexNoteAdapter extends CursorAdapter {
 
     private Context mContext;
+
+    public interface OnOverflowButtonInterface{
+        public void showAddTezaDialogFragment(int id);
+    }
+
+    private OnOverflowButtonInterface mListener;
+
+    public void setListener(OnOverflowButtonInterface mListener) {
+        this.mListener = mListener;
+    }
+
     public ComplexNoteAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
         mContext = context;
@@ -67,13 +80,58 @@ public class ComplexNoteAdapter extends CursorAdapter {
                 showPopup(view, cursor);
             }
         });
+
+        //medie
+        double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+        if (medie == 0) {
+            viewHolder.mValueTextView.setText("-");
+        } else {
+            viewHolder.mValueTextView.setText(String.valueOf(medie));
+        }
+        if (medie < 4.5) {
+            viewHolder.mValueTextView
+                    .setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
+        } else {
+            viewHolder.mValueTextView
+                    .setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+        }
+
+        //teza
+        int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_TEZA);
+        if (teza == 0) {
+            viewHolder.mTezaTextView.setVisibility(View.GONE);
+        } else {
+            viewHolder.mTezaTextView.setVisibility(View.VISIBLE);
+            viewHolder.mTezaTextView.setText(context.getString(R.string.teza) + " : " + teza);
+        }
+
+        //note
+        int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
+        Uri uri = CarnetContract.MaterieEntry.buildNoteUri(id);
+        CursorLoader noteLoader = new CursorLoader(
+                context,
+                uri,
+                CarnetContract.NoteEntry.COLUMNS,
+                null,
+                null,
+                null
+        );
+        String noteString = Utility
+                .getNoteFromCursorLoader(noteLoader, context.getString(R.string.note));
+        viewHolder.mNoteTextView.setText(noteString);
     }
 
     void showPopup(View v, final Cursor cursor) {
+        int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_TEZA);
+
         PopupMenu popupMenu = new PopupMenu(mContext, v);
         MenuInflater inflater = popupMenu.getMenuInflater();
-        inflater.inflate(R.menu.popupmenu_materie, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        if(teza == 0) {
+            inflater.inflate(R.menu.popupmenu_materie, popupMenu.getMenu());
+        } else {
+            inflater.inflate(R.menu.popupmenu_materie_fara_teza, popupMenu.getMenu());
+        }
+         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
@@ -81,6 +139,10 @@ public class ComplexNoteAdapter extends CursorAdapter {
                         int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
                         Uri uri = CarnetContract.MaterieEntry.buildMaterieUri(id);
                         mContext.getContentResolver().delete(uri,null,null);
+                    }
+                    case R.id.add: {
+                        int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
+                        mListener.showAddTezaDialogFragment(id);
                     }
 //                    case R.id.rename: {
 //                        if (mListener != null) {

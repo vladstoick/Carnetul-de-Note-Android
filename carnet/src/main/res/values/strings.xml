@@ -70,7 +70,6 @@
 
     <string-array name="add_options">
         <item>Notă</item>
-        <item>Teză</item>
         <item>Absență</item>
         <item>Scutire</item>
         <item>Materie</item>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_1"
+            android:textOn="@string/one"
+            android:textOff="@string/one" />
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_2"
+            android:textOn="@string/two"
+            android:textOff="@string/two" />
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_3"
+            android:textOn="@string/three"
+            android:textOff="@string/three" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_4"
+            android:textOn="@string/four"
+            android:textOff="@string/four" />
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_5"
+            android:textOn="@string/five"
+            android:textOff="@string/five" />
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_6"
+            android:textOn="@string/six"
+            android:textOff="@string/six" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_7"
+            android:textOn="@string/seven"
+            android:textOff="@string/seven" />
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_8"
+            android:textOn="@string/eight"
+            android:textOff="@string/eight" />
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_9"
+            android:textOn="@string/nine"
+            android:textOff="@string/nine" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ToggleButton
+            style="@style/AppTheme.CircleButton"
+            android:id="@+id/button_10"
+            android:textOn="@string/ten"
+            android:textOff="@string/ten" />
+
+    </LinearLayout>
+</LinearLayout>
