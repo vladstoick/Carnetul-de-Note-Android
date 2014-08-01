@@ -4,6 +4,8 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.j256.ormlite.stmt.query.Not;
+
 /**
  * Created by Vlad on 30-Jul-14.
  */
@@ -31,17 +33,26 @@ public class CarnetContract {
         public static final String COLUMN_TEZA = "teza";
         public static final String COLUMN_MEDIE = "medie";
 
-        public static final String[] COLUMNS = {
+        public static final String[] COLUMNS_WITOUT_NOTE = {
                 TABLE_NAME + "." + _ID,
                 COLUMN_NAME,
                 COLUMN_TEZA,
                 COLUMN_MEDIE
         };
+        public static final String[] COLUMNS_WITH_NOTE = {
+                TABLE_NAME + "." + _ID,
+                COLUMN_NAME,
+                COLUMN_TEZA,
+                COLUMN_MEDIE,
+                "GROUP_CONCAT(" + NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " , \', \')"
+        };
+
 
         public static final int COL_ID = 0 ;
         public static final int COL_NAME =  1 ;
         public static final int COL_TEZA = 2;
         public static final int COL_MEDIE = 3;
+        public static final int COL_NOTE = 4;
 
         public static Uri buildMaterieUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

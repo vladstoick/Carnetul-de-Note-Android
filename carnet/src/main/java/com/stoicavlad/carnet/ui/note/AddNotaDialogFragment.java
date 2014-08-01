@@ -144,7 +144,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         return new CursorLoader(
                 getActivity(),
                 CarnetContract.MaterieEntry.CONTENT_URI,
-                CarnetContract.MaterieEntry.COLUMNS,
+                CarnetContract.MaterieEntry.COLUMNS_WITOUT_NOTE,
                 null,
                 null,
                 null

@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 import com.stoicavlad.carnet.data.provider.CarnetContract.MaterieEntry;
@@ -25,9 +26,19 @@ public class CarnetDeNoteProvider extends ContentProvider {
     private static final int MATERIE_ID = 201;
     private static final int MATERIE_NOTE = 202;
 
-
     private static final int NOTE = 300;
     private static final int NOTE_ID = 301;
+
+    private static final SQLiteQueryBuilder sMateriiWithNoteQueryBuilder;
+
+    static {
+        sMateriiWithNoteQueryBuilder = new SQLiteQueryBuilder();
+        sMateriiWithNoteQueryBuilder.setTables(
+                MaterieEntry.TABLE_NAME + " LEFT JOIN " + NoteEntry.TABLE_NAME + " ON " +
+                        NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_MATERIE_ID  + " = " +
+                        MaterieEntry.TABLE_NAME + "." + MaterieEntry._ID);
+
+     }
 
 
     private static UriMatcher buildUriMatcher(){
@@ -98,15 +109,14 @@ public class CarnetDeNoteProvider extends ContentProvider {
                 break;
             }
             case MATERIE:{
-                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
-                        MaterieEntry.TABLE_NAME,
+                retCursor = sMateriiWithNoteQueryBuilder.query(mCarnetSqlHelper.getReadableDatabase(),
                         projection,
                         selection,
                         selectionArgs,
-                        null,
+                        MaterieEntry.TABLE_NAME + "." + MaterieEntry._ID,
                         null,
                         sortOrder
-                );
+                        );
                 break;
             }
             case MATERIE_ID:{
@@ -284,7 +294,6 @@ public class CarnetDeNoteProvider extends ContentProvider {
                         newSelection, new String[]{newSelectionArgs});
                 break;
             }
-
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

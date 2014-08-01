@@ -66,20 +66,12 @@ public class ComplexNoteAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, final Cursor cursor) {
+    public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         //title
         String name = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
         viewHolder.mTitleTextView.setText(name);
-
-        //overflow button
-        viewHolder.mOverflowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopup(view, cursor);
-            }
-        });
 
         //medie
         double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
@@ -106,22 +98,28 @@ public class ComplexNoteAdapter extends CursorAdapter {
         }
 
         //note
-        int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
-        Uri uri = CarnetContract.MaterieEntry.buildNoteUri(id);
-        CursorLoader noteLoader = new CursorLoader(
-                context,
-                uri,
-                CarnetContract.NoteEntry.COLUMNS,
-                null,
-                null,
-                null
-        );
-        String noteString = Utility
-                .getNoteFromCursorLoader(noteLoader, context.getString(R.string.note));
-        viewHolder.mNoteTextView.setText(noteString);
+        String noteString = cursor.getString(CarnetContract.MaterieEntry.COL_NOTE);
+        String notePrefixString = context.getString(R.string.note) + ": ";
+
+        if( noteString == null ){
+            viewHolder.mNoteTextView.setVisibility(View.GONE);
+        } else {
+            viewHolder.mNoteTextView.setText(notePrefixString + noteString);
+            viewHolder.mNoteTextView.setVisibility(View.VISIBLE);
+        }
+        final int position = cursor.getPosition();
+        //overflow button
+        viewHolder.mOverflowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopup(view, position);
+            }
+        });
     }
 
-    void showPopup(View v, final Cursor cursor) {
+    void showPopup(View v, final int position) {
+        final Cursor cursor = getCursor();
+        cursor.moveToPosition(position);
         int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_TEZA);
 
         PopupMenu popupMenu = new PopupMenu(mContext, v);
@@ -139,10 +137,12 @@ public class ComplexNoteAdapter extends CursorAdapter {
                         int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
                         Uri uri = CarnetContract.MaterieEntry.buildMaterieUri(id);
                         mContext.getContentResolver().delete(uri,null,null);
+                        break;
                     }
                     case R.id.add: {
                         int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
                         mListener.showAddTezaDialogFragment(id);
+                        break;
                     }
 //                    case R.id.rename: {
 //                        if (mListener != null) {
@@ -156,35 +156,4 @@ public class ComplexNoteAdapter extends CursorAdapter {
         popupMenu.show();
     }
 
-//        //TITLE
-//        holder.mTitleTextView.setText(materie.name);
-//        //MEDIE
-//        double medie = materie.getMedie();
-//        holder.mValueTextView.setText(materie.getMedieAsString(medie));
-//        if (medie < 4.5) {
-//            holder.mValueTextView
-//                    .setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
-//        } else {
-//            holder.mValueTextView
-//                    .setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
-//        }
-//        //note
-//        holder.mNoteTextView.setText(materie.getNoteAsString(context.getString(R.string.note)));
-//        //teza
-//        try {
-//            Nota teza = materie.getTeza();
-//            holder.mTezaTextView.setVisibility(View.VISIBLE);
-//            holder.mTezaTextView.setText(context.getString(R.string.teza) + " : " + teza.nota);
-//
-//        } catch (NullPointerException e) {
-//            holder.mTezaTextView.setVisibility(View.GONE);
-//        }
-//        //overflowButton
-//        holder.mOverflowButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showPopup(v, materie);
-//            }
-//        });
-//    }
 }

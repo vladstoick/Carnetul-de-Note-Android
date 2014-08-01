@@ -86,7 +86,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         return new CursorLoader(
                 getActivity(),
                 CarnetContract.MaterieEntry.CONTENT_URI,
-                CarnetContract.MaterieEntry.COLUMNS,
+                CarnetContract.MaterieEntry.COLUMNS_WITH_NOTE,
                 null,
                 null,
                 null
