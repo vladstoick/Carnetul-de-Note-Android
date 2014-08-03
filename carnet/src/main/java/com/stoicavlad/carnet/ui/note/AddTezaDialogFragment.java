@@ -4,25 +4,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
+import android.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CursorAdapter;
-import android.widget.Spinner;
 import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by Vlad on 1/26/14.

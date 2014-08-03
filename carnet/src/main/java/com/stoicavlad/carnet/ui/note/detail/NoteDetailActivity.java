@@ -1,70 +1,69 @@
 package com.stoicavlad.carnet.ui.note.detail;
 
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.stoicavlad.carnet.CarnetApp;
+import com.astuetz.PagerSlidingTabStrip;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.model.Materie;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
-import java.util.Locale;
-
-import javax.inject.Inject;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import icepick.Icepick;
 import icepick.Icicle;
 
-public class NoteDetailActivity extends FragmentActivity implements ActionBar.TabListener {
+public class NoteDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String TAG_MATERIE = "MATERIE";
-    @Icicle
-    public int materie_id;
-    @Inject
-    public MateriiDatabase materiiDatabase;
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-    private Materie materie;
+    public static final String TAG_MATERIE_ID = "MATERIE_ID";
+    public static final int MATERIE_LOADER = 0;
+    @Icicle public int mMaterieId;
+    @InjectView(R.id.medie) TextView mMedieTextView;
+    @InjectView(R.id.header) LinearLayout mHeaderView;
+
+    private float mMedieTextViewMaxSize;
+    private int mMedieTextViewMaxHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CarnetApp.get(getApplicationContext()).inject(this);
-        if (savedInstanceState == null) {
-            if (getIntent().hasExtra(TAG_MATERIE)) {
-                materie_id = getIntent().getIntExtra(TAG_MATERIE, -1);
+        setContentView(R.layout.activity_note_detail);
 
+        ButterKnife.inject(this);
+
+        if (savedInstanceState == null) {
+            if (getIntent().hasExtra(TAG_MATERIE_ID)) {
+                mMaterieId = getIntent().getIntExtra(TAG_MATERIE_ID, -1);
             }
         } else {
             Icepick.restoreInstanceState(this,savedInstanceState);
         }
-        materie = materiiDatabase.getMaterie(materie_id);
-        setTitle(materie.name);
-        setContentView(R.layout.activity_note_detail);
-        final ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
+
+        getLoaderManager().initLoader(MATERIE_LOADER, null, this);
+
+        String[] tabNames = {getString(R.string.note), getString(R.string.medie)};
+        NoteDetailSectionsPagerAdapter pagerAdapter =
+                new NoteDetailSectionsPagerAdapter(getFragmentManager(), mMaterieId, tabNames);
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(pagerAdapter);
+
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setViewPager(viewPager);
+
+        mMedieTextViewMaxSize = mMedieTextView.getTextSize();
+        mMedieTextViewMaxHeight = mMedieTextView.getMeasuredHeight();
     }
+
+
 
     @Override public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -72,50 +71,31 @@ public class NoteDetailActivity extends FragmentActivity implements ActionBar.Ta
     }
 
     @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        mViewPager.setCurrentItem(tab.getPosition());
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(
+                this,
+                CarnetContract.MaterieEntry.buildMaterieUri(mMaterieId),
+                CarnetContract.MaterieEntry.COLUMNS_WITOUT_NOTE,
+                null,
+                null,
+                null
+        );
     }
 
     @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()) {
+            String name = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
+            setTitle(name);
+            double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+            mMedieTextView.setText(String.valueOf(medie));
+
+        }
     }
 
     @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
     }
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            if (position == 0) {
-                return NoteDetailFragment.newInstance(materie.id);
-            }
-            return NoteDetailMedieFragment.newInstance(materie.id);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.note).toUpperCase(l);
-                case 1:
-                    return getString(R.string.medie).toUpperCase(l);
-            }
-            return null;
-        }
-    }
-
 
 }

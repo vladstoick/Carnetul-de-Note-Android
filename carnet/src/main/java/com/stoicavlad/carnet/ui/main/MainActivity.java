@@ -10,38 +10,26 @@ import android.view.MenuItem;
 
 import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.model.Materie;
-import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.note.AddMaterieDialogFragment;
 import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 import com.stoicavlad.carnet.ui.note.detail.NoteDetailActivity;
 import com.stoicavlad.carnet.ui.settings.SettingsActivity;
-import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import java.util.Calendar;
-
-import javax.inject.Inject;
 
 public class MainActivity extends GeneralTabActivity
         implements NoteListFragment.OnFragmentInteractionListener,
         DatePickerDialogFragment.DatePickerDialogHandler{
 
     private boolean adaugaAbsenta = false;
-    @Inject
-    public
-    MateriiDatabase materiiDatabase;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
-        CarnetApp.get(getApplicationContext()).inject(this);
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -50,7 +38,7 @@ public class MainActivity extends GeneralTabActivity
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         String[] tabNames = getResources().getStringArray(R.array.tab_names);
-        mSectionsPagerAdapter = new MainActivitySectionsPagerAdapter(getSupportFragmentManager(),
+        mSectionsPagerAdapter = new MainActivitySectionsPagerAdapter(getFragmentManager(),
                 tabNames);
 
         // Set up the ViewPager with the sections adapter.
@@ -114,27 +102,14 @@ public class MainActivity extends GeneralTabActivity
                 }
             }
         });
-        dialogFragment.show(getSupportFragmentManager(), "ADD");
+        dialogFragment.show(getFragmentManager(), "ADD");
     }
 
 
     private void showAddNotaDialogFragment() {
         AddNotaDialogFragment dialogFragment = new AddNotaDialogFragment();
-        dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
+        dialogFragment.show(getFragmentManager(), "ADD_NOTA");
     }
-
-//    private void showAddTezaDialogFragment() {
-//
-//        if (materiiDatabase.getMateriiFaraTeza().length > 0) {
-//            AddNotaDialogFragment dialogFragment = AddNotaDialogFragment
-//                    .newInstance(Nota.TIP_NOTA_TEZA);
-//            dialogFragment.show(getSupportFragmentManager(), "ADD_NOTA");
-//        } else {
-//            SimpleDialogFragment dialogFragment =
-//                    SimpleDialogFragment.newInstance(getString(R.string.add_teza_full));
-//            dialogFragment.show(getSupportFragmentManager(), "WARNING");
-//        }
-//    }
 
     private void showAddAbsentaDialogFragment() {
         adaugaAbsenta = true;
@@ -183,15 +158,15 @@ public class MainActivity extends GeneralTabActivity
 
     private void showAddMaterieDialogFragment() {
         AddMaterieDialogFragment dialogFragment = new AddMaterieDialogFragment();
-        dialogFragment.show(getSupportFragmentManager(), "ADD_MATERIE");
+        dialogFragment.show(getFragmentManager(), "ADD_MATERIE");
     }
 
     //FRAGMENT INTERACTION
 
     @Override
-    public void showNotaDetailFragment(Materie materie) {
+    public void showNotaDetail(int materieId, String materieName) {
         Intent intent = new Intent(this, NoteDetailActivity.class);
-        intent.putExtra(NoteDetailActivity.TAG_MATERIE, materie.id);
+        intent.putExtra(NoteDetailActivity.TAG_MATERIE_ID, materieId);
         startActivity(intent);
     }
 }

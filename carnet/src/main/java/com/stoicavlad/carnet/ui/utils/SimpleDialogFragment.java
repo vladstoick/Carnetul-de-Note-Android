@@ -4,14 +4,14 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 
 /**
  * Created by Vlad on 1/27/14.
  */
 public class SimpleDialogFragment extends DialogFragment {
     private String message;
-    private SimpleDialogFragment(){}
+    public SimpleDialogFragment(){}
 
     public static SimpleDialogFragment newInstance(String message){
         SimpleDialogFragment simpleDialogFragment = new SimpleDialogFragment();

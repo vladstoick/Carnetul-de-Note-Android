@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.j256.ormlite.stmt.query.Not;
 import com.stoicavlad.carnet.data.provider.CarnetContract.AbsentaEntry;
 import com.stoicavlad.carnet.data.provider.CarnetContract.MaterieEntry;
 import com.stoicavlad.carnet.data.provider.CarnetContract.NoteEntry;

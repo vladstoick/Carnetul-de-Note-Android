@@ -3,7 +3,6 @@ package com.stoicavlad.carnet.ui.note;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.Utility;
-import com.stoicavlad.carnet.data.model.Nota;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
@@ -73,8 +71,20 @@ public class ComplexNoteAdapter extends CursorAdapter {
         String name = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
         viewHolder.mTitleTextView.setText(name);
 
+        //teza
+        int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_TEZA);
+        if (teza == 0) {
+            viewHolder.mTezaTextView.setVisibility(View.GONE);
+        } else {
+            viewHolder.mTezaTextView.setVisibility(View.VISIBLE);
+            viewHolder.mTezaTextView.setText(context.getString(R.string.teza) + " : " + teza);
+        }
+
+
         //medie
-        double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+        double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+        double medie = Utility.getMedieForMaterie(teza, medieNote);
+        medie = Math.round(medie);
         if (medie == 0) {
             viewHolder.mValueTextView.setText("-");
         } else {
@@ -88,14 +98,6 @@ public class ComplexNoteAdapter extends CursorAdapter {
                     .setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
         }
 
-        //teza
-        int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_TEZA);
-        if (teza == 0) {
-            viewHolder.mTezaTextView.setVisibility(View.GONE);
-        } else {
-            viewHolder.mTezaTextView.setVisibility(View.VISIBLE);
-            viewHolder.mTezaTextView.setText(context.getString(R.string.teza) + " : " + teza);
-        }
 
         //note
         String noteString = cursor.getString(CarnetContract.MaterieEntry.COL_NOTE);

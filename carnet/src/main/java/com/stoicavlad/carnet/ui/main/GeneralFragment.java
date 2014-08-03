@@ -1,90 +1,71 @@
-package com.stoicavlad.carnet.ui.general;
+package com.stoicavlad.carnet.ui.main;
 
 
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.doomonafireball.betterpickers.numberpicker.NumberPickerBuilder;
-import com.doomonafireball.betterpickers.numberpicker.NumberPickerDialogFragment;
-import com.squareup.otto.Subscribe;
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.Utility;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import java.text.DecimalFormat;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class GeneralFragment extends Fragment
-        implements NumberPickerDialogFragment.NumberPickerDialogHandler,
-        LoaderManager.LoaderCallbacks<Cursor>{
-    @Inject public MateriiDatabase materiiDatabase;
+public class GeneralFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
     @InjectView(R.id.medieGenerala) public TextView mMedieGenerala;
     @InjectView(R.id.purtare) public TextView mPurtare;
     @InjectView(R.id.absente) public TextView mAbsente;
     @InjectView(R.id.editButton) public ImageButton mEditButton;
 
+    public static String PURTARE_TAG = "purtare";
+
     private final static int ABSENTE_LOADER = 0;
+    private final static int MATERIE_LOADER = 1;
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(ABSENTE_LOADER, null, this);
+        getLoaderManager().initLoader(MATERIE_LOADER, null, this);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        CarnetApp.get(getActivity()).inject(this);
-        BusProvider.getInstance().register(this);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_general, container, false);
         ButterKnife.inject(this, rootView);
-        setMedieUI();
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NumberPickerBuilder npb = new NumberPickerBuilder()
-                        .setFragmentManager(getChildFragmentManager())
-                        .setStyleResId(R.style.BetterPickersDialogFragment)
-                        .setMinNumber(1)
-                        .setMaxNumber(10)
-                        .setDecimalVisibility(View.INVISIBLE)
-                        .setPlusMinusVisibility(View.INVISIBLE)
-                        .setTargetFragment(GeneralFragment.this);
-                npb.show();
+               //TODO
             }
         });
         return rootView;
     }
 
-    void setMedieUI() {
-        mMedieGenerala.setText(materiiDatabase.getMedieGenerala() + " ");
-        int purtare = materiiDatabase.getPurtare();
+    void setMedieUI(Cursor cursor) {
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        int purtare = preferences.getInt("PURTARE_TAG",9);
+        double medie = Utility.getMedieGeneralaFromCursor(cursor, purtare);
+        mMedieGenerala.setText(String.valueOf(medie));
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
-        double medie = materiiDatabase.getMedieGenerala();
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         String medieString = decimalFormat.format(medie);
         mMedieGenerala.setText(medieString);
@@ -93,6 +74,7 @@ public class GeneralFragment extends Fragment
         } else {
             mMedieGenerala.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
         }
+
     }
 
     private void setAbsenteUI(int absente) {
@@ -102,19 +84,11 @@ public class GeneralFragment extends Fragment
                 mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             } else {
                 mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-
             }
         }
     }
 
-    @Override
-    public void onDialogNumberSet(int i, int i2, double v, boolean b, double v2) {
-        materiiDatabase.setPurtare(i2);
-        setMedieUI();
-    }
-
     //LOADER
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
@@ -127,6 +101,15 @@ public class GeneralFragment extends Fragment
                     null,
                     null
             );
+        } else if (i== MATERIE_LOADER){
+            return new CursorLoader(
+                    getActivity(),
+                    CarnetContract.MaterieEntry.CONTENT_URI,
+                    CarnetContract.MaterieEntry.COLUMNS_MEDIE,
+                    null,
+                    null,
+                    null
+            );
         }
         return null;
     }
@@ -135,6 +118,8 @@ public class GeneralFragment extends Fragment
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         if(cursorLoader.getId() == ABSENTE_LOADER){
             setAbsenteUI(cursor.getCount());
+        } else if(cursorLoader.getId() == MATERIE_LOADER){
+            setMedieUI(cursor);
         }
     }
 

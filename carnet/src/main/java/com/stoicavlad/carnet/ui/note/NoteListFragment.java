@@ -1,22 +1,20 @@
 package com.stoicavlad.carnet.ui.note;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Materie;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
@@ -26,11 +24,12 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     ComplexNoteAdapter.OnOverflowButtonInterface{
 
     public interface OnFragmentInteractionListener {
-        public void showNotaDetailFragment(Materie materie);
+        public void showNotaDetail(int materieId, String materieName);
     }
     private OnFragmentInteractionListener mListener;
 
     @InjectView(R.id.list) ListView mListView;
+
     ComplexNoteAdapter mCursorAdapter;
 
     private static final int MATERIE_LOADER = 0;
@@ -47,10 +46,13 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(mListener != null){
-                    //TODO
-                    //mListener.showNotaDetailFragment(materiiDatabase.getMaterii()[position]);
+                    Cursor cursor = mCursorAdapter.getCursor();
+                    cursor.moveToPosition(position);
+                    int materieId = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
+                    String materieName = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
+                    mListener.showNotaDetail(materieId,materieName);
                 }
             }
         });
@@ -106,6 +108,6 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void showAddTezaDialogFragment(int id) {
         AddTezaDialogFragment dialogFragment = AddTezaDialogFragment.newInstance(id);
-        dialogFragment.show(getActivity().getSupportFragmentManager(), "ADD_NOTA");
+        dialogFragment.show(getActivity().getFragmentManager(), "ADD_NOTA");
     }
 }

@@ -4,8 +4,6 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-import com.j256.ormlite.stmt.query.Not;
-
 /**
  * Created by Vlad on 30-Jul-14.
  */
@@ -19,7 +17,7 @@ public class CarnetContract {
     public static final String PATH_NOTE = "note";
     public static final String PATH_MATEIRE = "materie";
 
-    public static final class MaterieEntry implements BaseColumns{
+    public static final class MaterieEntry implements BaseColumns {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_MATEIRE).build();
 
@@ -39,11 +37,21 @@ public class CarnetContract {
                 COLUMN_TEZA,
                 COLUMN_MEDIE
         };
+
+        public static final String[] COLUMNS_MEDIE = {
+                "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) ",
+                COLUMN_TEZA,
+
+        };
+
+        public static final int COL_MEDIE_NOTE = 0;
+        public static final int COL_MEDIE_TEZA = 1;
+
         public static final String[] COLUMNS_WITH_NOTE = {
                 TABLE_NAME + "." + _ID,
                 COLUMN_NAME,
                 COLUMN_TEZA,
-                COLUMN_MEDIE,
+                "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) ",
                 "GROUP_CONCAT(" + NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " , \', \')"
         };
 

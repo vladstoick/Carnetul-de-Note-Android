@@ -4,14 +4,10 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.widget.RemoteViews;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.OrmliteSqlHelper;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 /**
@@ -40,7 +36,6 @@ public class GeneralWidget extends AppWidgetProvider{
 
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {
-        OrmliteSqlHelper ormliteSqlHelper = new OrmliteSqlHelper(context);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_general);
         //absente
         CursorLoader absenteCursor = new CursorLoader(
@@ -55,8 +50,7 @@ public class GeneralWidget extends AppWidgetProvider{
         String absente_text = context.getString(R.string.absente_section) + " : " + cursor.getCount();
         views.setTextViewText(R.id.absente,  absente_text);
         //medii
-        MateriiDatabase materiiDatabase = new MateriiDatabase(ormliteSqlHelper);
-        double medie = materiiDatabase.getMedieGenerala();
+        double medie = 0;//TODO
         String medie_text;
         if(medie>0){
             medie_text = context.getString(R.string.medie) + " : " + medie;

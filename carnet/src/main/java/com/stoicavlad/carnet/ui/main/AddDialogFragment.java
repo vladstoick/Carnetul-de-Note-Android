@@ -4,15 +4,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import android.app.DialogFragment;
 
-import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.model.Nota;
-import com.stoicavlad.carnet.ui.note.AddNotaDialogFragment;
-
-import java.util.Calendar;
 
 /**
  * Created by Vlad on 1/27/14.

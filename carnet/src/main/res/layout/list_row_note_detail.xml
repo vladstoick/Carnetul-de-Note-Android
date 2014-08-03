@@ -6,6 +6,7 @@
     android:padding="@dimen/small_margin"
     android:layout_height="wrap_content">
     <TextView
+        android:text="@string/lorem_short"
         android:fontFamily="sans-serif-light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,9 +15,9 @@
     <ImageButton
         android:id="@+id/overflow"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_action_overflow" />
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_action_content_discard" />
 </RelativeLayout>

@@ -5,18 +5,12 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 import android.text.Editable;
 import android.widget.EditText;
 
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
-
-import javax.inject.Inject;
 
 /**
  * Created by Vlad on 1/27/14.

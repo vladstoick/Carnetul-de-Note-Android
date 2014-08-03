@@ -1,13 +1,11 @@
 package com.stoicavlad.carnet.ui.main;
 
-import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
-import com.stoicavlad.carnet.R;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentPagerAdapter;
+
 import com.stoicavlad.carnet.ui.absente.AbsentaFragment;
-import com.stoicavlad.carnet.ui.general.GeneralFragment;
 import com.stoicavlad.carnet.ui.note.NoteListFragment;
 
 import java.util.Locale;

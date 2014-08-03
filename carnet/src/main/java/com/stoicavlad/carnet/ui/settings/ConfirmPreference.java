@@ -1,12 +1,6 @@
 package com.stoicavlad.carnet.ui.settings;
 
 import android.content.Context;
-import android.preference.DialogPreference;
-import android.util.AttributeSet;
-
-import com.stoicavlad.carnet.R;
-
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;

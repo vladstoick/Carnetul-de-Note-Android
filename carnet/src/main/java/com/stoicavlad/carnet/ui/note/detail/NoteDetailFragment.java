@@ -1,37 +1,34 @@
 package com.stoicavlad.carnet.ui.note.detail;
 
-
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.model.Materie;
-import com.stoicavlad.carnet.data.model.Nota;
-import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
-import javax.inject.Inject;
+import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
+public class NoteDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-public class NoteDetailFragment extends Fragment
-        implements NoteDetailAdapter.NoteDetailAdapterInteractionListener {
-    @Inject
-    public
-    MateriiDatabase materiiDatabase;
-    private static final String ARG_MATERIE = "materie";
+
+    private static final int MATERIE_LOADER = 0;
+
+    private static final String ARG_MATERIE_ID = "MATERIE_ID";
     private int materieId;
-    @InjectView(R.id.list)
-    public
-    StickyListHeadersListView mListView;
-    private NoteDetailAdapter mAdapter;
+
+    private NoteDetailAdapter mCursorAdapter;
+    private ListView mListView;
 
     public NoteDetailFragment() {
         // Required empty public constructor
@@ -40,18 +37,23 @@ public class NoteDetailFragment extends Fragment
     public static NoteDetailFragment newInstance(int materieId) {
         NoteDetailFragment fragment = new NoteDetailFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_MATERIE, materieId);
+        args.putInt(ARG_MATERIE_ID, materieId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(MATERIE_LOADER, null, this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BusProvider.getInstance().register(this);
-        CarnetApp.get(getActivity()).inject(this);
         if (getArguments() != null) {
-            materieId = getArguments().getInt(ARG_MATERIE);
+            materieId = getArguments().getInt(ARG_MATERIE_ID);
 
         }
     }
@@ -60,29 +62,34 @@ public class NoteDetailFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
-        ButterKnife.inject(this, view);
-        setAdapter();
+        mListView = (ListView) view.findViewById(R.id.list);
+        mCursorAdapter = new NoteDetailAdapter(getActivity(),null,0);
+        mListView.setAdapter(mCursorAdapter);
+
+        //TODO
         return view;
     }
 
-    void setAdapter(){
-        Materie materie = materiiDatabase.getMaterie(materieId);
-        mListView.setDrawingListUnderStickyHeader(false);
-        if (materie.getTeza() != null) {
-            mAdapter = new NoteDetailAdapter(getActivity(), materie.getNoteFaraTeza(),
-                    materie.getTeza());
-        } else {
-            mAdapter = new NoteDetailAdapter(getActivity(), materie.getNoteFaraTeza());
-        }
-        mAdapter.setOnDeleteListener(this);
-        mListView.setAdapter(mAdapter);
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(
+                getActivity(),
+                CarnetContract.MaterieEntry.buildNoteUri(materieId),
+                CarnetContract.NoteEntry.COLUMNS,
+                null,
+                null,
+                null
+        );
     }
 
     @Override
-    public void onDeleteNota(Nota nota) {
-        if(materiiDatabase.deleteNota(nota)){
-            setAdapter();
-            BusProvider.getInstance().post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
-        }
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
     }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        mCursorAdapter.swapCursor(null);
+    }
+
 }

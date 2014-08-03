@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.setup;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -8,29 +9,20 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.crashlytics.android.Crashlytics;
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.main.MainActivity;
 import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
-public class SetupActivity extends FragmentActivity implements SetupFragment.OnFragmentInteractionListener {
-
-    @Inject
-    public
-    MateriiDatabase materiiDatabase;
+public class SetupActivity extends Activity implements SetupFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
 
-        CarnetApp.get(getApplicationContext()).inject(this);
         SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
         if(settings.contains("SETUP_DONE")){
             gotoMainActivity();
@@ -44,7 +36,7 @@ public class SetupActivity extends FragmentActivity implements SetupFragment.OnF
         }
         SimpleDialogFragment simpleDialogFragment = SimpleDialogFragment
                 .newInstance(getString(R.string.materii_setup));
-        simpleDialogFragment.show(getSupportFragmentManager(),"TAG");
+        simpleDialogFragment.show(getFragmentManager(),"TAG");
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.stoicavlad.carnet.data;
 
-import android.content.ContentValues;
 import android.database.Cursor;
-import android.support.v4.content.CursorLoader;
 
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
@@ -20,19 +18,30 @@ public class Utility {
                 + c.get(Calendar.YEAR);
     }
 
-    public static String getNoteFromCursorLoader(CursorLoader loader, String prefix){
-        Cursor cursor = loader.loadInBackground();
+    public static double getMedieForMaterie(int teza, double medieNote){
+        double medieMaterie = 0;
+        if(medieNote == 0){
+            medieMaterie = teza;
+        } else {
+            medieMaterie = teza == 0 ? medieNote : (teza + medieNote*3)/4;
+        }
+        return Math.round(medieMaterie);
+    }
+
+    public static double getMedieGeneralaFromCursor(Cursor cursor, int purtare) {
+        if(cursor.getCount()==0){
+            return purtare;
+        }
+        double medie = 0;
         cursor.moveToFirst();
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(prefix + ": ");
-        while(!cursor.isAfterLast()){
-            int nota = cursor.getInt(CarnetContract.NoteEntry.COL_VALUE);
-            stringBuilder.append(nota);
-            if(!cursor.isLast()){
-                stringBuilder.append(", ");
-            }
+        while (!cursor.isAfterLast()){
+            int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_MEDIE_TEZA);
+            double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE_NOTE);
+            double medieMaterie = getMedieForMaterie(teza,medieNote);
+            medieMaterie = medieMaterie == 0 ? 10 : medieMaterie;
+            medie += medieMaterie;
             cursor.moveToNext();
         }
-        return stringBuilder.toString();
+        return ( medie + purtare ) / (cursor.getCount() + 1 ) ;
     }
 }

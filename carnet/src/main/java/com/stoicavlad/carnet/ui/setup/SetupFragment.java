@@ -16,7 +16,6 @@ import android.widget.ListView;
 
 import com.stoicavlad.carnet.R;
 
-
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;

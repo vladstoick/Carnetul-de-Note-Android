@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import com.stoicavlad.carnet.data.provider.CarnetContract.MaterieEntry;
 import com.stoicavlad.carnet.data.provider.CarnetContract.AbsentaEntry;
+import com.stoicavlad.carnet.data.provider.CarnetContract.MaterieEntry;
 import com.stoicavlad.carnet.data.provider.CarnetContract.NoteEntry;
 
 public class CarnetDeNoteProvider extends ContentProvider {
@@ -50,7 +50,8 @@ public class CarnetDeNoteProvider extends ContentProvider {
 
         matcher.addURI(authority, CarnetContract.PATH_MATEIRE, MATERIE); //200
         matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/#" , MATERIE_ID); //201
-        matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/note/#" , MATERIE_NOTE); //202
+        matcher.addURI(authority, CarnetContract.PATH_MATEIRE + "/note/#", MATERIE_NOTE); //202
+
 
         matcher.addURI(authority, CarnetContract.PATH_NOTE, NOTE); //300
         matcher.addURI(authority, CarnetContract.PATH_NOTE + "/#", NOTE_ID); //301
@@ -69,9 +70,11 @@ public class CarnetDeNoteProvider extends ContentProvider {
         switch (match) {
             case ABSENTE: return AbsentaEntry.CONTENT_TYPE;
             case ABSENTE_ID: return AbsentaEntry.CONTENT_ITEM_TYPE;
+
             case MATERIE: return MaterieEntry.CONTENT_TYPE;
             case MATERIE_ID: return MaterieEntry.CONTENT_ITEM_TYPE;
             case MATERIE_NOTE: return MaterieEntry.CONTENT_TYPE;
+
             case NOTE: return NoteEntry.CONTENT_TYPE;
             case NOTE_ID: return NoteEntry.CONTENT_ITEM_TYPE;
         }
@@ -132,7 +135,6 @@ public class CarnetDeNoteProvider extends ContentProvider {
                 break;
             }
             case MATERIE_NOTE:{
-
                 retCursor = mCarnetSqlHelper.getReadableDatabase().query(
                         NoteEntry.TABLE_NAME,
                         projection,
@@ -160,7 +162,7 @@ public class CarnetDeNoteProvider extends ContentProvider {
                 retCursor = mCarnetSqlHelper.getReadableDatabase().query(
                         NoteEntry.TABLE_NAME,
                         projection,
-                        MaterieEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        NoteEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
                         null,
                         null,
                         null,
@@ -255,13 +257,25 @@ public class CarnetDeNoteProvider extends ContentProvider {
             case MATERIE:
                 rowsDeleted = db.delete(MaterieEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case MATERIE_ID:
+            case MATERIE_ID: {
                 long id = ContentUris.parseId(uri);
                 String newSelection = CarnetContract.MaterieEntry._ID + " = ? ";
                 String newSelectionArgs = String.valueOf(id);
                 rowsDeleted = db.delete(MaterieEntry.TABLE_NAME, newSelection
                         , new String[]{newSelectionArgs});
                 break;
+            }
+            case NOTE_ID: {
+                long id = ContentUris.parseId(uri);
+                String newSelection = NoteEntry._ID + " = ? ";
+                String newSelectionArgs = String.valueOf(id);
+                rowsDeleted = db.delete(NoteEntry.TABLE_NAME, newSelection
+                        , new String[]{newSelectionArgs});
+                if(rowsDeleted>0){
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

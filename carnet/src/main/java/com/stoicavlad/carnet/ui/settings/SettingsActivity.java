@@ -11,21 +11,13 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.api.MateriiDatabase;
-import com.stoicavlad.carnet.data.otto.BusProvider;
-import com.stoicavlad.carnet.data.otto.DataSetChangedEvent;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.setup.SetupActivity;
 
-import javax.inject.Inject;
-
 @SuppressWarnings("deprecation")
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
-    @Inject
-    public
-    MateriiDatabase materiiDatabase;
+
     private void bindPreferenceSummaryToValue(Preference preference) {
         preference.setOnPreferenceChangeListener(this);
         if (preference instanceof ListPreference) {
@@ -59,17 +51,19 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
                 return true;
             }
             if ("pref_reseteaza_note".equals(preference.getKey())) {
-                if (materiiDatabase.deleteAllNote()) {
-                    BusProvider.getInstance()
-                            .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
-                }
+                //TODO
+//                if (materiiDatabase.deleteAllNote()) {
+//                    BusProvider.getInstance()
+//                            .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
+//                }
             } else if("pref_reseteaza_absente".equals(preference.getKey())){
                 getApplicationContext().getContentResolver()
                         .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
             } else if("pref_reseteaza_full".equals(preference.getKey())){
                 getApplicationContext().getContentResolver()
                         .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
-                materiiDatabase.deleteAllMaterii();
+                //TODO
+//                materiiDatabase.deleteAllMaterii();
                 Intent intent = new Intent(this, SetupActivity.class);
                 SharedPreferences settings =
                         getSharedPreferences("appPref", Context.MODE_PRIVATE);
@@ -85,7 +79,6 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        CarnetApp.get(getApplicationContext()).inject(this);
     }
 
     @Override
