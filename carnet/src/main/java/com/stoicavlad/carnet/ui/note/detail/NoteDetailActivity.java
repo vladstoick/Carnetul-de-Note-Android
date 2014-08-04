@@ -7,13 +7,11 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.Utility;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
@@ -25,12 +23,9 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
 
     public static final String TAG_MATERIE_ID = "MATERIE_ID";
     public static final int MATERIE_LOADER = 0;
+
     @Icicle public int mMaterieId;
     @InjectView(R.id.medie) TextView mMedieTextView;
-    @InjectView(R.id.header) LinearLayout mHeaderView;
-
-    private float mMedieTextViewMaxSize;
-    private int mMedieTextViewMaxHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +54,6 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
 
-        mMedieTextViewMaxSize = mMedieTextView.getTextSize();
-        mMedieTextViewMaxHeight = mMedieTextView.getMeasuredHeight();
     }
 
 
@@ -75,7 +68,7 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         return new CursorLoader(
                 this,
                 CarnetContract.MaterieEntry.buildMaterieUri(mMaterieId),
-                CarnetContract.MaterieEntry.COLUMNS_WITOUT_NOTE,
+                CarnetContract.MaterieEntry.COLUMNS_DETAIL,
                 null,
                 null,
                 null
@@ -86,9 +79,16 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         cursor.moveToFirst();
         if(!cursor.isAfterLast()) {
-            String name = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
+
+            String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE);
             setTitle(name);
-            double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+
+            int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_TEZA);
+
+            double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE);
+
+            double medie = Utility.getMedieForMaterie(teza, medieNote);
+
             mMedieTextView.setText(String.valueOf(medie));
 
         }

@@ -29,8 +29,7 @@ public class CarnetSqlHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_MATERIE_TABLE = "CREATE TABLE " + MaterieEntry.TABLE_NAME + " ( " +
                 MaterieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 MaterieEntry.COLUMN_NAME + " TEXT NOT NULL ," +
-                MaterieEntry.COLUMN_TEZA + " INTEGER DEFAULT 0 ," +
-                MaterieEntry.COLUMN_MEDIE + " REAL DEFAULT 0 )";
+                MaterieEntry.COLUMN_TEZA + " INTEGER DEFAULT 0 )";
 
         final String SQL_CREATE_NOTE_TABLE = "CREATE TABLE " + NoteEntry.TABLE_NAME + " ( " +
                 NoteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +

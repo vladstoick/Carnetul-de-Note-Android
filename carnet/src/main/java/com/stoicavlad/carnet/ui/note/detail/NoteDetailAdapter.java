@@ -19,8 +19,16 @@ import butterknife.InjectView;
  * Created by Vlad on 01-Aug-14.
  */
 public class NoteDetailAdapter extends CursorAdapter {
-    public NoteDetailAdapter(Context context, Cursor c, int flags) {
+
+    public interface OnDeleteListener {
+        public void didDeleteNotaWithId(int id);
+    }
+
+    OnDeleteListener mListener;
+
+    public NoteDetailAdapter(Context context, Cursor c, int flags, OnDeleteListener listener) {
         super(context, c, flags);
+        this.mListener = listener;
     }
     class ViewHolder {
         @InjectView(R.id.value) TextView valueTextView;
@@ -48,9 +56,11 @@ public class NoteDetailAdapter extends CursorAdapter {
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 context.getContentResolver().delete(CarnetContract.NoteEntry.buildNotaUri(id)
                         ,null,null);
+                if(mListener!=null) {
+                    mListener.didDeleteNotaWithId(id);
+                }
             }
         });
     }

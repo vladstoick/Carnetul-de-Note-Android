@@ -19,7 +19,8 @@ import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import java.util.List;
 
-public class NoteDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class NoteDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
+        NoteDetailAdapter.OnDeleteListener{
 
 
     private static final int MATERIE_LOADER = 0;
@@ -63,10 +64,8 @@ public class NoteDetailFragment extends Fragment implements LoaderManager.Loader
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
         mListView = (ListView) view.findViewById(R.id.list);
-        mCursorAdapter = new NoteDetailAdapter(getActivity(),null,0);
+        mCursorAdapter = new NoteDetailAdapter(getActivity(),null,0,this);
         mListView.setAdapter(mCursorAdapter);
-
-        //TODO
         return view;
     }
 
@@ -92,4 +91,11 @@ public class NoteDetailFragment extends Fragment implements LoaderManager.Loader
         mCursorAdapter.swapCursor(null);
     }
 
+    @Override
+    public void didDeleteNotaWithId(int id) {
+        getActivity().getContentResolver()
+                .notifyChange(CarnetContract.MaterieEntry.buildNoteUri(materieId), null, false);
+        getActivity().getContentResolver()
+                .notifyChange(CarnetContract.MaterieEntry.CONTENT_URI, null, false);
+    }
 }

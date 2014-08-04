@@ -83,7 +83,7 @@ public class ComplexNoteAdapter extends CursorAdapter {
 
         //medie
         double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
-        double medie = Utility.getMedieForMaterie(teza, medieNote);
+        int medie = (int) Utility.getMedieForMaterie(teza, medieNote);
         medie = Math.round(medie);
         if (medie == 0) {
             viewHolder.mValueTextView.setText("-");

@@ -123,12 +123,12 @@ public class CarnetDeNoteProvider extends ContentProvider {
                 break;
             }
             case MATERIE_ID:{
-                retCursor = mCarnetSqlHelper.getReadableDatabase().query(
-                        MaterieEntry.TABLE_NAME,
+                retCursor = sMateriiWithNoteQueryBuilder.query(mCarnetSqlHelper.getReadableDatabase(),
                         projection,
-                        MaterieEntry._ID + " = '" + ContentUris.parseId(uri) + "'",
+                        MaterieEntry.TABLE_NAME + "." + MaterieEntry._ID + " = '"
+                                + ContentUris.parseId(uri) + "'",
                         null,
-                        null,
+                        MaterieEntry.TABLE_NAME + "." + MaterieEntry._ID,
                         null,
                         sortOrder
                 );

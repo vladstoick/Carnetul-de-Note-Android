@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
@@ -30,7 +31,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MATERII_LOADER = 0;
     @InjectView(R.id.materie_spinner) public Spinner mMaterieSpinner;
-    private CursorAdapter mCursorAdapter;
+    private SimpleCursorAdapter mCursorAdapter;
     private Button mOKButton;
     private int lastClicked = -1;
     private View mRootView;
@@ -59,7 +60,11 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         }
 
         //Setting Spinner adapter
-        mCursorAdapter = new SimpleNoteAdapter(getActivity(),null,0);
+        mCursorAdapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_list_item_1,
+                null,
+                new String[]{CarnetContract.MaterieEntry.COLUMN_NAME},
+                new int[] {android.R.id.text1});
         mMaterieSpinner.setAdapter(mCursorAdapter);
 
         //Getting title
@@ -135,7 +140,7 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         return new CursorLoader(
                 getActivity(),
                 CarnetContract.MaterieEntry.CONTENT_URI,
-                CarnetContract.MaterieEntry.COLUMNS_WITOUT_NOTE,
+                CarnetContract.MaterieEntry.COLUMNS_SIMPLE,
                 null,
                 null,
                 null

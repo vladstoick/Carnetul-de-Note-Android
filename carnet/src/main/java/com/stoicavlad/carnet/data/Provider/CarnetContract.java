@@ -29,14 +29,31 @@ public class CarnetContract {
         public static final String TABLE_NAME = "materie";
         public static final String COLUMN_NAME = "nume";
         public static final String COLUMN_TEZA = "teza";
-        public static final String COLUMN_MEDIE = "medie";
 
-        public static final String[] COLUMNS_WITOUT_NOTE = {
+        //SIMPLE
+
+        public static String [] COLUMNS_SIMPLE = {
                 TABLE_NAME + "." + _ID,
                 COLUMN_NAME,
-                COLUMN_TEZA,
-                COLUMN_MEDIE
+                "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) "
         };
+
+
+        public static final int COL_SIMPLE_ID = 0 ;
+        public static final int COL_SIMPLE_NAME =  1 ;
+        public static final int COL_SIMPLE_MEDIE = 2;
+
+        //DETAIL
+
+        public static final String[] COLUMNS_DETAIL = {
+                COLUMN_NAME,
+                COLUMN_TEZA,
+                "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) ",
+        };
+
+        public static final int COL_DETAIL_NAME = 0;
+        public static final int COL_DETAIL_TEZA = 1;
+        public static final int COL_DETAIL_MEDIE = 2;
 
         public static final String[] COLUMNS_MEDIE = {
                 "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) ",

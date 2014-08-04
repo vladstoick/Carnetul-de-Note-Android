@@ -43,9 +43,9 @@ class SimpleNoteAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
-        String name = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
+        String name = cursor.getString(CarnetContract.MaterieEntry.COL_SIMPLE_NAME);
         viewHolder.mTitle.setText(name);
-        double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
+        double medie = cursor.getDouble(CarnetContract.MaterieEntry.COL_SIMPLE_MEDIE);
         if(medie > 0.5 ) {
             viewHolder.mValue.setText(String.valueOf(medie));
         } else {
