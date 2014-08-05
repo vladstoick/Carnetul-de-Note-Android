@@ -55,6 +55,20 @@ public class CarnetContract {
         public static final int COL_DETAIL_TEZA = 1;
         public static final int COL_DETAIL_MEDIE = 2;
 
+        /// DETAILMEDIE
+
+        public static final String[] COLUMNS_DETAIL_MEDIE = {
+                COLUMN_TEZA,
+                "SUM ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) ",
+                "COUNT ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) "
+        };
+
+        public static final int COL_DETAIL_MEDIE_TEZA = 0;
+        public static final int COL_DETAIL_MEDIE_SUMA = 1;
+        public static final int COL_DETAIL_MEDIE_COUNT_NOTE = 2;
+
+        // MEDIE
+
         public static final String[] COLUMNS_MEDIE = {
                 "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) ",
                 COLUMN_TEZA,
@@ -63,6 +77,8 @@ public class CarnetContract {
 
         public static final int COL_MEDIE_NOTE = 0;
         public static final int COL_MEDIE_TEZA = 1;
+
+        //ALL
 
         public static final String[] COLUMNS_WITH_NOTE = {
                 TABLE_NAME + "." + _ID,

@@ -1,33 +1,41 @@
 package com.stoicavlad.carnet.ui.note.detail;
 
 
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.VariantaMedie;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClickListener,
-        EditText.OnEditorActionListener {
+public class NoteDetailMedieFragment extends Fragment
+        implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_MATERIE = "materie";
-    private int materieId;
+    private static final int MATERIE_LOADER = 0;
 
-    @InjectView(R.id.list)
-    public ListView mListView;
+    private int mMaterieId;
+    private Cursor mMaterieCursor;
+
+    @InjectView(R.id.list) public StickyListHeadersListView mListView;
     private CheckBox mCheckbox;
-    private EditText mEditText;
-    private TextView mMediaCurenta;
     private NoteDetailMedieAdapter mAdapter;
 
 
@@ -46,16 +54,11 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.materieId = getArguments().getInt(ARG_MATERIE,-1);
-            //TODO
-            //materie = materiiDatabase.getMaterie(mMaterieId);
+            this.mMaterieId = getArguments().getInt(ARG_MATERIE,-1);
+
+            getLoaderManager().initLoader(MATERIE_LOADER, null, this);
+
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
 
@@ -65,38 +68,70 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_note_detail_medie, container, false);
         ButterKnife.inject(this, view);
+
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
-        mCheckbox.setOnClickListener(this);
-        mEditText = (EditText) header.findViewById(R.id.editText);
-        mEditText.setOnEditorActionListener(this);
-        mMediaCurenta = (TextView) header.findViewById(R.id.media_curenta);
+        mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setAdapter();
+            }
+        });
+
         mListView.addHeaderView(header);
-        setUI();
+        mListView.setDrawingListUnderStickyHeader(false);
+        mListView.setAreHeadersSticky(false);
+
+        mAdapter = new NoteDetailMedieAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
+
+
         return view;
     }
 
-    private void setUI() {
-        //TODO
-//        try {
-//            //checkbox
-//            if (materie.getTeza() != null) {
-//                mCheckbox.setVisibility(View.GONE);
-//            } else {
-//                mCheckbox.setVisibility(View.VISIBLE);
-//            }
-//            //media curenta
-//            double medie = materie.getMedie();
-//            mMediaCurenta.setText(getString(R.string.medie_curenta) + " : " + medie);
-//            if (medie < 4.50) {
-//                mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-//            } else {
-//                mMediaCurenta.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-//            }
-//            setAdapter(1);
-//        } catch (IllegalStateException e) {
-//            //do nothin yet;
-//        }
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return new CursorLoader(
+                getActivity(),
+                CarnetContract.MaterieEntry.buildMaterieUri(mMaterieId),
+                CarnetContract.MaterieEntry.COLUMNS_DETAIL_MEDIE,
+                null,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        mMaterieCursor = cursor;
+        setAdapter();
+    }
+
+    private void setAdapter() {
+        mMaterieCursor.moveToFirst();
+        int sumaNote = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_SUMA);
+        int nrNote = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_COUNT_NOTE);
+        int teza = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_TEZA);
+        if(teza == 0){
+            if(mCheckbox.isChecked()){
+                ArrayList<VariantaMedie> variante = VariantaMedie
+                        .getVarianteMedieWithPossibleTeza(sumaNote, nrNote);
+                mAdapter.setVariante(variante);
+            } else {
+                ArrayList<VariantaMedie> variante = VariantaMedie
+                        .getVarianteMedieWithoutTeza(sumaNote, nrNote);
+                mAdapter.setVariante(variante);
+            }
+        } else {
+            ArrayList<VariantaMedie> variante = VariantaMedie
+                    .getVarianteMedieWithTeza(sumaNote, nrNote, teza);
+            mAdapter.setVariante(variante);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        mAdapter.setVariante(null);
     }
 
 //    VariantaMedie[] getVariantaMedie(int medie, int nrNote) {
@@ -131,20 +166,6 @@ public class NoteDetailMedieFragment extends Fragment implements CheckBox.OnClic
 //        mListView.setAdapter(mAdapter);
 //    }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.checkBox) {
-            //TODO
-//            setAdapter(Integer.parseInt(mEditText.getText().toString()));
-        }
-    }
 
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        int nrNote = Integer.parseInt(v.getText().toString());
-        //TODO
-//        setAdapter(nrNote);
-        return false;
-    }
 }
 

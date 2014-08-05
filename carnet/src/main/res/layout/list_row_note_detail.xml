@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:padding="@dimen/small_margin"
     android:layout_height="wrap_content">
     <TextView
+        android:layout_weight="1"
         android:text="@string/lorem_short"
         android:fontFamily="sans-serif-light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/value" />
+    <View
+        android:id="@+id/seperator"
+        android:layout_height="fill_parent"
+        android:layout_width="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:background="#90909090"/>
     <ImageButton
         android:id="@+id/overflow"
         android:layout_width="wrap_content"
@@ -20,4 +28,4 @@
         android:layout_centerVertical="true"
         android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_action_content_discard" />
-</RelativeLayout>
+</LinearLayout>

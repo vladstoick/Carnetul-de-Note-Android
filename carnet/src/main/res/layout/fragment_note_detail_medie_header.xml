@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="@dimen/small_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:fontFamily="sans-serif-light"
-        android:text="@string/lorem_short"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/media_curenta"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
         android:fontFamily="sans-serif-condensed"
         android:textStyle="bold"
-        android:layout_below="@id/media_curenta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:attr/listSeparatorTextViewStyle"
@@ -24,32 +15,9 @@
         android:id="@+id/title" />
     <CheckBox
         android:fontFamily="sans-serif-light"
-        android:layout_below="@id/title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cu_teza"
         android:id="@+id/checkBox"/>
-
-    <LinearLayout
-        android:layout_below="@+id/checkBox"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:fontFamily="sans-serif-light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/numar_note"
-            android:id="@+id/textView" />
-        <EditText
-            android:fontFamily="sans-serif-light"
-            android:text="@string/one"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:id="@+id/editText"/>
-
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

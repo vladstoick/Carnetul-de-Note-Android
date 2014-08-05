@@ -66,9 +66,7 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
         double medie = Utility.getMedieGeneralaFromCursor(cursor, purtare);
         mMedieGenerala.setText(String.valueOf(medie));
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        String medieString = decimalFormat.format(medie);
-        mMedieGenerala.setText(medieString);
+        mMedieGenerala.setText(Utility.getTwoDecimalsFromMaterie(medie));
         if (medie < 4.5) {
             mMedieGenerala.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         } else {

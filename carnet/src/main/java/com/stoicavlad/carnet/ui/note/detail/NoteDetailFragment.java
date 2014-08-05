@@ -26,7 +26,7 @@ public class NoteDetailFragment extends Fragment implements LoaderManager.Loader
     private static final int MATERIE_LOADER = 0;
 
     private static final String ARG_MATERIE_ID = "MATERIE_ID";
-    private int materieId;
+    int materieId;
 
     private NoteDetailAdapter mCursorAdapter;
     private ListView mListView;

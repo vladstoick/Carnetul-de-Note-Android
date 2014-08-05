@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TextView
+    android:id="@+id/text"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:text="@string/lorem_short"
     android:textStyle="bold"
@@ -8,4 +9,4 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="?android:attr/listSeparatorTextViewStyle"
-    android:id="@+id/text" />
+ />

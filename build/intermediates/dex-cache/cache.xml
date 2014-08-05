@@ -2,6 +2,18 @@
 <pre-dex-items>
 
     <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\classes-ecaa5f91702339b1a74e12a090d45797e770e71d.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\se.emilsjolander\stickylistheaders\2.5.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5682a0f7a23864f71e826f9a0fe567c2a2628cb1"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\butterknife-5.1.2-068d7cf49ba5dc7054af80e08a03ff841ad58fea.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\5.1.2\daf5472b0df6dabaceb6ad755b3812535863965a\butterknife-5.1.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="daf5472b0df6dabaceb6ad755b3812535863965a"/>
+    <item
         dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\classes-a58607a8d9e9fcbe0a814630487e60db87a10e34.jar"
         jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\classes.jar"
         jumboMode="false"

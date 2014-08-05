@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 /**
@@ -25,7 +26,7 @@ public class Utility {
         } else {
             medieMaterie = teza == 0 ? medieNote : (teza + medieNote*3)/4;
         }
-        return Math.round(medieMaterie);
+        return medieMaterie;
     }
 
     public static double getMedieGeneralaFromCursor(Cursor cursor, int purtare) {
@@ -39,9 +40,24 @@ public class Utility {
             double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE_NOTE);
             double medieMaterie = getMedieForMaterie(teza,medieNote);
             medieMaterie = medieMaterie == 0 ? 10 : medieMaterie;
-            medie += medieMaterie;
+            medie += Math.round(medieMaterie);
             cursor.moveToNext();
         }
         return ( medie + purtare ) / (cursor.getCount() + 1 ) ;
+    }
+
+    public static String getTwoDecimalsFromMaterie(double value){
+        return new DecimalFormat("#.##").format(value);
+    }
+
+    public static String getStringFromIntArray(int[] array){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0 ; i <array.length ; i++ ){
+            stringBuilder.append(array[i]);
+            if( i != array.length -1 ){
+                stringBuilder.append(", ");
+            }
+        }
+        return stringBuilder.toString();
     }
 }
