@@ -32,6 +32,7 @@
     <!-- GENERAL FRAGMENT -->
     <string name="medie_generala">Media generală</string>
     <string name="purtare">Purtare</string>
+    <string name="modifica_purtarea">Modifică nota la purtare</string>
     <!-- NOTE FRAGMENTS -->
     <string name="daca_teza">Dacă iei în teză</string>
     <string name="medie_curenta">Media curentă</string>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 
 import com.crashlytics.android.Crashlytics;
@@ -23,7 +24,8 @@ public class SetupActivity extends Activity implements SetupFragment.OnFragmentI
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
 
-        SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
         if(settings.contains("SETUP_DONE_V2")){
             gotoMainActivity();
         }
@@ -51,7 +53,8 @@ public class SetupActivity extends Activity implements SetupFragment.OnFragmentI
                 .toArray(new ContentValues[materieValuesList.size()]);
         getApplicationContext().getContentResolver()
                 .bulkInsert(CarnetContract.MaterieEntry.CONTENT_URI, materieValuesArray);
-        SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
         settings.edit().putString("SETUP_DONE_V2","true").apply();
         gotoMainActivity();
 

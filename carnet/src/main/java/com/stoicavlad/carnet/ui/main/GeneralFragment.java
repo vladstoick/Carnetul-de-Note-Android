@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
 
     private final static int ABSENTE_LOADER = 0;
     private final static int MATERIE_LOADER = 1;
+    private Cursor mGeneralCursor;
 
 
     @Override
@@ -52,17 +54,24 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //TODO
+                ModifyPurtareDialogFragment dialogFragment = new ModifyPurtareDialogFragment();
+                dialogFragment.setOnPurtareChangedListener(new ModifyPurtareDialogFragment.OnPurtareChangedInterface() {
+                    @Override
+                    public void purtareDidChanged() {
+                        setMedieUI();
+                    }
+                });
+                dialogFragment.show(getFragmentManager(), "DF");
             }
         });
         return rootView;
     }
 
-    void setMedieUI(Cursor cursor) {
-        SharedPreferences preferences = getActivity().getSharedPreferences("appPref",
-                Context.MODE_PRIVATE);
-        int purtare = preferences.getInt("PURTARE_TAG",9);
-        double medie = UtilityMaterie.getMedieGeneralaFromCursor(cursor, purtare);
+    void setMedieUI() {
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        int purtare = preferences.getInt("PURTARE_TAG",10);
+        double medie = UtilityMaterie.getMedieGeneralaFromCursor(mGeneralCursor, purtare);
         mMedieGenerala.setText(String.valueOf(medie));
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
         mMedieGenerala.setText(UtilityMaterie.getTwoDecimalsFromMaterie(medie));
@@ -74,7 +83,8 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
 
     }
 
-    private void setAbsenteUI(int absente) {
+    private void setAbsenteUI() {
+        int absente = mGeneralCursor.getCount();
         if (this.isAdded()) {
             mAbsente.setText(absente + "");
             if (absente > 10) {
@@ -93,19 +103,14 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
             return new CursorLoader(
                     getActivity(),
                     CarnetContract.AbsentaEntry.CONTENT_URI,
-                    null,
-                    null,
-                    null,
-                    null
+                    null, null, null, null
             );
         } else if (i== MATERIE_LOADER){
             return new CursorLoader(
                     getActivity(),
                     CarnetContract.MaterieEntry.CONTENT_URI,
                     CarnetContract.MaterieEntry.COLUMNS_MEDIE,
-                    null,
-                    null,
-                    null
+                    null, null, null
             );
         }
         return null;
@@ -113,10 +118,13 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        if(cursorLoader.getId() == ABSENTE_LOADER){
-            setAbsenteUI(cursor.getCount());
-        } else if(cursorLoader.getId() == MATERIE_LOADER){
-            setMedieUI(cursor);
+        if(cursor!=null) {
+            mGeneralCursor = cursor;
+            if (cursorLoader.getId() == ABSENTE_LOADER) {
+                setAbsenteUI();
+            } else if (cursorLoader.getId() == MATERIE_LOADER) {
+                setMedieUI();
+            }
         }
     }
 

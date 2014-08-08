@@ -1,22 +1,11 @@
 package com.stoicavlad.carnet.ui.note;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
-import com.stoicavlad.carnet.ui.utils.NotaSelector;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by Vlad on 1/26/14.
@@ -40,7 +29,7 @@ public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         materieId = getArguments().getInt(TAG_MATERIE_ID);
-        layoutXml = R.layout.dialog_addteza;
+        layoutXml = R.layout.dialog_add_simple;
         mMaterieName = getArguments().getString(TAG_MATERIE_NAME);
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.setTitle(getString(R.string.add_teza)+" "+mMaterieName);
