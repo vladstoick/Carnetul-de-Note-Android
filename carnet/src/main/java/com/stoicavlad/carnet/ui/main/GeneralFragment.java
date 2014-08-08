@@ -17,10 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.Utility;
+import com.stoicavlad.carnet.data.UtilityMaterie;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
-
-import java.text.DecimalFormat;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -64,10 +62,10 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
         SharedPreferences preferences = getActivity().getSharedPreferences("appPref",
                 Context.MODE_PRIVATE);
         int purtare = preferences.getInt("PURTARE_TAG",9);
-        double medie = Utility.getMedieGeneralaFromCursor(cursor, purtare);
+        double medie = UtilityMaterie.getMedieGeneralaFromCursor(cursor, purtare);
         mMedieGenerala.setText(String.valueOf(medie));
         mPurtare.setText(getString(R.string.purtare) + ": " + purtare);
-        mMedieGenerala.setText(Utility.getTwoDecimalsFromMaterie(medie));
+        mMedieGenerala.setText(UtilityMaterie.getTwoDecimalsFromMaterie(medie));
         if (medie < 4.5) {
             mMedieGenerala.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
         } else {

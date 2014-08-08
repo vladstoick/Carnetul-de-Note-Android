@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.Utility;
+import com.stoicavlad.carnet.data.UtilityMaterie;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.note.AddTezaDialogFragment;
 
@@ -130,9 +130,9 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
 
             double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE);
 
-            double medie = Utility.getMedieForMaterie(teza, medieNote);
+            double medie = UtilityMaterie.getMedieForMaterie(teza, medieNote);
 
-            mMedieTextView.setText(Utility.getTwoDecimalsFromMaterie(medie));
+            mMedieTextView.setText(UtilityMaterie.getTwoDecimalsFromMaterie(medie));
 
         }
     }

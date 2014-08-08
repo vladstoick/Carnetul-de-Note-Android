@@ -14,7 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.Utility;
+import com.stoicavlad.carnet.data.UtilityMaterie;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import butterknife.ButterKnife;
@@ -83,11 +83,11 @@ public class ComplexNoteAdapter extends CursorAdapter {
 
         //medie
         double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_MEDIE);
-        double medie = Utility.getMedieForMaterie(teza, medieNote);
+        double medie = UtilityMaterie.getMedieForMaterie(teza, medieNote);
         if (medie == 0) {
             viewHolder.mValueTextView.setText("-");
         } else {
-            viewHolder.mValueTextView.setText(Utility.getTwoDecimalsFromMaterie(medie));
+            viewHolder.mValueTextView.setText(UtilityMaterie.getTwoDecimalsFromMaterie(medie));
         }
         if (medie < 4.5) {
             viewHolder.mValueTextView

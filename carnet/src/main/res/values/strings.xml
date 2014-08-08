@@ -61,6 +61,7 @@
     <string name="add_materie">Adaugă o materie</string>
     <string name="add_materie_edit_text_hint">Numele materiei</string>
     <!-- ABSENTE -->
+    <string name="absente_suficiente">Numărul tău de absențe este mai mic decât maximul stabilit în setări.</string>
     <string name="scutiri_necesare">Scutiri necesare</string>
     <string name="calculeaza_absente">Ce scutiri trebuie sa aduci</string>
     <!-- EDIT -->

@@ -10,7 +10,7 @@ import java.util.Calendar;
 /**
  * Created by Vlad on 30-Jul-14.
  */
-public class Utility {
+public class UtilityMaterie {
 
     public static String getDateFromLong(long date){
         Calendar c = Calendar.getInstance();

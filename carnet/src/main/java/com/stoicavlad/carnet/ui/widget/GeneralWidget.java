@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.widget.RemoteViews;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.Utility;
+import com.stoicavlad.carnet.data.UtilityMaterie;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 /**
@@ -64,7 +64,7 @@ public class GeneralWidget extends AppWidgetProvider{
         SharedPreferences preferences = context.getSharedPreferences("appPref",
                 Context.MODE_PRIVATE);
         int purtare = preferences.getInt("PURTARE_TAG",9);
-        double medie = Utility.getMedieGeneralaFromCursor(medieCursor, purtare);
+        double medie = UtilityMaterie.getMedieGeneralaFromCursor(medieCursor, purtare);
         String medie_text;
         if(medie>0){
             medie_text = context.getString(R.string.medie) + " : " + medie;

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -17,23 +18,31 @@ import java.util.Date;
 /**
  * Created by Vlad on 3/5/14.
  */
-class AbsenteDialogFragment extends DialogFragment {
-    private Calendar[] dates;
+public class AbsenteDialogFragment extends DialogFragment {
+    private static String TAG_DATES = "DATES";
+    private long[] mDates;
 
-
-    public AbsenteDialogFragment(Calendar[] dates) {
-        this.dates = dates;
+    public static AbsenteDialogFragment newInstance(long[] dates){
+        AbsenteDialogFragment dialogFragment = new AbsenteDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLongArray(TAG_DATES, dates);
+        dialogFragment.setArguments(bundle);
+        return dialogFragment;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Activity activity = getActivity();
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+        mDates = getArguments().getLongArray(TAG_DATES);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         ArrayList<String> datesAsString = new ArrayList<String>();
         DateFormat dateFormat = DateFormat.getDateInstance();
-        for(Calendar calendar : dates){
+
+        for(long dateMsValue : mDates){
             Date date = new Date();
-            date.setTime(calendar.getTimeInMillis());
+            date.setTime(dateMsValue);
             String rezultat = dateFormat.format(date);
             datesAsString.add(rezultat);
         }

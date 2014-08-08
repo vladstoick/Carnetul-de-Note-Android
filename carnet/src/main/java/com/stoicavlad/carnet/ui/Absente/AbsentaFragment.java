@@ -1,11 +1,16 @@
 package com.stoicavlad.carnet.ui.absente;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +19,9 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.UtilityAbsente;
 import com.stoicavlad.carnet.data.provider.CarnetContract.AbsentaEntry;
+import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -35,7 +42,23 @@ public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCal
         mCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                SharedPreferences sharedPreferences = getActivity()
+                        .getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = PreferenceManager
+                        .getDefaultSharedPreferences(getActivity());
+                int absenteNecesare = Integer
+                        .valueOf(sharedPref.getString("pref_maxim_absente","10"));
+                Log.e("TAg", absenteNecesare + ": absente necesare ");
+                long dates[] = UtilityAbsente.getScutiriNecesare(mAdapter.getCursor(),
+                        absenteNecesare);
+                DialogFragment dialogFragment;
+                if(dates.length > 0) {
+                    dialogFragment = AbsenteDialogFragment.newInstance(dates);
+                } else {
+                    dialogFragment = SimpleDialogFragment
+                            .newInstance(getString(R.string.absente_suficiente));
+                }
+                dialogFragment.show(getFragmentManager(), "DF");
             }
         });
         mAdapter = new AbsentaAdapter(getActivity(), null, 0);

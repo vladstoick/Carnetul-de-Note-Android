@@ -8,14 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.Utility;
+import com.stoicavlad.carnet.data.UtilityMaterie;
 import com.stoicavlad.carnet.data.VariantaMedie;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.Optional;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -68,7 +67,7 @@ class NoteDetailMedieAdapter extends BaseAdapter implements StickyListHeadersAda
         }
         VariantaMedie variantaMedie = getItem(position);
         holder.mValueTextView.setText(context.getString(R.string.trebuie_sa_iei) + ": " +
-                Utility.getStringFromIntArray(variantaMedie.noteNecesare));
+                UtilityMaterie.getStringFromIntArray(variantaMedie.noteNecesare));
         if (variantaMedie.teza != 0) {
             holder.mValueTezaTextView.setVisibility(View.VISIBLE);
             holder.mValueTezaTextView.setText(context.getString(R.string.daca_teza) + " "
