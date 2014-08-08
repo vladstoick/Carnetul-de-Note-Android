@@ -30,6 +30,8 @@ public class NotaSelectorDialogFragment extends DialogFragment {
     protected static final String TAG_XML = "XML";
     protected int layoutXml;
 
+    protected View rootView;
+
     protected int selectedValue;
 
     @InjectView(R.id.nota_selector) NotaSelector mNotaSelector;
@@ -45,7 +47,7 @@ public class NotaSelectorDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View rootView = inflater.inflate(layoutXml, null);
+        rootView = inflater.inflate(layoutXml, null);
         ButterKnife.inject(this, rootView);
 
         String title = getString(R.string.add_teza);
@@ -61,9 +63,7 @@ public class NotaSelectorDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         NotaSelectorDialogFragment.this.getDialog().cancel();
                     }
-                })
-                .setTitle(title);
-
+                });
         return builder.create();
     }
 
