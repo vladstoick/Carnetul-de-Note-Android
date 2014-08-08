@@ -13,15 +13,19 @@ import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
+import com.stoicavlad.carnet.ui.utils.NotaSelector;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by Vlad on 1/26/14.
  */
-public class AddTezaDialogFragment extends DialogFragment implements Button.OnClickListener {
+public class AddTezaDialogFragment extends DialogFragment {
     private Button mOKButton;
     private int materieId;
+
+    @InjectView(R.id.nota_selector) NotaSelector mNotaSelector;
 
     private int lastClicked = -1;
     private View mRootView;
@@ -38,20 +42,20 @@ public class AddTezaDialogFragment extends DialogFragment implements Button.OnCl
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         this.materieId = getArguments().getInt("ID");
-
         //Initial inflating
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         mRootView = inflater.inflate(R.layout.dialog_addteza, null);
         ButterKnife.inject(this, mRootView);
 
-        //Adding button events
-        for (int i = 1; i <= 10; i++) {
-            String buttonID = "button_" + i;
-            int resID = getResources().getIdentifier(buttonID, "id", "com.stoicavlad.carnet");
-            Button btn = (Button) mRootView.findViewById(resID);
-            btn.setOnClickListener(this);
-        }
+        //setting listenr for nota selector
+
+        mNotaSelector.setOnNotaSelectormListener(new NotaSelector.OnNotaSelectorListener() {
+            @Override
+            public void didChangeValue(boolean isSelected) {
+                getOkButton().setEnabled(isSelected);
+            }
+        });
 
          //Getting title
         String title = getString(R.string.add_teza);
@@ -102,18 +106,4 @@ public class AddTezaDialogFragment extends DialogFragment implements Button.OnCl
         getOkButton().setEnabled(false);
     }
 
-    @Override
-    public void onClick(View view) {
-        view.setPressed(true);
-        if (lastClicked != -1) {
-            ToggleButton mLastButton = (ToggleButton) mRootView.findViewById(lastClicked);
-            mLastButton.setChecked(false);
-        }
-        if (lastClicked == view.getId()) {
-            lastClicked = -1;
-        } else {
-            lastClicked = view.getId();
-        }
-        getOkButton().setEnabled(lastClicked != -1);
-    }
 }

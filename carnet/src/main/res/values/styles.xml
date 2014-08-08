@@ -6,6 +6,7 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
         <item name="android:actionBarTabBarStyle">@style/AppTheme.ActionBar.TabBar</item>
+        <item name="circleButtonStyle">@style/AppTheme.CircleButton</item>
     </style>
 
     <!--ACTION BAR-->
@@ -28,7 +29,8 @@
 
     <!--CIRCLE BUTTON-->
 
-    <style name="AppTheme.CircleButton">
+    <style name="AppTheme.CircleButton" parent="android:Widget.Holo.Light.Button.Toggle">
+
         <item name="android:layout_width">@dimen/add_nota_dialog_fragment_button_size</item>
         <item name="android:layout_height">@dimen/add_nota_dialog_fragment_button_size</item>
         <item name="android:background">@drawable/circle_button</item>

@@ -5,14 +5,6 @@
     android:padding="@dimen/small_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/listSeparatorTextViewStyle"
-        android:text="@string/calculeaza_media"
-        android:id="@+id/title" />
     <CheckBox
         android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium"

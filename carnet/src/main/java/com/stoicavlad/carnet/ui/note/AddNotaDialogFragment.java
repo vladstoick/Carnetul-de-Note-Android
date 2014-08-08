@@ -13,13 +13,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.ToggleButton;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
+import com.stoicavlad.carnet.ui.utils.NotaSelector;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,13 +26,13 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 1/26/14.
  */
-public class AddNotaDialogFragment extends DialogFragment implements Button.OnClickListener,
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class AddNotaDialogFragment extends DialogFragment
+        implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MATERII_LOADER = 0;
-    @InjectView(R.id.materie_spinner) public Spinner mMaterieSpinner;
+    @InjectView(R.id.materie_spinner) Spinner mMaterieSpinner;
+    @InjectView(R.id.nota_selector) NotaSelector mNotaSelector;
     private SimpleCursorAdapter mCursorAdapter;
     private Button mOKButton;
-    private int lastClicked = -1;
     private View mRootView;
 
     @Override
@@ -51,14 +50,6 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         mRootView = inflater.inflate(R.layout.dialog_addnota, null);
         ButterKnife.inject(this, mRootView);
 
-        //Adding button events
-        for (int i = 1; i <= 10; i++) {
-            String buttonID = "button_" + i;
-            int resID = getResources().getIdentifier(buttonID, "id", "com.stoicavlad.carnet");
-            Button btn = (Button) mRootView.findViewById(resID);
-            btn.setOnClickListener(this);
-        }
-
         //Setting Spinner adapter
         mCursorAdapter = new SimpleCursorAdapter(getActivity(),
                 android.R.layout.simple_list_item_1,
@@ -66,6 +57,15 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
                 new String[]{CarnetContract.MaterieEntry.COLUMN_NAME},
                 new int[] {android.R.id.text1});
         mMaterieSpinner.setAdapter(mCursorAdapter);
+
+        //setting listenr for nota selector
+
+        mNotaSelector.setOnNotaSelectormListener(new NotaSelector.OnNotaSelectorListener() {
+            @Override
+            public void didChangeValue(boolean isSelected) {
+                getOkButton().setEnabled(isSelected);
+            }
+        });
 
         //Getting title
         String title = getString(R.string.add_nota);
@@ -90,15 +90,11 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
     void okButtonSelected() {
         Cursor cursor = mCursorAdapter.getCursor();
         int position = mMaterieSpinner.getSelectedItemPosition();
+
         cursor.moveToPosition(position);
         int materieId = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
+        int nota = Integer.valueOf(mNotaSelector.selectedValue);
 
-        Button selectedButton = (Button) mRootView.findViewById(lastClicked);
-
-        int nota = 0;
-        if(selectedButton.getText()!=null){
-            nota = Integer.parseInt(selectedButton.getText().toString());
-        }
         ContentValues notaValues = new ContentValues();
         notaValues.put(CarnetContract.NoteEntry.COLUMN_VALUE,nota);
         notaValues.put(CarnetContract.NoteEntry.COLUMN_MATERIE_ID,materieId);
@@ -120,20 +116,6 @@ public class AddNotaDialogFragment extends DialogFragment implements Button.OnCl
         getOkButton().setEnabled(false);
     }
 
-    @Override
-    public void onClick(View view) {
-        view.setPressed(true);
-        if (lastClicked != -1) {
-            ToggleButton mLastButton = (ToggleButton) mRootView.findViewById(lastClicked);
-            mLastButton.setChecked(false);
-        }
-        if (lastClicked == view.getId()) {
-            lastClicked = -1;
-        } else {
-            lastClicked = view.getId();
-        }
-        getOkButton().setEnabled(lastClicked != -1);
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {

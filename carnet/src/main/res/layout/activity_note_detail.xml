@@ -54,7 +54,9 @@
     </LinearLayout>
     <com.astuetz.PagerSlidingTabStrip
         app:pstsShouldExpand="true"
-        app:pstsIndicatorColor="@color/dark_orange"
+        app:pstsTextAllCaps="true"
+        app:pstsIndicatorColor="#33b5e5"
+        app:pstsUnderlineColor="@color/transparent"
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="48dip" />

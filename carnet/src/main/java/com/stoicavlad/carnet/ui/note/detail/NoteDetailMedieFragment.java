@@ -66,10 +66,12 @@ public class NoteDetailMedieFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_note_detail_medie, container, false);
+        View view = inflater.inflate(R.layout.fragment_note_detail_medie, null, false);
+
         ButterKnife.inject(this, view);
 
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
+
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
         mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -112,7 +114,9 @@ public class NoteDetailMedieFragment extends Fragment
         int sumaNote = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_SUMA);
         int nrNote = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_COUNT_NOTE);
         int teza = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_TEZA);
+        //TODO ce se intampla daca nu exista note
         if(teza == 0){
+            mCheckbox.setVisibility(View.VISIBLE);
             if(mCheckbox.isChecked()){
                 ArrayList<VariantaMedie> variante = VariantaMedie
                         .getVarianteMedieWithPossibleTeza(sumaNote, nrNote);
@@ -126,6 +130,7 @@ public class NoteDetailMedieFragment extends Fragment
             ArrayList<VariantaMedie> variante = VariantaMedie
                     .getVarianteMedieWithTeza(sumaNote, nrNote, teza);
             mAdapter.setVariante(variante);
+            mCheckbox.setVisibility(View.GONE);
         }
     }
 

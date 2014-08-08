@@ -3,10 +3,13 @@ package com.stoicavlad.carnet.ui.note;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.DialogFragment;
 import android.text.Editable;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.stoicavlad.carnet.R;
@@ -26,6 +29,7 @@ public class AddMaterieDialogFragment extends DialogFragment {
 
         mEditText = new EditText(getActivity());
         mEditText.setHint(R.string.add_materie_edit_text_hint);
+
 
         builder.setView(mEditText)
                 .setTitle(R.string.add_materie)
@@ -48,13 +52,13 @@ public class AddMaterieDialogFragment extends DialogFragment {
 
                     }
                 });
-        mEditText.requestFocus();
         return builder.create();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mEditText.requestFocus();
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 }
