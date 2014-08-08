@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:attr/listSeparatorTextViewStyle"
-        android:text="@string/medie_generala"/>
+        android:text="@string/medie_generala"
+        tools:ignore="UnusedAttribute" />
 
     <TextView
         android:id="@+id/medieGenerala"
@@ -22,7 +23,8 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lorem_nota" />
+        android:text="@string/lorem_nota"
+        tools:ignore="UnusedAttribute" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -38,7 +40,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/lorem_short"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            tools:ignore="UnusedAttribute" />
 
         <ImageButton
             android:padding="8dp"
@@ -47,7 +50,8 @@
             android:src="@drawable/ic_action_edit"
             android:id="@+id/editButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
     <TextView
         android:textStyle="bold"
@@ -55,7 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?android:attr/listSeparatorTextViewStyle"
-        android:text="@string/absente_section"/>
+        android:text="@string/absente_section"
+        tools:ignore="UnusedAttribute" />
     <TextView
         android:id="@+id/absente"
         android:padding="@dimen/activity_horizontal_margin"
@@ -64,6 +69,7 @@
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lorem_nota" />
+        android:text="@string/lorem_nota"
+        tools:ignore="UnusedAttribute" />
 
 </LinearLayout>

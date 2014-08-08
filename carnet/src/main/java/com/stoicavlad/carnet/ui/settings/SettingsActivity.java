@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         }
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
 
@@ -79,6 +81,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //noinspection ConstantConditions
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

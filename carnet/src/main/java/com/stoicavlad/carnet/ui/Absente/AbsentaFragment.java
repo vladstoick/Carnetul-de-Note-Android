@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.absente;
 
+import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    @InjectView(R.id.list) public ListView mListView;
+    @InjectView(R.id.list) ListView mListView;
     private CursorAdapter mAdapter;
     private static final int ABSENTE_LOADER = 0;
 
@@ -37,6 +38,7 @@ public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCal
 
         View view = inflater.inflate(R.layout.fragment_absenta, container, false);
         ButterKnife.inject(this, view);
+        @SuppressLint("InflateParams")
         View headerView = inflater.inflate(R.layout.header_absenta_button,null);
         Button mCalculate = (Button) headerView.findViewById(R.id.button);
         mCalculate.setOnClickListener(new View.OnClickListener() {
@@ -44,10 +46,8 @@ public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCal
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getActivity()
                         .getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences sharedPref = PreferenceManager
-                        .getDefaultSharedPreferences(getActivity());
                 int absenteNecesare = Integer
-                        .valueOf(sharedPref.getString("pref_maxim_absente","10"));
+                        .valueOf(sharedPreferences.getString("pref_maxim_absente", "10"));
                 Log.e("TAg", absenteNecesare + ": absente necesare ");
                 long dates[] = UtilityAbsente.getScutiriNecesare(mAdapter.getCursor(),
                         absenteNecesare);

@@ -32,7 +32,7 @@ public class CarnetContract {
 
         //SIMPLE
 
-        public static String [] COLUMNS_SIMPLE = {
+        public static final String [] COLUMNS_SIMPLE = {
                 TABLE_NAME + "." + _ID,
                 COLUMN_NAME,
                 "AVG ( " +  NoteEntry.TABLE_NAME + "." + NoteEntry.COLUMN_VALUE + " ) "
@@ -99,9 +99,8 @@ public class CarnetContract {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
         public static Uri buildNoteUri(long id){
-            Uri uri = CONTENT_URI.buildUpon().appendEncodedPath("note")
+            return  CONTENT_URI.buildUpon().appendEncodedPath("note")
                     .appendEncodedPath(String.valueOf(id)).build();
-            return uri;
         }
     }
 

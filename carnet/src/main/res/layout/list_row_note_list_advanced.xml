@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,7 +17,8 @@
         android:fontFamily="sans-serif-condensed"
         android:text="@string/lorem_short"
         android:textSize="@dimen/ultra_x2_large_text"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="UnusedAttribute" />
 
     <TextView
         android:id="@+id/note"
@@ -26,7 +28,8 @@
         android:layout_toLeftOf="@id/value"
         android:fontFamily="sans-serif-light"
         android:text="@string/lorem_short"
-        android:textSize="@dimen/medium_text" />
+        android:textSize="@dimen/medium_text"
+        tools:ignore="UnusedAttribute" />
 
     <TextView
         android:id="@+id/teza"
@@ -36,7 +39,8 @@
         android:layout_toLeftOf="@+id/value"
         android:fontFamily="sans-serif-light"
         android:text="@string/lorem_short"
-        android:textSize="@dimen/medium_text" />
+        android:textSize="@dimen/medium_text"
+        tools:ignore="UnusedAttribute" />
 
     <TextView
         android:id="@+id/value"
@@ -46,7 +50,8 @@
         android:layout_toLeftOf="@+id/overflow"
         android:fontFamily="sans-serif-thin"
         android:text="@string/lorem_nota"
-        android:textSize="@dimen/ultra_large_text" />
+        android:textSize="@dimen/ultra_large_text"
+        tools:ignore="UnusedAttribute" />
 
     <ImageButton
         android:id="@+id/overflow"
@@ -55,6 +60,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_action_overflow" />
+        android:src="@drawable/ic_action_overflow"
+        tools:ignore="ContentDescription" />
 
 </RelativeLayout>

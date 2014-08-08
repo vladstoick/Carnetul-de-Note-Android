@@ -4,8 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 
-import com.stoicavlad.carnet.R;
-
 import java.util.Locale;
 
 /**
@@ -13,8 +11,8 @@ import java.util.Locale;
  */
 public class NoteDetailSectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private int mMaterieId;
-    private String[] mTabNames;
+    private final int mMaterieId;
+    private final String[] mTabNames;
 
     public NoteDetailSectionsPagerAdapter(FragmentManager fm, int materieId, String[] tabNames) {
         super(fm);

@@ -18,13 +18,14 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 01-Aug-14.
  */
+@SuppressWarnings("SameParameterValue")
 public class NoteDetailAdapter extends CursorAdapter {
 
     public interface OnDeleteListener {
-        public void didDeleteNotaWithId(int id);
+        public void didDeleteNotaWithId();
     }
 
-    OnDeleteListener mListener;
+    final OnDeleteListener mListener;
 
     public NoteDetailAdapter(Context context, Cursor c, int flags, OnDeleteListener listener) {
         super(context, c, flags);
@@ -59,7 +60,7 @@ public class NoteDetailAdapter extends CursorAdapter {
                 context.getContentResolver().delete(CarnetContract.NoteEntry.buildNotaUri(id)
                         ,null,null);
                 if(mListener!=null) {
-                    mListener.didDeleteNotaWithId(id);
+                    mListener.didDeleteNotaWithId();
                 }
             }
         });

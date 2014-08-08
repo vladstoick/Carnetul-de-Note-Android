@@ -8,6 +8,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -81,7 +82,7 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
 
 
 
-    @Override public void onSaveInstanceState(Bundle outState) {
+    @Override public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
@@ -103,7 +104,7 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         cursor.moveToFirst();
         if(!cursor.isAfterLast()) {
 
-            final String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_NAME);;
+            final String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_NAME);
 
             mModifyTezaImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override

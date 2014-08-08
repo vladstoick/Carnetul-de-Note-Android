@@ -2,12 +2,10 @@ package com.stoicavlad.carnet.ui.setup;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
 
 import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.R;

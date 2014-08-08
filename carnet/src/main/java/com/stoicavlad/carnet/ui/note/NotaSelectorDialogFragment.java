@@ -3,7 +3,6 @@ package com.stoicavlad.carnet.ui.note;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.utils.NotaSelector;
 
 import butterknife.ButterKnife;
@@ -50,7 +48,6 @@ public class NotaSelectorDialogFragment extends DialogFragment {
         rootView = inflater.inflate(layoutXml, null);
         ButterKnife.inject(this, rootView);
 
-        String title = getString(R.string.add_teza);
 
         builder.setView(rootView)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -91,7 +88,7 @@ public class NotaSelectorDialogFragment extends DialogFragment {
         super.onStart();
         AlertDialog d = (AlertDialog) getDialog();
         if (d != null) {
-            Button positiveButton = (Button)d.getButton(Dialog.BUTTON_POSITIVE);
+            Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
             positiveButton.setEnabled(false);
         }
 

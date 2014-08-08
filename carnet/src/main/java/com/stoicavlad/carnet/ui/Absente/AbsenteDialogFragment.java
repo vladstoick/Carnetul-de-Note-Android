@@ -1,6 +1,5 @@
 package com.stoicavlad.carnet.ui.absente;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -8,19 +7,16 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.stoicavlad.carnet.R;
-import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
  * Created by Vlad on 3/5/14.
  */
 public class AbsenteDialogFragment extends DialogFragment {
-    private static String TAG_DATES = "DATES";
-    private long[] mDates;
+    private static final String TAG_DATES = "DATES";
 
     public static AbsenteDialogFragment newInstance(long[] dates){
         AbsenteDialogFragment dialogFragment = new AbsenteDialogFragment();
@@ -33,7 +29,7 @@ public class AbsenteDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        mDates = getArguments().getLongArray(TAG_DATES);
+        long[] mDates = getArguments().getLongArray(TAG_DATES);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 

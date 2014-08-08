@@ -10,7 +10,6 @@ import android.app.DialogFragment;
  * Created by Vlad on 1/27/14.
  */
 public class SimpleDialogFragment extends DialogFragment {
-    private String message;
     public SimpleDialogFragment(){}
 
     public static SimpleDialogFragment newInstance(String message){
@@ -23,7 +22,7 @@ public class SimpleDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        this.message = getArguments().getString("MESSAGE");
+        String message = getArguments().getString("MESSAGE");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(message);

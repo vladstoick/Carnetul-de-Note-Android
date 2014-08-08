@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="dark_orange">#FA6900</color>
     <color name="light_orange">#F38630</color>
     <color name="light_blue">#69D2E7</color>
@@ -18,7 +18,7 @@
 
     <style name="AppTheme.ActionBar.Text" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
     </style>
 
     <!--TAB BAR-->
@@ -36,7 +36,7 @@
         <item name="android:background">@drawable/circle_button</item>
         <item name="android:layout_margin">@dimen/add_nota_dialog_fragmnet_button_margin</item>
         <item name="android:textColor">@color/dialog_add_nota</item>
-        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-thin</item>
         <item name="android:textSize">@dimen/add_nota_dialog_fragment_button_text_size</item>
     </style>
 </resources>

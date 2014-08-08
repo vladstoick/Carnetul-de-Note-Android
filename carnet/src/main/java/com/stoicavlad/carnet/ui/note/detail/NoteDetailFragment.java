@@ -1,23 +1,18 @@
 package com.stoicavlad.carnet.ui.note.detail;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
-
-import java.util.List;
 
 public class NoteDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,
         NoteDetailAdapter.OnDeleteListener{
@@ -29,7 +24,6 @@ public class NoteDetailFragment extends Fragment implements LoaderManager.Loader
     int materieId;
 
     private NoteDetailAdapter mCursorAdapter;
-    private ListView mListView;
 
     public NoteDetailFragment() {
         // Required empty public constructor
@@ -63,7 +57,7 @@ public class NoteDetailFragment extends Fragment implements LoaderManager.Loader
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_note_detail, container, false);
-        mListView = (ListView) view.findViewById(R.id.list);
+        ListView mListView = (ListView) view.findViewById(R.id.list);
         mCursorAdapter = new NoteDetailAdapter(getActivity(),null,0,this);
         mListView.setAdapter(mCursorAdapter);
         return view;
@@ -92,7 +86,7 @@ public class NoteDetailFragment extends Fragment implements LoaderManager.Loader
     }
 
     @Override
-    public void didDeleteNotaWithId(int id) {
+    public void didDeleteNotaWithId() {
         getActivity().getContentResolver()
                 .notifyChange(CarnetContract.MaterieEntry.buildNoteUri(materieId), null, false);
         getActivity().getContentResolver()

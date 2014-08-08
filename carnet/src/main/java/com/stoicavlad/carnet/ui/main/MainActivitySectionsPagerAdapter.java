@@ -15,7 +15,7 @@ import java.util.Locale;
  */
 public class MainActivitySectionsPagerAdapter extends FragmentPagerAdapter {
 
-    String[] tabNames;
+    final String[] tabNames;
 
     public MainActivitySectionsPagerAdapter(FragmentManager fm,String[] tabNames) {
         super(fm);

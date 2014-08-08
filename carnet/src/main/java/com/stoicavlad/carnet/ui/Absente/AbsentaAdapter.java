@@ -18,6 +18,7 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 30-Jul-14.
  */
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class AbsentaAdapter extends CursorAdapter {
 
     static class ViewHolder{
@@ -28,7 +29,7 @@ public class AbsentaAdapter extends CursorAdapter {
         }
     }
 
-    public AbsentaAdapter(Context context, Cursor c, int flags) {
+    public AbsentaAdapter(Context context, @SuppressWarnings("SameParameterValue") Cursor c, int flags) {
         super(context, c, flags);
     }
 

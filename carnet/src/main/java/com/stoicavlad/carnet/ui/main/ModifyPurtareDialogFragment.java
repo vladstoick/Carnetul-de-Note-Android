@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class ModifyPurtareDialogFragment extends NotaSelectorDialogFragment {
         return dialog;
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void okButtonSelected() {
         super.okButtonSelected();

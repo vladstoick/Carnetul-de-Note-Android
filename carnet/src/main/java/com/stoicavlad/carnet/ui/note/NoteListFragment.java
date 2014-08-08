@@ -25,7 +25,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     ComplexNoteAdapter.OnOverflowButtonInterface{
 
     public interface OnFragmentInteractionListener {
-        public void showNotaDetail(int materieId, String materieName);
+        public void showNotaDetail(int materieId);
     }
     private OnFragmentInteractionListener mListener;
 
@@ -53,7 +53,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
                     cursor.moveToPosition(position);
                     int materieId = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
                     String materieName = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
-                    mListener.showNotaDetail(materieId,materieName);
+                    mListener.showNotaDetail(materieId);
                 }
             }
         });

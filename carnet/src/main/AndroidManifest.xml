@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.stoicavlad.carnet" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,7 +19,8 @@
         </activity>
         <activity
             android:name=".ui.note.detail.NoteDetailActivity"
-            android:parentActivityName=".ui.main.MainActivity" />
+            android:parentActivityName=".ui.main.MainActivity"
+            tools:ignore="UnusedAttribute" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
@@ -51,7 +53,8 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.main.MainActivity" >
+            android:parentActivityName=".ui.main.MainActivity"
+            tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />

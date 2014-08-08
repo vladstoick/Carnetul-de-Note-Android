@@ -22,8 +22,8 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  */
 class NoteDetailMedieAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
-    private Context context;
-    private LayoutInflater inflater;
+    private final Context context;
+    private final LayoutInflater inflater;
     private ArrayList<VariantaMedie> mVariante;
 
     public void setVariante(ArrayList<VariantaMedie> mVariante) {

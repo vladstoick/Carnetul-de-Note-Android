@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet.ui.note.detail;
 
 
+import android.annotation.SuppressLint;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
@@ -67,7 +67,7 @@ public class NoteDetailMedieFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_note_detail_medie, null, false);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_note_detail_medie, null, false);
 
         ButterKnife.inject(this, view);
 

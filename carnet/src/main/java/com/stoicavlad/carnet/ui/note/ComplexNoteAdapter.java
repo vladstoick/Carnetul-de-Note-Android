@@ -23,9 +23,10 @@ import butterknife.InjectView;
 /**
  * Created by Vlad on 31-Jul-14.
  */
+@SuppressWarnings("SameParameterValue")
 public class ComplexNoteAdapter extends CursorAdapter {
 
-    private Context mContext;
+    private final Context mContext;
 
     public interface OnOverflowButtonInterface{
         public void showAddTezaDialogFragment(int id, String name);

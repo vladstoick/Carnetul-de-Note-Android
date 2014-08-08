@@ -31,7 +31,7 @@ public class MainActivity extends GeneralTabActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
-        // Set up the action bar.
+        // Set up the action bar
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -151,7 +151,7 @@ public class MainActivity extends GeneralTabActivity
     //FRAGMENT INTERACTION
 
     @Override
-    public void showNotaDetail(int materieId, String materieName) {
+    public void showNotaDetail(int materieId) {
         Intent intent = new Intent(this, NoteDetailActivity.class);
         intent.putExtra(NoteDetailActivity.TAG_MATERIE_ID, materieId);
         startActivity(intent);

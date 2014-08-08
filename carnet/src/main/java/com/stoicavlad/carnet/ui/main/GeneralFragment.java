@@ -3,7 +3,6 @@ package com.stoicavlad.carnet.ui.main;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.SharedPreferences;

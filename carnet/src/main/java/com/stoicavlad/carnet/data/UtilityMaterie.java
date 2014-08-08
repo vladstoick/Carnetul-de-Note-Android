@@ -20,7 +20,7 @@ public class UtilityMaterie {
     }
 
     public static double getMedieForMaterie(int teza, double medieNote){
-        double medieMaterie = 0;
+        double medieMaterie;
         if(medieNote == 0){
             medieMaterie = teza;
         } else {

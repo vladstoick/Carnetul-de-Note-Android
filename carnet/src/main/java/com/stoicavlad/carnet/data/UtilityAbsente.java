@@ -1,16 +1,12 @@
 package com.stoicavlad.carnet.data;
 
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Vlad on 08-Aug-14.
@@ -18,14 +14,14 @@ import java.util.Map;
 public class UtilityAbsente {
 
     public static class DateAndCount implements Comparable<DateAndCount>{
-        public long date;
+        public final long date;
         public int count = 0;
         public DateAndCount(long date){
             this.date = date;
         }
 
         @Override
-        public int compareTo(DateAndCount dateAndCount) {
+        public int compareTo(@NonNull DateAndCount dateAndCount) {
             return dateAndCount.count - count;
         }
     }

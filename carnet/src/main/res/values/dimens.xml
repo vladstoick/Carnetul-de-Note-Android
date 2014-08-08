@@ -4,7 +4,6 @@
     <!-- GENERAL -->
     <dimen name="ultra_x2_large_text">30sp</dimen>
     <dimen name="ultra_large_text">26sp</dimen>
-    <dimen name="large_text">22sp</dimen>
     <dimen name="medium_text">18sp</dimen>
     <!-- ADD NOTA DIALOG FRAGMENT -->
     <dimen name="add_nota_dialog_fragment_button_size">68dp</dimen>
@@ -14,11 +13,5 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="small_margin">8dp</dimen>
-    <!--
-     Per the design guidelines, navigation drawers should be between 240dp and 320dp:
-     https://developer.android.com/design/patterns/navigation-drawer.html
-    -->
-    <dimen name="navigation_drawer_width">240dp</dimen>
-    <dimen name="widget_margin">8dp</dimen>
 
 </resources>

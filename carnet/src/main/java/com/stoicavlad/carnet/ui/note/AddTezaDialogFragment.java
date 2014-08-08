@@ -12,8 +12,7 @@ import com.stoicavlad.carnet.data.provider.CarnetContract;
  */
 public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
 
-    private static String TAG_MATERIE_NAME = "materie";
-    private String mMaterieName;
+    private static final String TAG_MATERIE_NAME = "materie";
 
     public static AddTezaDialogFragment newInstance(int materieId, String materieName){
         AddTezaDialogFragment dialogFragment = new AddTezaDialogFragment();
@@ -30,9 +29,9 @@ public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         materieId = getArguments().getInt(TAG_MATERIE_ID);
         layoutXml = R.layout.dialog_add_simple;
-        mMaterieName = getArguments().getString(TAG_MATERIE_NAME);
+        String mMaterieName = getArguments().getString(TAG_MATERIE_NAME);
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(getString(R.string.add_teza)+" "+mMaterieName);
+        dialog.setTitle(getString(R.string.add_teza)+" "+ mMaterieName);
         return dialog;
     }
 

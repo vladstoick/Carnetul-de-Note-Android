@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     android:fontFamily="sans-serif-light"
     android:layout_width="fill_parent"
@@ -10,4 +11,4 @@
     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
     android:padding="6dip"
 
-    />
+    tools:ignore="UnusedAttribute" />
