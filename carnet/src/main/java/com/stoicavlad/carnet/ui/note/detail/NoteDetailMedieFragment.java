@@ -34,8 +34,9 @@ public class NoteDetailMedieFragment extends Fragment
     private int mMaterieId;
     private Cursor mMaterieCursor;
 
-    @InjectView(R.id.list) public StickyListHeadersListView mListView;
+    @InjectView(R.id.list) StickyListHeadersListView mListView;
     private CheckBox mCheckbox;
+    private TextView mWarningTextView;
     private NoteDetailMedieAdapter mAdapter;
 
 
@@ -71,6 +72,8 @@ public class NoteDetailMedieFragment extends Fragment
         ButterKnife.inject(this, view);
 
         View header = View.inflate(getActivity(), R.layout.fragment_note_detail_medie_header, null);
+
+        mWarningTextView = (TextView) header.findViewById(R.id.warning);
 
         mCheckbox = (CheckBox) header.findViewById(R.id.checkBox);
         mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -114,22 +117,27 @@ public class NoteDetailMedieFragment extends Fragment
         int sumaNote = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_SUMA);
         int nrNote = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_COUNT_NOTE);
         int teza = mMaterieCursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE_TEZA);
-        //TODO ce se intampla daca nu exista note
-        if(teza == 0){
-            mCheckbox.setVisibility(View.VISIBLE);
-            if(mCheckbox.isChecked()){
-                ArrayList<VariantaMedie> variante = VariantaMedie
-                        .getVarianteMedieWithPossibleTeza(sumaNote, nrNote);
-                mAdapter.setVariante(variante);
+        if(nrNote!=0) {
+            mWarningTextView.setVisibility(View.GONE);
+            if (teza == 0) {
+                mCheckbox.setVisibility(View.VISIBLE);
+                if (mCheckbox.isChecked()) {
+                    ArrayList<VariantaMedie> variante = VariantaMedie
+                            .getVarianteMedieWithPossibleTeza(sumaNote, nrNote);
+                    mAdapter.setVariante(variante);
+                } else {
+                    ArrayList<VariantaMedie> variante = VariantaMedie
+                            .getVarianteMedieWithoutTeza(sumaNote, nrNote);
+                    mAdapter.setVariante(variante);
+                }
             } else {
                 ArrayList<VariantaMedie> variante = VariantaMedie
-                        .getVarianteMedieWithoutTeza(sumaNote, nrNote);
+                        .getVarianteMedieWithTeza(sumaNote, nrNote, teza);
                 mAdapter.setVariante(variante);
+                mCheckbox.setVisibility(View.GONE);
             }
         } else {
-            ArrayList<VariantaMedie> variante = VariantaMedie
-                    .getVarianteMedieWithTeza(sumaNote, nrNote, teza);
-            mAdapter.setVariante(variante);
+            mWarningTextView.setVisibility(View.VISIBLE);
             mCheckbox.setVisibility(View.GONE);
         }
     }
