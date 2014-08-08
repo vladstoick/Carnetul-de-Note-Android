@@ -15,6 +15,6 @@
     <string name="pref_confirm">Ești sigur?</string>
     <string name="pref_header_reseteaza">Resetează</string>
     <string name="pref_reseteaza_full">Resetează aplicația</string>
-    <string name="pref_reseteaza_note">Șterge notele curente</string>
+    <string name="pref_reseteaza_materii">Șterge materile curente</string>
     <string name="pref_reseteaza_absente">Șterge absențele curente</string>
 </resources>

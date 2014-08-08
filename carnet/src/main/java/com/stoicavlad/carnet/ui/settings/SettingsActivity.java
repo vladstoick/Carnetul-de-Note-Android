@@ -50,8 +50,9 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             if(!(Boolean)value){
                 return true;
             }
-            if ("pref_reseteaza_note".equals(preference.getKey())) {
-                //TODO
+            if ("pref_reseteaza_materii".equals(preference.getKey())) {
+                getApplicationContext().getContentResolver()
+                        .delete(CarnetContract.MaterieEntry.CONTENT_URI,null,null);
 //                if (materiiDatabase.deleteAllNote()) {
 //                    BusProvider.getInstance()
 //                            .post(new DataSetChangedEvent(DataSetChangedEvent.TAG_MATERIE));
@@ -62,8 +63,8 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             } else if("pref_reseteaza_full".equals(preference.getKey())){
                 getApplicationContext().getContentResolver()
                         .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
-                //TODO
-//                materiiDatabase.deleteAllMaterii();
+                getApplicationContext().getContentResolver()
+                        .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
                 Intent intent = new Intent(this, SetupActivity.class);
                 SharedPreferences settings =
                         getSharedPreferences("appPref", Context.MODE_PRIVATE);
@@ -96,7 +97,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         super.onPostCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
         bindPreferenceSummaryToValue(findPreference("pref_maxim_absente"));
-        bindPreferenceSummaryToValue(findPreference("pref_reseteaza_note"));
+        bindPreferenceSummaryToValue(findPreference("pref_reseteaza_materii"));
         bindPreferenceSummaryToValue(findPreference("pref_reseteaza_absente"));
         bindPreferenceSummaryToValue(findPreference("pref_reseteaza_full"));
     }

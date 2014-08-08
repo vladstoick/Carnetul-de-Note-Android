@@ -11,8 +11,8 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_header_reseteaza">
         <com.stoicavlad.carnet.ui.settings.ConfirmPreference
-            android:title="@string/pref_reseteaza_note"
-            android:key="pref_reseteaza_note"/>
+            android:title="@string/pref_reseteaza_materii"
+            android:key="pref_reseteaza_materii"/>
         <com.stoicavlad.carnet.ui.settings.ConfirmPreference
             android:title="@string/pref_reseteaza_absente"
             android:key="pref_reseteaza_absente"/>
