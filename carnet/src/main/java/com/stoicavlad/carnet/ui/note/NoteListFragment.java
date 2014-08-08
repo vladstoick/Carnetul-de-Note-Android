@@ -107,8 +107,8 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void showAddTezaDialogFragment(int id) {
-        DialogFragment dialogFragment = AddTezaDialogFragment.newInstance(id);
+    public void showAddTezaDialogFragment(int id, String name) {
+        DialogFragment dialogFragment = AddTezaDialogFragment.newInstance(id, name);
         dialogFragment.show(getActivity().getFragmentManager(), "ADD_NOTA");
     }
 }

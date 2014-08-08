@@ -28,7 +28,7 @@ public class ComplexNoteAdapter extends CursorAdapter {
     private Context mContext;
 
     public interface OnOverflowButtonInterface{
-        public void showAddTezaDialogFragment(int id);
+        public void showAddTezaDialogFragment(int id, String name);
     }
 
     private OnOverflowButtonInterface mListener;
@@ -130,6 +130,7 @@ public class ComplexNoteAdapter extends CursorAdapter {
         } else {
             inflater.inflate(R.menu.popupmenu_materie_fara_teza, popupMenu.getMenu());
         }
+
          popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -142,7 +143,8 @@ public class ComplexNoteAdapter extends CursorAdapter {
                     }
                     case R.id.add: {
                         int id = cursor.getInt(CarnetContract.MaterieEntry.COL_ID);
-                        mListener.showAddTezaDialogFragment(id);
+                        String materieName = cursor.getString(CarnetContract.MaterieEntry.COL_NAME);
+                        mListener.showAddTezaDialogFragment(id, materieName);
                         break;
                     }
 //                    case R.id.rename: {

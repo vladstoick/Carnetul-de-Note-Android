@@ -24,7 +24,7 @@ public class SetupActivity extends Activity implements SetupFragment.OnFragmentI
         Crashlytics.start(this);
 
         SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
-        if(settings.contains("SETUP_DONE")){
+        if(settings.contains("SETUP_DONE_V2")){
             gotoMainActivity();
         }
         setContentView(R.layout.activity_setup);
@@ -52,7 +52,7 @@ public class SetupActivity extends Activity implements SetupFragment.OnFragmentI
         getApplicationContext().getContentResolver()
                 .bulkInsert(CarnetContract.MaterieEntry.CONTENT_URI, materieValuesArray);
         SharedPreferences settings = getSharedPreferences("appPref", Context.MODE_PRIVATE);
-        settings.edit().putString("SETUP_DONE","true").apply();
+        settings.edit().putString("SETUP_DONE_V2","true").apply();
         gotoMainActivity();
 
     }

@@ -30,6 +30,7 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
     public static final int MATERIE_LOADER = 0;
 
     @Icicle public int mMaterieId;
+    private String mMaterieName;
 
     @InjectView(R.id.medie) TextView mMedieTextView;
     @InjectView(R.id.teza) TextView mTezaTextView;
@@ -64,14 +65,7 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(viewPager);
 
-        mModifyTezaImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment addTezaDialogFragment = AddTezaDialogFragment
-                        .newInstance(mMaterieId);
-                addTezaDialogFragment.show(getFragmentManager(),"ADD_TEZA");
-            }
-        });
+
 
         mDeleteTezaImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +103,17 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         cursor.moveToFirst();
         if(!cursor.isAfterLast()) {
 
-            String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_NAME);
-            setTitle(name);
+            final String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_NAME);;
+
+            mModifyTezaImageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    DialogFragment addTezaDialogFragment = AddTezaDialogFragment
+                            .newInstance(mMaterieId, name);
+                    addTezaDialogFragment.show(getFragmentManager(),"ADD_TEZA");
+                }
+            });
 
             int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_DETAIL_TEZA);
             if(teza == 0) {

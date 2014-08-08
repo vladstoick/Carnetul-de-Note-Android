@@ -3,11 +3,13 @@ package com.stoicavlad.carnet.ui.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.CursorLoader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.support.v4.content.CursorLoader;
 import android.widget.RemoteViews;
 
 import com.stoicavlad.carnet.R;
+import com.stoicavlad.carnet.data.Utility;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
 /**
@@ -38,7 +40,7 @@ public class GeneralWidget extends AppWidgetProvider{
                                         int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_general);
         //absente
-        CursorLoader absenteCursor = new CursorLoader(
+        CursorLoader absenteCursorLoader = new CursorLoader(
                 context,
                 CarnetContract.AbsentaEntry.CONTENT_URI,
                 null,
@@ -46,11 +48,23 @@ public class GeneralWidget extends AppWidgetProvider{
                 null,
                 null
         );
-        Cursor cursor = absenteCursor.loadInBackground();
-        String absente_text = context.getString(R.string.absente_section) + " : " + cursor.getCount();
+        Cursor absenteCursor = absenteCursorLoader.loadInBackground();
+        String absente_text = context.getString(R.string.absente_section) + " : " + absenteCursor.getCount();
         views.setTextViewText(R.id.absente,  absente_text);
         //medii
-        double medie = 0;//TODO
+        CursorLoader medieCursorLoader = new android.content.CursorLoader(
+                context,
+                CarnetContract.MaterieEntry.CONTENT_URI,
+                CarnetContract.MaterieEntry.COLUMNS_MEDIE,
+                null,
+                null,
+                null
+        );
+        Cursor medieCursor = medieCursorLoader.loadInBackground();
+        SharedPreferences preferences = context.getSharedPreferences("appPref",
+                Context.MODE_PRIVATE);
+        int purtare = preferences.getInt("PURTARE_TAG",9);
+        double medie = Utility.getMedieGeneralaFromCursor(medieCursor, purtare);
         String medie_text;
         if(medie>0){
             medie_text = context.getString(R.string.medie) + " : " + medie;

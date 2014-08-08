@@ -23,12 +23,15 @@ import butterknife.InjectView;
  */
 public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
 
-    public static AddTezaDialogFragment newInstance(int materieId){
+    private static String TAG_MATERIE_NAME = "materie";
+    private String mMaterieName;
+
+    public static AddTezaDialogFragment newInstance(int materieId, String materieName){
         AddTezaDialogFragment dialogFragment = new AddTezaDialogFragment();
         Bundle arguments = new Bundle();
 
         arguments.putInt(TAG_MATERIE_ID, materieId);
-        arguments.putInt(TAG_XML, R.layout.dialog_addteza);
+        arguments.putString(TAG_MATERIE_NAME, materieName);
 
         dialogFragment.setArguments(arguments);
         return dialogFragment;
@@ -37,8 +40,11 @@ public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         materieId = getArguments().getInt(TAG_MATERIE_ID);
-        layoutXml = getArguments().getInt(TAG_XML);
-        return super.onCreateDialog(savedInstanceState);
+        layoutXml = R.layout.dialog_addteza;
+        mMaterieName = getArguments().getString(TAG_MATERIE_NAME);
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(getString(R.string.add_teza)+" "+mMaterieName);
+        return dialog;
     }
 
     @Override
@@ -50,89 +56,6 @@ public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
                 .update(CarnetContract.MaterieEntry.buildMaterieUri(materieId),
                     materieValues, null, null);
     }
-//    private Button mOKButton;
-//    private int materieId;
-//
-//    @InjectView(R.id.nota_selector) NotaSelector mNotaSelector;
-//
-//    private View mRootView;
-//
-//    public static AddTezaDialogFragment newInstance(int id){
-//        AddTezaDialogFragment dialogFragment = new AddTezaDialogFragment();
-//        Bundle arguments = new Bundle();
-//
-//        arguments.putInt("ID",id);
-//        dialogFragment.setArguments(arguments);
-//        return dialogFragment;
-//    }
-//
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        this.materieId = getArguments().getInt("ID");
-//        //Initial inflating
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        LayoutInflater inflater = getActivity().getLayoutInflater();
-//        mRootView = inflater.inflate(R.layout.dialog_addteza, null);
-//        ButterKnife.inject(this, mRootView);
-//
-//        //setting listenr for nota selector
-//
-//        mNotaSelector.setOnNotaSelectormListener(new NotaSelector.OnNotaSelectorListener() {
-//            @Override
-//            public void didChangeValue(boolean isSelected) {
-//                getOkButton().setEnabled(isSelected);
-//            }
-//        });
-//
-//         //Getting title
-//        String title = getString(R.string.add_teza);
-//        builder.setView(mRootView)
-//                // Add action buttons
-//                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        okButtonSelected();
-//                    }
-//                })
-//                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        AddTezaDialogFragment.this.getDialog().cancel();
-//                    }
-//                });
-//
-//        builder.setTitle(title);
-//        return builder.create();
-//    }
-//
-//    void okButtonSelected() {
-//
-//        //TODO
-//
-////        Button selectedButton = (Button) mRootView.findViewById(lastClicked);
-////        int teza = 0;
-////        if(selectedButton.getText()!=null){
-////            teza = Integer.parseInt(selectedButton.getText().toString());
-////        }
-////        ContentValues materieValues = new ContentValues();
-////        materieValues.put(CarnetContract.MaterieEntry.COLUMN_TEZA, teza);
-////        getActivity().getContentResolver()
-////                .update(CarnetContract.MaterieEntry.buildMaterieUri(materieId),
-////                    materieValues, null, null);
-//
-//    }
-//
-//    private Button getOkButton() {
-//        if (mOKButton == null) {
-//            AlertDialog alertDialog = (AlertDialog) getDialog();
-//            mOKButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-//        }
-//        return this.mOKButton;
-//    }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        getOkButton().setEnabled(false);
-//    }
+
 
 }

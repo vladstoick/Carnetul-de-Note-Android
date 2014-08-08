@@ -61,7 +61,8 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
     }
 
     void setMedieUI(Cursor cursor) {
-        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences preferences = getActivity().getSharedPreferences("appPref",
+                Context.MODE_PRIVATE);
         int purtare = preferences.getInt("PURTARE_TAG",9);
         double medie = Utility.getMedieGeneralaFromCursor(cursor, purtare);
         mMedieGenerala.setText(String.valueOf(medie));
