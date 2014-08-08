@@ -7,17 +7,21 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
+import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 /**
  * Created by Vlad on 1/26/14.
  */
-public class AddNotaDialogFragment extends NotaSelectorDialogFragment
-        implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AddNotaDialogFragment extends NotaSelectorDialogFragment{
     private static final int MATERII_LOADER = 0;
     private SimpleCursorAdapter mCursorAdapter;
     private Spinner mSpinner;
@@ -27,18 +31,39 @@ public class AddNotaDialogFragment extends NotaSelectorDialogFragment
 
         layoutXml = R.layout.dialog_addnota;
 
-        mCursorAdapter = new SimpleCursorAdapter(getActivity(),
-            android.R.layout.simple_list_item_1,
-            null,
-            new String[]{CarnetContract.MaterieEntry.COLUMN_NAME},
-            new int[] {android.R.id.text1}
-        );
+
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.setTitle(R.string.add_nota);
         mSpinner = (Spinner) rootView.findViewById(R.id.materie_spinner);
-        mSpinner.setAdapter(mCursorAdapter);
-        getLoaderManager().initLoader(MATERII_LOADER,null,this);
+
         return dialog;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Cursor cursor = new CursorLoader(
+                getActivity(),
+                CarnetContract.MaterieEntry.CONTENT_URI,
+                CarnetContract.MaterieEntry.COLUMNS_SIMPLE,
+                null,
+                null,
+                null
+        ).loadInBackground();
+        if(cursor.getCount() == 0){
+            this.dismiss();
+            SimpleDialogFragment simpleDialogFragment = SimpleDialogFragment
+                    .newInstance(getString(R.string.add_nota_materie_error));
+            simpleDialogFragment.show(getFragmentManager(), "DF2");
+        } else {
+            mCursorAdapter = new SimpleCursorAdapter(getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    cursor,
+                    new String[]{CarnetContract.MaterieEntry.COLUMN_NAME},
+                    new int[]{android.R.id.text1}
+            );
+            mSpinner.setAdapter(mCursorAdapter);
+        }
     }
 
     @Override
@@ -57,25 +82,4 @@ public class AddNotaDialogFragment extends NotaSelectorDialogFragment
         getActivity().getContentResolver().insert(CarnetContract.NoteEntry.CONTENT_URI,notaValues);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(
-                getActivity(),
-                CarnetContract.MaterieEntry.CONTENT_URI,
-                CarnetContract.MaterieEntry.COLUMNS_SIMPLE,
-                null,
-                null,
-                null
-        );
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        mCursorAdapter.swapCursor(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mCursorAdapter.swapCursor(null);
-    }
 }

@@ -31,7 +31,7 @@ public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
         layoutXml = R.layout.dialog_add_simple;
         String mMaterieName = getArguments().getString(TAG_MATERIE_NAME);
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(getString(R.string.add_teza)+" "+ mMaterieName);
+        dialog.setTitle(getString(R.string.add_teza_dialog_fragment_title)+" "+ mMaterieName);
         return dialog;
     }
 

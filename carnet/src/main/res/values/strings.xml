@@ -33,21 +33,26 @@
     <string name="medie_generala">Media generală</string>
     <string name="purtare">Purtare</string>
     <string name="modifica_purtarea">Modifică nota la purtare</string>
-    <!-- NOTE FRAGMENTS -->
+
+    <!--NOTE DETAIL-->
     <string name="daca_teza">Dacă iei în teză</string>
-    <string name="medie_curenta">Media curentă</string>
-    <string name="calculeaza_media">Calculează de ce note ai nevoie</string>
-    <string name="numar_note">Număr note</string>
     <string name="pentru_media">Pentru media</string>
     <string name="trebuie_sa_iei">Trebuie să iei cel puțin</string>
     <string name="warning_no_note">Trebuie să ai cel puțin o notă ca să poți vedea de ce note ai nevoie pentru diferite medii.</string>
     <string name="cu_teza">Calculează în funcție de posibila notă la teză</string>
+
     <string name="note">Note</string>
     <string name="medie">Medie</string>
     <string name="teza">Teza</string>
-    <string name="add_teza">Teza pentru</string>
-    <string name="add_teza_full">Nu ai materii la care să poți adaugă o teză</string>
+
+
+    <string name="add_teza_dialog_fragment_title">Teza pentru</string>
+    <string name="add_teza">Adaugă teză</string>
+    <string name="modify_teza">Modifică teza</string>
+
+    <string name="add_nota_materie_error">Nu ai nicio materie în acest moment. După ce adaugi o materie, vei putea adăuga și note</string>
     <string name="add_nota">Adaugă o notă</string>
+
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>

@@ -132,8 +132,11 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
             double medieNote = cursor.getDouble(CarnetContract.MaterieEntry.COL_DETAIL_MEDIE);
 
             double medie = UtilityMaterie.getMedieForMaterie(teza, medieNote);
-
-            mMedieTextView.setText(UtilityMaterie.getTwoDecimalsFromMaterie(medie));
+            if(medie > 0) {
+                mMedieTextView.setText(UtilityMaterie.getTwoDecimalsFromMaterie(medie));
+            } else {
+                mMedieTextView.setText("-");
+            }
 
         }
     }

@@ -68,9 +68,9 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
                 getApplicationContext().getContentResolver()
                         .delete(CarnetContract.AbsentaEntry.CONTENT_URI,null,null);
                 Intent intent = new Intent(this, SetupActivity.class);
-                SharedPreferences settings =
-                        getSharedPreferences("appPref", Context.MODE_PRIVATE);
-                settings.edit().remove("SETUP_DONE").commit();
+                SharedPreferences settings = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext());
+                settings.edit().remove("SETUP_DONE_V2").commit();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }

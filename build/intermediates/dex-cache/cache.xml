@@ -2,11 +2,71 @@
 <pre-dex-items>
 
     <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\javax.inject-1-de117d22a46d8370f93b970577f64e56a9d94fc4.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\crashlytics-1.1.11-9cbcd7cccbf924336c1251c514490ee8e28f3af0.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.crashlytics.android\crashlytics\1.1.11\b8189e9eef2f07fae743e05d7fe7e69daebe98d1\crashlytics-1.1.11.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="b8189e9eef2f07fae743e05d7fe7e69daebe98d1"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\guava-16.0-118cf04fedb6268a7b26ff19e77a29079570f66e.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\16.0\aca09d2e5e8416bf91550e72281958e35460be52\guava-16.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="aca09d2e5e8416bf91550e72281958e35460be52"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\icepick-2.3.6-f168e43cc70808d29da805009b8882e296a2e9d9.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.github.frankiesardo\icepick\2.3.6\c67092eec40738c16bdc5b9255a59c295cc16219\icepick-2.3.6.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c67092eec40738c16bdc5b9255a59c295cc16219"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\hamcrest-library-1.1-aa5d63311348ec72c1e450ee1cec527bac2dead3.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-library\1.1\b988c01468e3398d46678a2eb48aeb5bde271e9f\hamcrest-library-1.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="b988c01468e3398d46678a2eb48aeb5bde271e9f"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\jsr305-1.3.9-290ac905c8b294f2e4fe2e19e83a972bd04aad09.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\1.3.9\40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf\jsr305-1.3.9.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\classes-a58607a8d9e9fcbe0a814630487e60db87a10e34.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="7912610ed96381c25c36d986eba422731b9641b6"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\support-annotations-20.0.0-00d010623c4278a8848e14ec48bd09c3e62082b2.jar"
+        jar="C:\AndroidStudio\sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\hamcrest-core-1.1-6a6eb46f55eec02e6fccab882aa5f1f4738bc265.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-core\1.1\860340562250678d1a344907ac75754e259cdb14\hamcrest-core-1.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="860340562250678d1a344907ac75754e259cdb14"/>
+    <item
         dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\classes-ecaa5f91702339b1a74e12a090d45797e770e71d.jar"
         jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\se.emilsjolander\stickylistheaders\2.5.0\classes.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="5682a0f7a23864f71e826f9a0fe567c2a2628cb1"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\hamcrest-integration-1.1-40cff1dc2443aa3d95d54001f186f9f55834cefb.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-integration\1.1\8d47177aa4da0f259fc823a39736bad2f09993d5\hamcrest-integration-1.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8d47177aa4da0f259fc823a39736bad2f09993d5"/>
     <item
         dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\butterknife-5.1.2-068d7cf49ba5dc7054af80e08a03ff841ad58fea.jar"
         jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\5.1.2\daf5472b0df6dabaceb6ad755b3812535863965a\butterknife-5.1.2.jar"
@@ -14,10 +74,76 @@
         revision="20.0.0"
         sha1="daf5472b0df6dabaceb6ad755b3812535863965a"/>
     <item
-        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\debug\classes-a58607a8d9e9fcbe0a814630487e60db87a10e34.jar"
-        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\classes.jar"
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\library-2.4.0-6b043a8574fb97c742ca3065362b2a29e8f870bc.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="7912610ed96381c25c36d986eba422731b9641b6"/>
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\classes-006a0edaa7886fff527ec041d890baa31d13b56a.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e128103d5281ddd26195a7f980b36d0d005a4e56"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\javax.annotation-api-1.2-faffd6cb44ce0134cf97c7ada52ae821ef34a042.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\javax.annotation\javax.annotation-api\1.2\479c1e06db31c432330183f5cae684163f186146\javax.annotation-api-1.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="479c1e06db31c432330183f5cae684163f186146"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\internal_impl-20.0.0-4c33c38d674dbf151e504e816ed435bb6922a3df.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\dagger-1.2.1-f6511651700da4a8733867900897fc115d76a801.jar"
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.squareup.dagger\dagger\1.2.1\78f96ef00fceee95802930944b1fc4e0e1f9aacc\dagger-1.2.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="78f96ef00fceee95802930944b1fc4e0e1f9aacc"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\classes-807da78ea11dfecc8145f391c103224e21033049.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.doomonafireball.betterpickers\library\1.5.2\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="73d0c7e564f21532cdda0b0c93b07be5aee87e7d"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\classes-bd81c244e690d80b11c186f25d63687fd3c3af50.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso-runner\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="925f97e2a2d8f082a6a82d11e189af7f686785b6"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\classes-27698767caf8d43b114439866b045cb33223b2b0.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\release\internal_impl-20.0.0-ed3a7694e9ef4bbd2f39acc8168749c5c85151aa.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\20.0.0\libs\internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="27bbd3982cdfe4468a9bf99c8c773734a9049e33"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\classes-4fa721c8443ba8a6935014190819a0db303bb685.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso-support-v4\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="69f6693a00d089bca307c441eef4a11818b16628"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\classes-daa644897786e1af67798bf76937b8dd2174316b.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5cd5b71da995a1aebb024f89c3c40d7f5e050274"/>
+    <item
+        dex="C:\Carnetuldenote\carnet\build\intermediates\pre-dexed\test\debug\classes-2ec434cbc15b879a173c418bc75273bf26e331af.jar"
+        jar="C:\Carnetuldenote\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso-runner-runtime\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e9b6d57d4b08dd070b2a4d2e7aafe5a031d14901"/>
 
 </pre-dex-items>

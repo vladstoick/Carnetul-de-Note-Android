@@ -129,7 +129,7 @@ public class ComplexNoteAdapter extends CursorAdapter {
         if(teza == 0) {
             inflater.inflate(R.menu.popupmenu_materie, popupMenu.getMenu());
         } else {
-            inflater.inflate(R.menu.popupmenu_materie_fara_teza, popupMenu.getMenu());
+            inflater.inflate(R.menu.popupmenu_materie_cu_teza, popupMenu.getMenu());
         }
 
          popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

@@ -3,6 +3,7 @@ package com.stoicavlad.carnet.ui.main;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.content.SharedPreferences;
@@ -84,9 +85,13 @@ public class GeneralFragment extends Fragment implements LoaderManager.LoaderCal
 
     private void setAbsenteUI() {
         int absente = mGeneralCursor.getCount();
+        SharedPreferences sharedPreferences = getActivity()
+                .getPreferences(Context.MODE_PRIVATE);
+        int absenteNecesare = Integer
+                .valueOf(sharedPreferences.getString("pref_maxim_absente", "10"));
         if (this.isAdded()) {
             mAbsente.setText(absente + "");
-            if (absente > 10) {
+            if (absente >= absenteNecesare) {
                 mAbsente.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
             } else {
                 mAbsente.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
