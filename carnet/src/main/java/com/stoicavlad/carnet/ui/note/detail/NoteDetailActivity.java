@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet.ui.note.detail;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
@@ -66,7 +67,7 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         mModifyTezaImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddTezaDialogFragment addTezaDialogFragment = AddTezaDialogFragment
+                DialogFragment addTezaDialogFragment = AddTezaDialogFragment
                         .newInstance(mMaterieId);
                 addTezaDialogFragment.show(getFragmentManager(),"ADD_TEZA");
             }

@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet.ui.note;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -107,7 +108,7 @@ public class NoteListFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void showAddTezaDialogFragment(int id) {
-        AddTezaDialogFragment dialogFragment = AddTezaDialogFragment.newInstance(id);
+        DialogFragment dialogFragment = AddTezaDialogFragment.newInstance(id);
         dialogFragment.show(getActivity().getFragmentManager(), "ADD_NOTA");
     }
 }
