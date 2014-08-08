@@ -7,6 +7,8 @@ import com.stoicavlad.carnet.data.provider.CarnetContract;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class UtilityAbsente {
     }
 
     public static long[] getScutiriNecesare(Cursor cursor, int absenteNecesare){
-        DateAndCount[] dateAndCountArray = new DateAndCount[cursor.getCount()];
+        ArrayList<DateAndCount> dateAndCountArray = new ArrayList<DateAndCount>();
 
         cursor.moveToFirst();
         long lastDateValue = -1;
@@ -38,22 +40,22 @@ public class UtilityAbsente {
             long date = cursor.getLong(CarnetContract.AbsentaEntry.COL_DATE);
             if(date != lastDateValue){
                 lastPos++;
-                dateAndCountArray[lastPos] = new DateAndCount(date);
+                dateAndCountArray.add(new DateAndCount(date));
             }
-            dateAndCountArray[lastPos].count++;
+            dateAndCountArray.get(lastPos).count++;
             lastDateValue = date;
             cursor.moveToNext();
         }
 
-        Arrays.sort(dateAndCountArray);
+        Collections.sort(dateAndCountArray);
 
-        int absenteNemotivate = cursor.getCount() - absenteNecesare;
+        int absenteNemotivate = cursor.getCount() - (absenteNecesare - 1);
         int i = 0;
         ArrayList<Long> zileNecesare = new ArrayList<Long>();
         //GREEDY TIME
-        while (absenteNemotivate >= 0 && i < dateAndCountArray.length) {
-            zileNecesare.add(dateAndCountArray[i].date);
-            absenteNemotivate -= dateAndCountArray[i].count;
+        while (absenteNemotivate >= 0 && i < dateAndCountArray.size()) {
+            zileNecesare.add(dateAndCountArray.get(i).date);
+            absenteNemotivate -= dateAndCountArray.get(i).count;
             i++;
         }
         long[] dateArray = new long[zileNecesare.size()];
