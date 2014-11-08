@@ -3,10 +3,14 @@
     <color name="light_orange">#F38630</color>
     <color name="light_blue">#69D2E7</color>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>
-        <item name="android:actionBarTabBarStyle">@style/AppTheme.ActionBar.TabBar</item>
-        <item name="circleButtonStyle">@style/AppTheme.CircleButton</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/light_orange</item>
+        <item name="colorPrimaryDark">@color/dark_orange</item>
+        <item name="colorAccent">@color/light_orange</item>
+
+    <!--<item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>-->
+        <!--<item name="android:actionBarTabBarStyle">@style/AppTheme.ActionBar.TabBar</item>-->
+        <!--<item name="circleButtonStyle">@style/AppTheme.CircleButton</item>-->
     </style>
 
     <!--ACTION BAR-->

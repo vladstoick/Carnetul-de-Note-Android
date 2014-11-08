@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 
 import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.R;
@@ -15,7 +16,9 @@ import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import java.util.ArrayList;
 
-public class SetupActivity extends Activity implements SetupFragment.OnFragmentInteractionListener {
+public class SetupActivity extends ActionBarActivity
+        implements SetupFragment.OnFragmentInteractionListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

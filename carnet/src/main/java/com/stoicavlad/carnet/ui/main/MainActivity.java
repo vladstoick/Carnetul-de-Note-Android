@@ -8,8 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.doomonafireball.betterpickers.datepicker.DatePickerBuilder;
-import com.doomonafireball.betterpickers.datepicker.DatePickerDialogFragment;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.note.AddMaterieDialogFragment;
@@ -21,8 +19,7 @@ import com.stoicavlad.carnet.ui.settings.SettingsActivity;
 import java.util.Calendar;
 
 public class MainActivity extends GeneralTabActivity
-        implements NoteListFragment.OnFragmentInteractionListener,
-        DatePickerDialogFragment.DatePickerDialogHandler{
+        implements NoteListFragment.OnFragmentInteractionListener{
 
     private boolean adaugaAbsenta = false;
 
@@ -101,46 +98,49 @@ public class MainActivity extends GeneralTabActivity
     private void showAddAbsentaDialogFragment() {
         adaugaAbsenta = true;
         Calendar calendar = Calendar.getInstance();
-        DatePickerBuilder dpb = new DatePickerBuilder()
-                .setFragmentManager(getSupportFragmentManager())
-                .setStyleResId(R.style.BetterPickersDialogFragment)
-                .setYear(calendar.get(Calendar.YEAR))
-                .setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH))
-                .setMonthOfYear(calendar.get(Calendar.MONTH));
-        dpb.show();
+        //TODO
+//        DatePickerBuilder dpb = new DatePickerBuilder()
+//                .setFragmentManager(getSupportFragmentManager())
+//                .setStyleResId(R.style.BetterPickersDialogFragment)
+//                .setYear(calendar.get(Calendar.YEAR))
+//                .setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH))
+//                .setMonthOfYear(calendar.get(Calendar.MONTH));
+//        dpb.show();
     }
 
     private void showAddScutireDialogFragment(){
         Calendar calendar = Calendar.getInstance();
-        DatePickerBuilder dpb = new DatePickerBuilder()
-                .setFragmentManager(getSupportFragmentManager())
-                .setStyleResId(R.style.BetterPickersDialogFragment)
-                .setYear(calendar.get(Calendar.YEAR));
-        dpb.show();
+        //TODO
+//        DatePickerBuilder dpb = new DatePickerBuilder()
+//                .setFragmentManager(getSupportFragmentManager())
+//                .setStyleResId(R.style.BetterPickersDialogFragment)
+//                .setYear(calendar.get(Calendar.YEAR));
+//        dpb.show();
     }
+//TODO
 
-    @Override
-    public void onDialogDateSet(int i, int year, int month, int day) {
-
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(0);
-        c.set(year, month, day);
-        long date = c.getTimeInMillis();
-        if (adaugaAbsenta) {
-            ContentValues absentaValues = new ContentValues();
-            absentaValues.put(CarnetContract.AbsentaEntry.COLUMN_DATE, c.getTimeInMillis());
-            getApplicationContext().getContentResolver()
-                    .insert(CarnetContract.AbsentaEntry.CONTENT_URI, absentaValues);
-
-        } else {
-            String dateInString = date + "";
-            getApplicationContext().getContentResolver()
-                    .delete(CarnetContract.AbsentaEntry.CONTENT_URI,
-                            CarnetContract.AbsentaEntry.COLUMN_DATE + " = ?",
-                            new String[]{ dateInString } );
-        }
-        adaugaAbsenta = false;
-    }
+//    @Override
+//    public void onDialogDateSet(int i, int year, int month, int day) {
+//
+//        Calendar c = Calendar.getInstance();
+//        c.setTimeInMillis(0);
+//        c.set(year, month, day);
+//        long date = c.getTimeInMillis();
+//        if (adaugaAbsenta) {
+//            ContentValues absentaValues = new ContentValues();
+//            absentaValues.put(CarnetContract.AbsentaEntry.COLUMN_DATE, c.getTimeInMillis());
+//            getApplicationContext().getContentResolver()
+//                    .insert(CarnetContract.AbsentaEntry.CONTENT_URI, absentaValues);
+//
+//        } else {
+//            String dateInString = date + "";
+//            getApplicationContext().getContentResolver()
+//                    .delete(CarnetContract.AbsentaEntry.CONTENT_URI,
+//                            CarnetContract.AbsentaEntry.COLUMN_DATE + " = ?",
+//                            new String[]{ dateInString } );
+//        }
+//        adaugaAbsenta = false;
+//    }
 
 
     private void showAddMaterieDialogFragment() {
