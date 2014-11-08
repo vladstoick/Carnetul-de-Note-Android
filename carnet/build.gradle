@@ -60,8 +60,9 @@ dependencies {
     androidTestCompile('com.jakewharton.espresso:espresso-support-v4:1.1-r3') {
         exclude group: 'com.android.support'
     }
+    compile 'com.jpardogo.materialtabstrip:library:1.0.0'
     compile "com.android.support:appcompat-v7:21.0.+"
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+//    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'se.emilsjolander:stickylistheaders:2.5.0'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     provided 'com.github.frankiesardo:icepick-processor:2.3.6'

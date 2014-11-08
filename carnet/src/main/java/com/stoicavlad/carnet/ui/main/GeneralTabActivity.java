@@ -1,18 +1,18 @@
 package com.stoicavlad.carnet.ui.main;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 
 
 /**
  * Created by Vlad on 30-Jul-14.
  */
 @SuppressLint("Registered")
-public class GeneralTabActivity extends FragmentActivity implements ActionBar.TabListener {
+public class GeneralTabActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     ViewPager mViewPager;
     FragmentPagerAdapter mSectionsPagerAdapter;
