@@ -6,7 +6,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
     }
 }
@@ -24,12 +23,12 @@ android {
     lintOptions{
         abortOnError false
     }
-    compileSdkVersion 20
-    buildToolsVersion '20'
+    compileSdkVersion 21
+    buildToolsVersion '21.1.1'
     defaultConfig {
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
         minSdkVersion 14
-        targetSdkVersion 20
+        targetSdkVersion 21
         versionCode 2
         versionName '2.0.0'
     }
@@ -61,15 +60,14 @@ dependencies {
     androidTestCompile('com.jakewharton.espresso:espresso-support-v4:1.1-r3') {
         exclude group: 'com.android.support'
     }
-
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'se.emilsjolander:stickylistheaders:2.5.0'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     provided 'com.github.frankiesardo:icepick-processor:2.3.6'
-    compile 'com.android.support:support-v4:20.0.0'
+    compile 'com.android.support:support-v4:21.+'
     compile 'com.doomonafireball.betterpickers:library:1.5.2'
     compile 'com.jakewharton:butterknife:5.1.2'
-    compile 'com.android.support:support-v13:20.+'
+    compile 'com.android.support:support-v13:21.+'
     compile 'com.crashlytics.android:crashlytics:1.+'
     compile 'com.github.frankiesardo:icepick:2.3.6'
 }
