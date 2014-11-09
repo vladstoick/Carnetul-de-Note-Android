@@ -42,7 +42,7 @@ public class NotaSelectorDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         //Initial inflating
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_AlertDialog);
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         rootView = inflater.inflate(layoutXml, null);

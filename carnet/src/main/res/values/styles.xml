@@ -7,10 +7,17 @@
         <item name="colorPrimary">@color/light_orange</item>
         <item name="colorPrimaryDark">@color/dark_orange</item>
         <item name="colorAccent">@color/light_orange</item>
-
+        <!--<item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>-->
     <!--<item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>-->
         <!--<item name="android:actionBarTabBarStyle">@style/AppTheme.ActionBar.TabBar</item>-->
         <!--<item name="circleButtonStyle">@style/AppTheme.CircleButton</item>-->
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/light_orange</item>
+        <item name="colorPrimaryDark">@color/dark_orange</item>
+        <item name="colorAccent">@color/light_orange</item>
+        <item name="android:minWidth">@dimen/abc_config_prefDialogWidth</item>
     </style>
 
     <!--ACTION BAR-->

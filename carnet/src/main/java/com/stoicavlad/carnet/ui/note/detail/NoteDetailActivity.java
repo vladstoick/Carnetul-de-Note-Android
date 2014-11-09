@@ -10,6 +10,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,7 +27,8 @@ import butterknife.InjectView;
 import icepick.Icepick;
 import icepick.Icicle;
 
-public class NoteDetailActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class NoteDetailActivity extends ActionBarActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String TAG_MATERIE_ID = "MATERIE_ID";
     public static final int MATERIE_LOADER = 0;
@@ -45,6 +48,9 @@ public class NoteDetailActivity extends Activity implements LoaderManager.Loader
         setContentView(R.layout.activity_note_detail);
 
         ButterKnife.inject(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE_ID)) {

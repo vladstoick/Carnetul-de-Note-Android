@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.DialogFragment;
 
+import com.stoicavlad.carnet.R;
+
 /**
  * Created by Vlad on 1/27/14.
  */

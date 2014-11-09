@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.R;
@@ -31,6 +32,10 @@ public class SetupActivity extends ActionBarActivity
             gotoMainActivity();
         }
         setContentView(R.layout.activity_setup);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         if (savedInstanceState == null) {
             SetupFragment setupFragment = new SetupFragment();
             getFragmentManager().beginTransaction()
