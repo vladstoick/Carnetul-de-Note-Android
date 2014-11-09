@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -42,7 +43,12 @@ public class NotaSelectorDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         //Initial inflating
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_AlertDialog);
+        AlertDialog.Builder builder;
+        if(Build.VERSION.SDK_INT >= 21 ) {
+            builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_AlertDialog);
+        } else {
+            builder = new AlertDialog.Builder(getActivity());
+        }
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         rootView = inflater.inflate(layoutXml, null);
