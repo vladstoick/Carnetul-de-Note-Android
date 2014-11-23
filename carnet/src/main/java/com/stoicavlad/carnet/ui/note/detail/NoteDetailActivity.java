@@ -110,6 +110,8 @@ public class NoteDetailActivity extends ActionBarActivity
         if(!cursor.isAfterLast()) {
 
             final String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_NAME);
+            setTitle(name);
+
 
             mModifyTezaImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
