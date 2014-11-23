@@ -9,6 +9,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -48,9 +49,6 @@ public class NoteDetailActivity extends ActionBarActivity
         setContentView(R.layout.activity_note_detail);
 
         ButterKnife.inject(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE_ID)) {
@@ -103,6 +101,7 @@ public class NoteDetailActivity extends ActionBarActivity
                 null,
                 null
         );
+
     }
 
     @Override

@@ -44,11 +44,7 @@ public class NotaSelectorDialogFragment extends DialogFragment {
 
         //Initial inflating
         AlertDialog.Builder builder;
-        if(Build.VERSION.SDK_INT >= 21 ) {
-            builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_AlertDialog);
-        } else {
-            builder = new AlertDialog.Builder(getActivity());
-        }
+        builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         rootView = inflater.inflate(layoutXml, null);

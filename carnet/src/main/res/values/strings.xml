@@ -34,25 +34,20 @@
     <string name="purtare">Purtare</string>
     <string name="modifica_purtarea">Modifică nota la purtare</string>
 
-    <!--NOTE DETAIL-->
+    <!-- NOTE DETAIL -->
     <string name="daca_teza">Dacă iei în teză</string>
     <string name="pentru_media">Pentru media</string>
     <string name="trebuie_sa_iei">Trebuie să iei cel puțin</string>
     <string name="warning_no_note">Trebuie să ai cel puțin o notă ca să poți vedea de ce note ai nevoie pentru diferite medii.</string>
     <string name="cu_teza">Calculează în funcție de posibila notă la teză</string>
-
     <string name="note">Note</string>
     <string name="medie">Medie</string>
     <string name="teza">Teza</string>
-
-
     <string name="add_teza_dialog_fragment_title">Teza pentru</string>
     <string name="add_teza">Adaugă teză</string>
     <string name="modify_teza">Modifică teza</string>
-
     <string name="add_nota_materie_error">Nu ai nicio materie în acest moment. După ce adaugi o materie, vei putea adăuga și note</string>
     <string name="add_nota">Adaugă o notă</string>
-
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -90,8 +85,8 @@
         <item>General</item>
         <item>Note</item>
         <item>Absente</item>
-
     </string-array>
+
     <string name="general_section">General</string>
     <string name="note_section">Note</string>
     <string name="absente_section">Absente</string>
@@ -107,5 +102,6 @@
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
+    <string name="title_activity_test">TestActivity</string>
 
 </resources>

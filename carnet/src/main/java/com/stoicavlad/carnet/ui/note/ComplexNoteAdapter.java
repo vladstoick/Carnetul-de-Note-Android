@@ -3,14 +3,18 @@ package com.stoicavlad.carnet.ui.note;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v7.widget.ListPopupWindow;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
+
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.stoicavlad.carnet.R;
@@ -123,7 +127,11 @@ public class ComplexNoteAdapter extends CursorAdapter {
         final Cursor cursor = getCursor();
         cursor.moveToPosition(position);
         int teza = cursor.getInt(CarnetContract.MaterieEntry.COL_TEZA);
-
+//        ListPopupWindow listPopupWindow = new ListPopupWindow(mContext);
+//        String[] array = new String[]{"bla"};
+//        listPopupWindow.setAdapter(new ArrayAdapter<String>(mContext, R.layout.abc_popup_menu_item_layout, R.id.title, array));
+//        listPopupWindow.setAnchorView(v);
+//        listPopupWindow.show();
         PopupMenu popupMenu = new PopupMenu(mContext, v);
         MenuInflater inflater = popupMenu.getMenuInflater();
         if(teza == 0) {
@@ -157,6 +165,7 @@ public class ComplexNoteAdapter extends CursorAdapter {
                 return false;
             }
         });
+
         popupMenu.show();
     }
 

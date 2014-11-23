@@ -3,40 +3,17 @@
     <color name="light_orange">#F38630</color>
     <color name="light_blue">#69D2E7</color>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/light_orange</item>
         <item name="colorPrimaryDark">@color/dark_orange</item>
         <item name="colorAccent">@color/light_orange</item>
+        <item name="android:windowContentOverlay">@null</item>
         <!--<item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>-->
     <!--<item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>-->
         <!--<item name="android:actionBarTabBarStyle">@style/AppTheme.ActionBar.TabBar</item>-->
         <!--<item name="circleButtonStyle">@style/AppTheme.CircleButton</item>-->
     </style>
 
-    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/light_orange</item>
-        <item name="colorPrimaryDark">@color/dark_orange</item>
-        <item name="colorAccent">@color/light_orange</item>
-        <item name="android:minWidth">@dimen/abc_config_prefDialogWidth</item>
-    </style>
-
-    <!--ACTION BAR-->
-
-    <style name="AppTheme.ActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:titleTextStyle">@style/AppTheme.ActionBar.Text</item>
-        <item name="android:background">@color/dark_orange</item>
-    </style>
-
-    <style name="AppTheme.ActionBar.Text" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>
-    </style>
-
-    <!--TAB BAR-->
-
-    <style name="AppTheme.ActionBar.TabBar" parent="android:Widget.Holo.Light.ActionBar.TabView.Inverse">
-        <item name="android:background">@color/light_blue</item>
-    </style>
 
     <!--CIRCLE BUTTON-->
 

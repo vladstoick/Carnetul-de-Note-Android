@@ -1,30 +1,17 @@
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        layout_width="wrap_content"
-        layout_height="wrap_content">
-    </android.support.v7.widget.Toolbar>
+    android:layout_height="match_parent">
     <TextView
+        android:gravity="end"
         android:id="@+id/medie"
         android:padding="8dp"
-        android:textSize="40sp"
-        android:fontFamily="sans-serif-thin"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/lorem_nota"
-        tools:ignore="UnusedAttribute" />
+        android:textSize="22sp"
+        android:textColor="@android:color/white" />
     <LinearLayout
         android:animateLayoutChanges="true"
         android:padding="@dimen/small_margin"
@@ -68,15 +55,13 @@
             tools:ignore="ContentDescription" />
     </LinearLayout>
     <com.astuetz.PagerSlidingTabStrip
-        app:pstsShouldExpand="true"
-        app:pstsTextAllCaps="true"
-        app:pstsIndicatorColor="#33b5e5"
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="48dip" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         tools:context="com.stoicavlad.carnet.ui.note.NoteDetailActivity" />
 </LinearLayout>
