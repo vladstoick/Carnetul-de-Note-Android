@@ -9,13 +9,6 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-60586762f768ab3f81cfb11b3261ea38f74236d9.jar" />
     </item>
     <item
-        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="9346da9fb778af9e451211bbc3541daced174ba7">
-        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-6e3fbfb62f0f8b6893d5e0bcb047ee5955ffc364.jar" />
-    </item>
-    <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
         jumboMode="false"
         revision="21.1.1"
@@ -23,11 +16,11 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-46fa0b78b5461756f431dd30ed28c3224ac1504a.jar" />
     </item>
     <item
-        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.afollestad\material-dialogs\0.3.6\classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="61965ae058916e6a57950dd61b0164dc866af19a">
-        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-593bbacfb2a32a42710d3c2e8e377f8de941050d.jar" />
+        sha1="4ec6e36f8596bcbc374d55a6d72069303287d279">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-5432b5dd716904bcb011094fed8990d763d4db13.jar" />
     </item>
     <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.jpardogo.materialtabstrip\library\1.0.5\classes.jar"
@@ -44,13 +37,6 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\icepick-2.3.6-f168e43cc70808d29da805009b8882e296a2e9d9.jar" />
     </item>
     <item
-        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\5.1.2\daf5472b0df6dabaceb6ad755b3812535863965a\butterknife-5.1.2.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="daf5472b0df6dabaceb6ad755b3812535863965a">
-        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\butterknife-5.1.2-068d7cf49ba5dc7054af80e08a03ff841ad58fea.jar" />
-    </item>
-    <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\se.emilsjolander\stickylistheaders\2.5.0\classes.jar"
         jumboMode="false"
         revision="21.1.1"
@@ -63,6 +49,27 @@
         revision="21.1.1"
         sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-893005cd44058726d085fa82b85f5e76f226958c.jar" />
+    </item>
+    <item
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="9346da9fb778af9e451211bbc3541daced174ba7">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-6e3fbfb62f0f8b6893d5e0bcb047ee5955ffc364.jar" />
+    </item>
+    <item
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="61965ae058916e6a57950dd61b0164dc866af19a">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-593bbacfb2a32a42710d3c2e8e377f8de941050d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife\5.1.2\daf5472b0df6dabaceb6ad755b3812535863965a\butterknife-5.1.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="daf5472b0df6dabaceb6ad755b3812535863965a">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\butterknife-5.1.2-068d7cf49ba5dc7054af80e08a03ff841ad58fea.jar" />
     </item>
     <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"

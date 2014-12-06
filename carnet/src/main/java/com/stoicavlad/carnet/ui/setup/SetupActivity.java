@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
@@ -39,9 +40,8 @@ public class SetupActivity extends ActionBarActivity
                     .add(R.id.container, setupFragment)
                     .commit();
         }
-        SimpleDialogFragment simpleDialogFragment = SimpleDialogFragment
-                .newInstance(getString(R.string.materii_setup));
-        simpleDialogFragment.show(getFragmentManager(),"TAG");
+
+        showDialog();
     }
 
     @Override
@@ -63,10 +63,20 @@ public class SetupActivity extends ActionBarActivity
 
     }
 
-    void gotoMainActivity(){
+    private void gotoMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
+
+    private void showDialog(){
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .content(getString(R.string.materii_setup))
+                .positiveText(getString(android.R.string.ok))
+                .build();
+        dialog.show();
+
+    }
+
 }
 

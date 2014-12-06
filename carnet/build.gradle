@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 buildscript {
     repositories {
+        jcenter()
         maven { url 'http://download.crashlytics.com/maven' }
-        mavenCentral()
     }
 
     dependencies {
@@ -42,7 +42,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             //noinspection GroovyAssignabilityCheck
             signingConfig signingConfigs.playstore
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
@@ -60,10 +60,9 @@ dependencies {
     androidTestCompile('com.jakewharton.espresso:espresso-support-v4:1.1-r3') {
         exclude group: 'com.android.support'
     }
-//    compile 'com.github.markushi:android-ui:1.2'
+    compile 'com.afollestad:material-dialogs:0.3.6'
     compile 'com.jpardogo.materialtabstrip:library:1.0.5'
     compile "com.android.support:appcompat-v7:21.0.+"
-//    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'se.emilsjolander:stickylistheaders:2.5.0'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     provided 'com.github.frankiesardo:icepick-processor:2.3.6'
