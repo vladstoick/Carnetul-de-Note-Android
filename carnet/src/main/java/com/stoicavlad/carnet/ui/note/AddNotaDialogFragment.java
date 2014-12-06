@@ -54,6 +54,7 @@ public class AddNotaDialogFragment extends NotaSelectorDialogFragment{
             this.dismiss();
             new MaterialDialog.Builder(getActivity())
                     .content(getString(R.string.add_nota_materie_error))
+                    .positiveText(getString(android.R.string.ok))
                     .build()
                     .show();
         } else {
