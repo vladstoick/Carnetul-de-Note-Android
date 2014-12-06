@@ -8,7 +8,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.astuetz.PagerSlidingTabStrip;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.ui.note.AddMaterieDialogFragment;
@@ -74,20 +76,23 @@ public class MainActivity extends GeneralTabActivity
     }
 
     private void showAddDialogFragment() {
-        AddDialogFragment dialogFragment = new AddDialogFragment();
-        dialogFragment.setListener(new AddDialogFragment.AddDialogFragmentListener() {
-            @Override
-            public void onItemSelected(int position) {
-                switch (position) {
-                    case 0: showAddNotaDialogFragment(); break;
-                    case 1: showAddAbsentaDialogFragment(); break;
-                    case 2: showAddScutireDialogFragment(); break;
-                    case 3: showAddMaterieDialogFragment(); break;
-                    default:
-                }
-            }
-        });
-        dialogFragment.show(getFragmentManager(), "ADD");
+        MaterialDialog dialog= new MaterialDialog.Builder(this)
+                .title(getString(R.string.add_title))
+                .items(R.array.add_options)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog,
+                                            View view, int position, CharSequence charSequence) {
+                                switch (position) {
+                                    case 0: showAddNotaDialogFragment(); break;
+                                    case 1: showAddAbsentaDialogFragment(); break;
+                                    case 2: showAddScutireDialogFragment(); break;
+                                    case 3: showAddMaterieDialogFragment(); break;
+                                    default:
+                                }
+                    }
+                }).build();
+        dialog.show();
     }
 
 
