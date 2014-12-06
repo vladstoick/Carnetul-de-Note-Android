@@ -19,11 +19,10 @@ import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.UtilityAbsente;
 import com.stoicavlad.carnet.data.provider.CarnetContract.AbsentaEntry;
-import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -51,14 +50,17 @@ public class AbsentaFragment extends Fragment implements LoaderManager.LoaderCal
                 Log.e("TAg", absenteNecesare + ": absente necesare ");
                 long dates[] = UtilityAbsente.getScutiriNecesare(mAdapter.getCursor(),
                         absenteNecesare);
-                DialogFragment dialogFragment;
                 if(dates.length > 0) {
-                    dialogFragment = AbsenteDialogFragment.newInstance(dates);
+                    DialogFragment dialogFragment = AbsenteDialogFragment.newInstance(dates);
+                    dialogFragment.show(getFragmentManager(), "DF");
                 } else {
-                    dialogFragment = SimpleDialogFragment
-                            .newInstance(getString(R.string.absente_suficiente));
+                    new MaterialDialog.Builder(getActivity())
+                            .content(getString(R.string.absente_suficiente))
+                            .positiveText(getString(android.R.string.ok))
+                            .build()
+                            .show();
                 }
-                dialogFragment.show(getFragmentManager(), "DF");
+
             }
         });
         mAdapter = new AbsentaAdapter(getActivity(), null, 0);

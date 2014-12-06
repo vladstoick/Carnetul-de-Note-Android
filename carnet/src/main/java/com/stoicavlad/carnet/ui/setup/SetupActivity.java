@@ -14,7 +14,6 @@ import com.crashlytics.android.Crashlytics;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 import com.stoicavlad.carnet.ui.main.MainActivity;
-import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 import java.util.ArrayList;
 

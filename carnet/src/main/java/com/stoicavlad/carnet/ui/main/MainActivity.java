@@ -88,7 +88,7 @@ public class MainActivity extends GeneralTabActivity
                                     case 1: showAddAbsentaDialogFragment(); break;
                                     case 2: showAddScutireDialogFragment(); break;
                                     case 3: showAddMaterieDialogFragment(); break;
-                                    default:
+                                    default:break;
                                 }
                     }
                 }).build();

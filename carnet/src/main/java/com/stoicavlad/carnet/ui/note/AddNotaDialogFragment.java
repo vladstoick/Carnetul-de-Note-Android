@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
-import com.stoicavlad.carnet.ui.utils.SimpleDialogFragment;
 
 /**
  * Created by Vlad on 1/26/14.
@@ -52,9 +52,10 @@ public class AddNotaDialogFragment extends NotaSelectorDialogFragment{
         ).loadInBackground();
         if(cursor.getCount() == 0){
             this.dismiss();
-            SimpleDialogFragment simpleDialogFragment = SimpleDialogFragment
-                    .newInstance(getString(R.string.add_nota_materie_error));
-            simpleDialogFragment.show(getFragmentManager(), "DF2");
+            new MaterialDialog.Builder(getActivity())
+                    .content(getString(R.string.add_nota_materie_error))
+                    .build()
+                    .show();
         } else {
             mCursorAdapter = new SimpleCursorAdapter(getActivity(),
                     android.R.layout.simple_list_item_1,
