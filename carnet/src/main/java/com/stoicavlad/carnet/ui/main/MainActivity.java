@@ -79,6 +79,7 @@ public class MainActivity extends GeneralTabActivity
         MaterialDialog dialog= new MaterialDialog.Builder(this)
                 .title(getString(R.string.add_title))
                 .items(R.array.add_options)
+                .negativeText(getString(android.R.string.cancel))
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog,
