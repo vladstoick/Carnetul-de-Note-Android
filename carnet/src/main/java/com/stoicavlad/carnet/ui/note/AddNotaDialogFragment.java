@@ -27,15 +27,11 @@ public class AddNotaDialogFragment extends NotaSelectorDialogFragment{
     private Spinner mSpinner;
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+    public MaterialDialog onCreateDialog(Bundle savedInstanceState) {
         layoutXml = R.layout.dialog_addnota;
-
-
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(R.string.add_nota);
+        title = getString(R.string.add_nota);
+        MaterialDialog dialog = super.onCreateDialog(savedInstanceState);
         mSpinner = (Spinner) rootView.findViewById(R.id.materie_spinner);
-
         return dialog;
     }
 

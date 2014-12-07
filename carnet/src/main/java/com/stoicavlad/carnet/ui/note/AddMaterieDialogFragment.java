@@ -56,7 +56,7 @@ public class AddMaterieDialogFragment extends DialogFragment {
                 });
 
         final MaterialDialog dialog = builder.build();
-
+        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(false);
 //        final Button positiveButton = (Button)
 //        positiveButton.setEnabled(false);
 

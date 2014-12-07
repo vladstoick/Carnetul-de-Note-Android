@@ -43,7 +43,7 @@
     <string name="note">Note</string>
     <string name="medie">Medie</string>
     <string name="teza">Teza</string>
-    <string name="add_teza_dialog_fragment_title">Teza pentru</string>
+    <string name="add_teza_dialog_fragment_title">Nota la teză pentru</string>
     <string name="add_teza">Adaugă teză</string>
     <string name="modify_teza">Modifică teza</string>
     <string name="add_nota_materie_error">Nu ai nicio materie în acest moment. După ce adaugi o materie, vei putea adăuga și note</string>

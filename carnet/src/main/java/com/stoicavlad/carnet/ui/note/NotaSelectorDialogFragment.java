@@ -1,5 +1,6 @@
 package com.stoicavlad.carnet.ui.note;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -11,7 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.ui.utils.NotaSelector;
 
@@ -26,8 +30,8 @@ public class NotaSelectorDialogFragment extends DialogFragment {
     protected static final String TAG_MATERIE_ID = "MATERIE_ID";
     protected int materieId;
 
-    protected static final String TAG_XML = "XML";
     protected int layoutXml;
+    protected String title;
 
     protected View rootView;
 
@@ -35,35 +39,43 @@ public class NotaSelectorDialogFragment extends DialogFragment {
 
     @InjectView(R.id.nota_selector) NotaSelector mNotaSelector;
 
-    private int lastClicked = -1;
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public MaterialDialog onCreateDialog(Bundle savedInstanceState) {
 
         //Initial inflating
-        AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(getActivity());
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         rootView = inflater.inflate(layoutXml, null);
         ButterKnife.inject(this, rootView);
 
 
-        builder.setView(rootView)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        builder.customView(rootView)
+                .title(title)
+                .positiveText(android.R.string.ok)
+                .negativeText(android.R.string.cancel)
+                .callback(new MaterialDialog.Callback() {
                     @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                    public void onPositive(MaterialDialog materialDialog) {
                         okButtonSelected();
                     }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        NotaSelectorDialogFragment.this.getDialog().cancel();
+
+                    @Override
+                    public void onNegative(MaterialDialog materialDialog) {
+
                     }
                 });
-        return builder.create();
+        MaterialDialog dialog = builder.build();
+        TextView positiveButton = (TextView) dialog.getActionButton(DialogAction.POSITIVE);
+        positiveButton.setEnabled(false);
+        return dialog;
     }
 
     protected void okButtonSelected() {
@@ -77,22 +89,12 @@ public class NotaSelectorDialogFragment extends DialogFragment {
         mNotaSelector.setOnNotaSelectormListener(new NotaSelector.OnNotaSelectorListener() {
             @Override
             public void didChangeValue(boolean isSelected) {
-                AlertDialog alertDialog = (AlertDialog) getDialog();
-                Button button = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                MaterialDialog dialog = (MaterialDialog) getDialog();
+                TextView button = (TextView) dialog.getActionButton(DialogAction.POSITIVE);
                 button.setEnabled(isSelected);
             }
         });
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        AlertDialog d = (AlertDialog) getDialog();
-        if (d != null) {
-            Button positiveButton = d.getButton(Dialog.BUTTON_POSITIVE);
-            positiveButton.setEnabled(false);
-        }
-
-    }
 }

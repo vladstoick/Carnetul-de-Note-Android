@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.os.Bundle;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.data.provider.CarnetContract;
 
@@ -26,13 +27,12 @@ public class AddTezaDialogFragment extends NotaSelectorDialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public MaterialDialog onCreateDialog(Bundle savedInstanceState) {
         materieId = getArguments().getInt(TAG_MATERIE_ID);
         layoutXml = R.layout.dialog_add_simple;
         String mMaterieName = getArguments().getString(TAG_MATERIE_NAME);
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(getString(R.string.add_teza_dialog_fragment_title)+" "+ mMaterieName);
-        return dialog;
+        title = getString(R.string.add_teza_dialog_fragment_title)+" "+ mMaterieName;
+        return super.onCreateDialog(savedInstanceState);
     }
 
     @Override

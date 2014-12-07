@@ -5,7 +5,10 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stoicavlad.carnet.CarnetApp;
 import com.stoicavlad.carnet.R;
 import com.stoicavlad.carnet.ui.note.NotaSelectorDialogFragment;
@@ -26,11 +29,10 @@ public class ModifyPurtareDialogFragment extends NotaSelectorDialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public MaterialDialog onCreateDialog(Bundle savedInstanceState) {
         layoutXml = R.layout.dialog_add_simple;
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(getString(R.string.modifica_purtarea));
-        return dialog;
+        title = getString(R.string.modifica_purtarea);
+        return super.onCreateDialog(savedInstanceState);
     }
 
     @SuppressLint("CommitPrefEdits")
