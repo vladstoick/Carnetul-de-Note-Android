@@ -29,22 +29,13 @@ android {
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 2
-        versionName '2.0.0'
-    }
-    signingConfigs {
-        playstore {
-            keyAlias 'release'
-            keyPassword 'android'
-            storePassword 'android'
-            storeFile file('D:/Dropbox/Carnet/release.jks')
-        }
+        versionCode 3
+        versionName '3.0.0'
     }
     buildTypes {
         release {
             minifyEnabled false
             //noinspection GroovyAssignabilityCheck
-            signingConfig signingConfigs.playstore
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
