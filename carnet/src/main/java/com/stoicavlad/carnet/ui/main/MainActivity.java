@@ -31,6 +31,8 @@ public class MainActivity extends GeneralTabActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         String[] tabNames = getResources().getStringArray(R.array.tab_names);
         mSectionsPagerAdapter = new MainActivitySectionsPagerAdapter(getFragmentManager(),
@@ -42,18 +44,6 @@ public class MainActivity extends GeneralTabActivity
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(mViewPager);
 
-//        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                actionBar.setSelectedNavigationItem(position);
-//            }
-//        });
-//        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-//            actionBar.addTab(
-//                actionBar.newTab()
-//                    .setText(mSectionsPagerAdapter.getPageTitle(i))
-//                    .setTabListener(this));
-//        }
     }
 
 
