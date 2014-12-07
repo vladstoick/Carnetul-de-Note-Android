@@ -33,6 +33,9 @@ public class SetupActivity extends ActionBarActivity
         }
         setContentView(R.layout.activity_setup);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         if (savedInstanceState == null) {
             SetupFragment setupFragment = new SetupFragment();
             getFragmentManager().beginTransaction()
