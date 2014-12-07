@@ -16,11 +16,32 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-46fa0b78b5461756f431dd30ed28c3224ac1504a.jar" />
     </item>
     <item
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso-runner\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="925f97e2a2d8f082a6a82d11e189af7f686785b6">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\classes-30b98f3c77a97da1a353a13e540866a4747ec4e8.jar" />
+    </item>
+    <item
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso-support-v4\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="69f6693a00d089bca307c441eef4a11818b16628">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\classes-35212e8d0b3a8acbdfe9f7d05881d20a9b5a3a0b.jar" />
+    </item>
+    <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.afollestad\material-dialogs\0.3.6\classes.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="4ec6e36f8596bcbc374d55a6d72069303287d279">
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\classes-5432b5dd716904bcb011094fed8990d763d4db13.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-core\1.1\860340562250678d1a344907ac75754e259cdb14\hamcrest-core-1.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="860340562250678d1a344907ac75754e259cdb14">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\hamcrest-core-1.1-6a6eb46f55eec02e6fccab882aa5f1f4738bc265.jar" />
     </item>
     <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.jpardogo.materialtabstrip\library\1.0.5\classes.jar"
@@ -37,6 +58,27 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\icepick-2.3.6-f168e43cc70808d29da805009b8882e296a2e9d9.jar" />
     </item>
     <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.squareup.dagger\dagger\1.2.1\78f96ef00fceee95802930944b1fc4e0e1f9aacc\dagger-1.2.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="78f96ef00fceee95802930944b1fc4e0e1f9aacc">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\dagger-1.2.1-f6511651700da4a8733867900897fc115d76a801.jar" />
+    </item>
+    <item
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso-runner-runtime\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="e9b6d57d4b08dd070b2a4d2e7aafe5a031d14901">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\classes-553cb6024c30f0b194d3fbd1f8d5c937a75358e4.jar" />
+    </item>
+    <item
+        jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.jakewharton.espresso\espresso\1.1-r3\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="5cd5b71da995a1aebb024f89c3c40d7f5e050274">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\classes-25ddb6000fe12174215f63d92138b37eb05b5fc9.jar" />
+    </item>
+    <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\se.emilsjolander\stickylistheaders\2.5.0\classes.jar"
         jumboMode="false"
         revision="21.1.1"
@@ -51,11 +93,32 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-893005cd44058726d085fa82b85f5e76f226958c.jar" />
     </item>
     <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-library\1.1\b988c01468e3398d46678a2eb48aeb5bde271e9f\hamcrest-library-1.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="b988c01468e3398d46678a2eb48aeb5bde271e9f">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\hamcrest-library-1.1-aa5d63311348ec72c1e450ee1cec527bac2dead3.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\1.3.9\40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf\jsr305-1.3.9.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\jsr305-1.3.9-290ac905c8b294f2e4fe2e19e83a972bd04aad09.jar" />
+    </item>
+    <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="9346da9fb778af9e451211bbc3541daced174ba7">
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-6e3fbfb62f0f8b6893d5e0bcb047ee5955ffc364.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-integration\1.1\8d47177aa4da0f259fc823a39736bad2f09993d5\hamcrest-integration-1.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="8d47177aa4da0f259fc823a39736bad2f09993d5">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\hamcrest-integration-1.1-40cff1dc2443aa3d95d54001f186f9f55834cefb.jar" />
     </item>
     <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
@@ -72,6 +135,20 @@
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\butterknife-5.1.2-068d7cf49ba5dc7054af80e08a03ff841ad58fea.jar" />
     </item>
     <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\16.0\aca09d2e5e8416bf91550e72281958e35460be52\guava-16.0.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="aca09d2e5e8416bf91550e72281958e35460be52">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\guava-16.0-118cf04fedb6268a7b26ff19e77a29079570f66e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\javax.annotation\javax.annotation-api\1.2\479c1e06db31c432330183f5cae684163f186146\javax.annotation-api-1.2.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="479c1e06db31c432330183f5cae684163f186146">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\javax.annotation-api-1.2-faffd6cb44ce0134cf97c7ada52ae821ef34a042.jar" />
+    </item>
+    <item
         jar="C:\Carnet-De-Note-Android\carnet\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
         revision="21.1.1"
@@ -84,6 +161,13 @@
         revision="21.1.1"
         sha1="0e821eafa1bf489a26bdb71f95078c26785b37a1">
         <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\debug\crashlytics-1.1.13-7bbec76a44aa9cc3279ec6bff22b2c929a8abf67.jar" />
+    </item>
+    <item
+        jar="C:\Users\Vlad\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="C:\Carnet-De-Note-Android\carnet\build\intermediates\pre-dexed\test\debug\javax.inject-1-de117d22a46d8370f93b970577f64e56a9d94fc4.jar" />
     </item>
 
 </items>

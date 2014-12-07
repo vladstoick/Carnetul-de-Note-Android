@@ -42,6 +42,9 @@ public class TestSetupActivity extends ActivityInstrumentationTestCase2<SetupAct
 
         super.setUp();
         getActivity().deleteDatabase("carnet.db");
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        settings.edit().remove("SETUP_DONE_V2").commit();
 
         getActivity();
 
