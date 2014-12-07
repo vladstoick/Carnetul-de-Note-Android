@@ -22,6 +22,11 @@ public class DatePickerDialogFragment extends DialogFragment
     public static int TYPE_SCUTIRE = 2;
     private static int type;
 
+    /**
+     * variable due to listener called twice in android < 5.0
+     */
+    private boolean calledOnce = false;
+
     public DatePickerDialogFragment() {
     }
 
@@ -50,6 +55,10 @@ public class DatePickerDialogFragment extends DialogFragment
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        if(calledOnce == true){
+            return;
+        }
+        calledOnce = true;
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(0);
         c.set(year, monthOfYear, dayOfMonth);
