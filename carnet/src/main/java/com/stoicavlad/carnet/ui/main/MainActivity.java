@@ -1,6 +1,7 @@
 package com.stoicavlad.carnet.ui.main;
 
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -24,7 +25,6 @@ import java.util.Calendar;
 public class MainActivity extends GeneralTabActivity
         implements NoteListFragment.OnFragmentInteractionListener{
 
-    private boolean adaugaAbsenta = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,52 +93,16 @@ public class MainActivity extends GeneralTabActivity
     }
 
     private void showAddAbsentaDialogFragment() {
-        adaugaAbsenta = true;
-        Calendar calendar = Calendar.getInstance();
-        //TODO
-//        DatePickerBuilder dpb = new DatePickerBuilder()
-//                .setFragmentManager(getSupportFragmentManager())
-//                .setStyleResId(R.style.BetterPickersDialogFragment)
-//                .setYear(calendar.get(Calendar.YEAR))
-//                .setDayOfMonth(calendar.get(Calendar.DAY_OF_MONTH))
-//                .setMonthOfYear(calendar.get(Calendar.MONTH));
-//        dpb.show();
+        DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment
+                .newInstance(DatePickerDialogFragment.TYPE_ABSENTA);
+        datePickerDialogFragment.show(getFragmentManager(), "ADD_ABSENTA");
     }
 
     private void showAddScutireDialogFragment(){
-        Calendar calendar = Calendar.getInstance();
-        //TODO
-//        DatePickerBuilder dpb = new DatePickerBuilder()
-//                .setFragmentManager(getSupportFragmentManager())
-//                .setStyleResId(R.style.BetterPickersDialogFragment)
-//                .setYear(calendar.get(Calendar.YEAR));
-//        dpb.show();
+        DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment
+                .newInstance(DatePickerDialogFragment.TYPE_SCUTIRE);
+        datePickerDialogFragment.show(getFragmentManager(), "ADD_SCUTIRE");
     }
-//TODO
-
-//    @Override
-//    public void onDialogDateSet(int i, int year, int month, int day) {
-//
-//        Calendar c = Calendar.getInstance();
-//        c.setTimeInMillis(0);
-//        c.set(year, month, day);
-//        long date = c.getTimeInMillis();
-//        if (adaugaAbsenta) {
-//            ContentValues absentaValues = new ContentValues();
-//            absentaValues.put(CarnetContract.AbsentaEntry.COLUMN_DATE, c.getTimeInMillis());
-//            getApplicationContext().getContentResolver()
-//                    .insert(CarnetContract.AbsentaEntry.CONTENT_URI, absentaValues);
-//
-//        } else {
-//            String dateInString = date + "";
-//            getApplicationContext().getContentResolver()
-//                    .delete(CarnetContract.AbsentaEntry.CONTENT_URI,
-//                            CarnetContract.AbsentaEntry.COLUMN_DATE + " = ?",
-//                            new String[]{ dateInString } );
-//        }
-//        adaugaAbsenta = false;
-//    }
-
 
     private void showAddMaterieDialogFragment() {
         AddMaterieDialogFragment dialogFragment = new AddMaterieDialogFragment();
