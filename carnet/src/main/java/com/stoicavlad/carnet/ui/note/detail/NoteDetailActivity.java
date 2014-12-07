@@ -50,6 +50,11 @@ public class NoteDetailActivity extends ActionBarActivity
 
         ButterKnife.inject(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(TAG_MATERIE_ID)) {
                 mMaterieId = getIntent().getIntExtra(TAG_MATERIE_ID, -1);
@@ -111,7 +116,6 @@ public class NoteDetailActivity extends ActionBarActivity
 
             final String name = cursor.getString(CarnetContract.MaterieEntry.COL_DETAIL_NAME);
             setTitle(name);
-
 
             mModifyTezaImageButton.setOnClickListener(new View.OnClickListener() {
                 @Override

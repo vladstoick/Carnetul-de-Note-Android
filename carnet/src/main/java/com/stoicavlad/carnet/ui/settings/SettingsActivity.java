@@ -11,6 +11,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.stoicavlad.carnet.R;
@@ -28,7 +29,11 @@ public class SettingsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         SettingsFragment settingsFragment = new SettingsFragment();
         getFragmentManager().beginTransaction()
                 .add(R.id.container, settingsFragment)

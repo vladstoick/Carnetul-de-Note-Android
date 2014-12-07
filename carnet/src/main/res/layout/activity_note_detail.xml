@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
     <TextView
         android:id="@+id/medie"
         android:padding="8dp"
