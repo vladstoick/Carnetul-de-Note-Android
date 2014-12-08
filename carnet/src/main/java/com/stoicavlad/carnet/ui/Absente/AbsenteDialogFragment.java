@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stoicavlad.carnet.R;
 
 import java.text.DateFormat;
@@ -31,7 +32,9 @@ public class AbsenteDialogFragment extends DialogFragment {
 
         long[] mDates = getArguments().getLongArray(TAG_DATES);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity());
+
 
         ArrayList<String> datesAsString = new ArrayList<String>();
         DateFormat dateFormat = DateFormat.getDateInstance();
@@ -43,18 +46,16 @@ public class AbsenteDialogFragment extends DialogFragment {
             datesAsString.add(rezultat);
         }
         String[] datesStringArray = datesAsString.toArray(new String[datesAsString.size()]);
-        builder.setTitle(R.string.scutiri_necesare);
-        builder.setItems(datesStringArray, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.title(R.string.scutiri_necesare)
+                .items(datesStringArray)
+                .positiveText(android.R.string.ok);
 
-            }
-        });
-        return builder.create();
+//        builder.it(datesStringArray, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//            }
+//        });
+
+        return builder.build();
     }
 }
